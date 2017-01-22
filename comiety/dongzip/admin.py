@@ -1,3 +1,19 @@
 from django.contrib import admin
+from .models import User, School, Society, Event
 
-# Register your models here.
+class  UserAdmin(admin.ModelAdmin):
+    model = User
+
+class SchoolAdmin(admin.ModelAdmin):
+    model = School
+
+class SocietyAdmin(admin.ModelAdmin):
+    model = Society
+
+class EventAdmin(admin.ModelAdmin):
+    model = Event
+
+admin.site.register(User, UserAdmin)
+admin.site.register(School, SchoolAdmin)
+admin.site.register(Society, SocietyAdmin)
+admin.site.register(Event, EventAdmin)
