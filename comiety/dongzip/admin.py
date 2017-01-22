@@ -2,6 +2,8 @@ from django.contrib import admin
 from .models import User, School, Society, Event
 
 class  UserAdmin(admin.ModelAdmin):
+
+    list_display = ('name', 'email')
     model = User
 
 class SchoolAdmin(admin.ModelAdmin):
