@@ -2,6 +2,7 @@
 *.egg-info
 *.pot
 *.py[co]
+*.pyc
 .tox/
 */.DS_Store
 .DS_Store
