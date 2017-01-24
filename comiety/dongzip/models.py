@@ -37,8 +37,9 @@ class Society(models.Model):
 
 class Event(models.Model):
     title = models.CharField(max_length = 128, blank = False, null = False) # 행사 명
-    event_time = models.DateTimeField() # 행사 시간
-    created_time = models.DateTimeField(auto_now_add = True) # 행사 일정 등록 시간
+    event_date = models.DateTimeField() # 행사 일정
+    created_at = models.DateTimeField(auto_now_add = True) # 행사 일정 등록 시간
+    updated_at = models.DateTimeField(auto_now_add = True) # 행사 일정 수정 시간
     description = models.TextField(max_length = 512, blank = True, null = True) # 행사 소개
 
     # home_team = models.ForeignKey(Society)
