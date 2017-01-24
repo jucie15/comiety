@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+
+        body {
+          background-image: url(chessbw.jpg) ;
+          background-position: center center;
+          background-repeat:  no-repeat;
+          background-attachment: fixed;
+          background-size:  cover;
+          background-color: #999;
+          text-align: center;
+          font-family: sans-serif;
+        }
+
+        #logo {
+          display: block;
+          height: 150px;
+          width: 150px;
+          margin-top: 50px;
+          margin-left: auto;
+          margin-right: auto;
+          filter: brightness(0%);
+        }
+
+        header {
+          font-family: sans-serif;
+        }
+
+        .icons{
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .login{
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        #id{
+          width: 200px;
+          height:30px;
+          font-size: 1.3rem;
+        }
+
+        #pwd{
+          width: 200px;
+          height:30px;
+          font-size: 1.3rem;
+        }
+
+        #signin, #join{
+          background-color: #4CAF50;
+          border: none;
+          color: white;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          width: 200px;
+          height: 50px;
+          cursor: pointer;
+        }
+
+        #signin:hover {
+          background-color: white
+          color: white;
+        }
+
+        </style>
+    </head>
+    <body>
+
+    <header>
+      <img src="logo.png" alt="logo" id="logo" width=100px>
+      <p style="font-size: 0.8rem"><strong>전국 동아리 교류 사이트</strong></p>
+      <a style="font-size: 2rem">DONG ZIP</a>
+      <br>
+    </header>
+
+    <p class="icons">
+    <img src="school.png" alt="school" height="75px" width="75px">
+    <img src="club.png" alt="club" height="75px" width="75px">
+    <img src="meeting.png" alt="meeting" height="75px" width="75px">
+    </p>
+
+    <p style="font: 1.5rem sans-serif": >
+    1 개 학교에서 000개의 동아리가 000개의 <strong>모임</strong>이 성사되었습니다.
+    </p>
+
+
+    <div class="login">
+      <form action="login.php" autocomplete="on">
+    <p>
+        <input type="text" id="id" name="id" placeholder="아이디" method="post" autofocus>
+
+    </p>
+    <p>
+        <input type="password" id="pwd" name="password" autocomplete="off" placeholder="비밀번호" method="post">
+    </p>
+        <input type="submit" id="signin" value="SIGN IN">
+        <br>
+        <input type="button" id="join" value="JOIN">
+    <p>
+      <a>비밀번호 찾기</a> | <a>DONGZIP 회원이세요?</a>
+    </p>
+    </form>
+    </div>
+    </div>
+
+    </body>
+</html>
