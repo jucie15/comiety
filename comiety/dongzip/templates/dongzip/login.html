@@ -1,11 +1,13 @@
 <!DOCTYPE html>
+{% load staticfiles %}
+
 <html>
     <head>
         <meta charset="utf-8">
         <style>
 
         body {
-          background-image: url(chessbw.jpg) ;
+          background-image: url({% static 'images/chessbw.jpg' %}) ;
           background-position: center center;
           background-repeat:  no-repeat;
           background-attachment: fixed;
@@ -78,16 +80,16 @@
     <body>
 
     <header>
-      <img src="logo.png" alt="logo" id="logo" width=100px>
+      <img src="{% static 'images/logo.png' %}" alt="logo" id="logo" width=100px>
       <p style="font-size: 0.8rem"><strong>전국 동아리 교류 사이트</strong></p>
       <a style="font-size: 2rem">DONG ZIP</a>
       <br>
     </header>
 
     <p class="icons">
-    <img src="../../static/img/school.png" alt="school" height="75px" width="75px">
-    <img src="/Users/gustos/dev/django/gitComiety/comiety/dongzip/static/img/club.png" alt="club" height="75px" width="75px">
-    <img src="meeting.png" alt="meeting" height="75px" width="75px">
+    <img src="{% static 'images/school.png' %}" alt="school" height="75px" width="75px">
+    <img src="{% static 'images/club.png' %}" alt="club" height="75px" width="75px">
+    <img src="{% static 'images/meeting.png' %}" alt="meeting" height="75px" width="75px">
     </p>
 
     <p style="font: 1.5rem sans-serif": >
