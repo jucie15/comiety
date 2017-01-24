@@ -4,9 +4,6 @@ from django.utils import timezone
 # Create your models here.
 
 
-
-
-
 class School(models.Model):
     name = models.CharField(max_length = 128, blank = False, null = False) # 학교 이름
     address = models.CharField(max_length = 256, blank = False, null = False) # 학교 주소
