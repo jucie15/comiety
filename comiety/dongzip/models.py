@@ -14,6 +14,11 @@ class School(models.Model):
     def __str__(self):
         return self.name
 
+
+        # member_number = Profile.objects.filter(school_id=self.id).count()
+
+
+
 class Profile(models.Model):
     # user = models.OneToOneField(User)
     # user = models.OneToOneField('auth.User')
