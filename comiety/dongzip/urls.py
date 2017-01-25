@@ -18,5 +18,8 @@ from django.contrib import admin
 from dongzip import views
 
 urlpatterns = [
-    url(r'^$', views.index, name = 'index')
+    url(r'^$', views.index, name = 'index'),
+    url(r'^regist/$', views.member_regist, name = 'member_regist' ),
+    url(r'^school_list/$', views.school_list, name = 'school_list'),
+    url(r'^school_list/(?P<id>\d+)/$', views.society_list, name = 'society_list'),
 ]

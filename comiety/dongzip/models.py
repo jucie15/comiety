@@ -14,6 +14,12 @@ class School(models.Model):
     def __str__(self):
         return self.name
 
+    @classmethod
+    def member_count(cls,self):
+        self.member_number += 1
+
+    def society_count(self):
+        self.society_number += 1
 
         # member_number = Profile.objects.filter(school_id=self.id).count()
 
@@ -43,6 +49,9 @@ class Society(models.Model):
 
     def __str__(self):
         return self.name
+
+    def member_count(self):
+        self.member_number += 1
 
 class Event(models.Model):
     title = models.CharField(max_length = 128, blank = False, null = False) # 행사 명
