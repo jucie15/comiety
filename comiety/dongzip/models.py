@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from django.db.models.signals import post_save
 # Create your models here.
 
 
@@ -14,28 +15,33 @@ class School(models.Model):
     def __str__(self):
         return self.name
 
-    @classmethod
-    def member_count(cls,self):
-        self.member_number += 1
-
-    def society_count(self):
-        self.society_number += 1
-
-        # member_number = Profile.objects.filter(school_id=self.id).count()
-
+    def update_member_number(self):
+        # school instance를 통해 reverse match(profile_set)하고 저장한다.(member_number 필드만 업데이트)
+        self.member_number = self.profile_set.all().count()
+        self.save(update_fields=['member_number'])
 
 
 class Profile(models.Model):
     # user = models.OneToOneField(User)
     # user = models.OneToOneField('auth.User')
     school = models.ForeignKey(School) # School Table과 1:n 관계 형성
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)  # 'auth.User'
-    nickname = models.CharField(max_length = 128, blank = False, null = False) # 닉네임
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)  # 'auth.User' 인증 라이브러리를 사용하기 위해 auth.user 사용
+    nickname = models.CharField(unique = True, max_length = 128, blank = False, null = False) # 닉네임
     #favorite = 태그로 ㄱ?
     tel_number = models.CharField(max_length = 32, blank = False, null = False) # 전화번호
 
     def __str__(self):
         return self.user.username
+
+    @staticmethod
+    def on_post_save(sender, **kwargs):
+        # profile에 의해 post_save가 호출 됐을 경우 실행
+        profile = kwargs['instance']
+        if kwargs['created']:
+            profile.school.update_member_number()
+
+#post_save = sender가save함수를 호출 했을 떄 함수(Profile.on_post_save)를 호출 한다. <-> prefix.save()
+post_save.connect(Profile.on_post_save, sender = Profile)
 
 class Society(models.Model):
     school = models.ForeignKey(School) # School Table과 1:n 관계 형성
@@ -50,14 +56,12 @@ class Society(models.Model):
     def __str__(self):
         return self.name
 
-    def member_count(self):
-        self.member_number += 1
 
 class Event(models.Model):
     title = models.CharField(max_length = 128, blank = False, null = False) # 행사 명
     event_date = models.DateTimeField() # 행사 일정
     created_at = models.DateTimeField(auto_now_add = True) # 행사 일정 등록 시간
-    updated_at = models.DateTimeField(auto_now_add = True) # 행사 일정 수정 시간
+    updated_at = models.DateTimeField(auto_now = True) # 행사 일정 수정 시간
     description = models.TextField(max_length = 512, blank = True, null = True) # 행사 소개
 
     home_team = models.ForeignKey(Society, related_name='home_event_set') # 주최 팀
