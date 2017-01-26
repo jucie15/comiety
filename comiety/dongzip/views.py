@@ -3,14 +3,14 @@ from django.http import HttpResponse
 from .models import School, Society, Profile
 
 def index(request):
-    schools = School.objects.all()
+    # schools = School.objects.all()
 
-    for school in schools:
-        school_cnt = Profile.objects.filter(school_id = school.id).count()
-        school.member_number = school_cnt
-        school.save()
+    # for school in schools:
+    #     school_cnt = Profile.objects.filter(school_id = school.id).count()
+    #     school.member_number = school_cnt
+    #     school.save()
 
-    return render(request, 'dongzip/login.html')
+    return render(request, 'dongzip/index.html')
 
 
 def member_regist(request):

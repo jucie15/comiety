@@ -11,6 +11,7 @@ class School(models.Model):
     member_number = models.IntegerField(default = 0, blank = False, null = False) # 멤버 수
     society_number = models.IntegerField(default = 0 , blank = False, null = False) # 동아리 수
     description = models.TextField(max_length = 512, blank = True, null = True) # 학교 소개
+    logo_image = models.ImageField(upload_to = 'uploaded/school_profile/' , null = True)
 
     def __str__(self):
         return self.name
@@ -26,9 +27,11 @@ class Profile(models.Model):
     # user = models.OneToOneField('auth.User')
     school = models.ForeignKey(School) # School Table과 1:n 관계 형성
     user = models.OneToOneField(settings.AUTH_USER_MODEL)  # 'auth.User' 인증 라이브러리를 사용하기 위해 auth.user 사용
-    nickname = models.CharField(unique = True, max_length = 128, blank = False, null = False) # 닉네임
+    nickname = models.CharField(max_length = 128, blank = False, null = False) # 닉네임
     #favorite = 태그로 ㄱ?
     tel_number = models.CharField(max_length = 32, blank = False, null = False) # 전화번호
+
+    profile_image = models.ImageField(upload_to = 'uploaded/user_profile/' , null = True)
 
     def __str__(self):
         return self.user.username
@@ -51,6 +54,9 @@ class Society(models.Model):
     address = models.CharField(max_length = 256, blank = False, null = False) # 동아리 주소
     description = models.TextField(max_length = 512, blank = True, null = True) # 동아리 소개
     users = models.ManyToManyField(Profile) # USER TABLE과 다대다 관계 형성
+    logo_image = models.ImageField(upload_to = 'uploaded/society_profile/', null = True)
+    background_image = models.ImageField(upload_to = 'uploaded/society_profile/', null = True)
+
     #category  = models.CharField # 관심사 및 카테고리를 따로 빼야하나?
 
     def __str__(self):
