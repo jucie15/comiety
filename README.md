@@ -7,7 +7,3 @@
 
 ## contributor:
     박정욱, 진민기, 김남희, 백다은, 양가은
-
-
-adasds
-qweqe
