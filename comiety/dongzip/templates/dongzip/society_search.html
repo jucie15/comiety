@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <h1>동아리, 학교 검색하기</h1>
+   <form action="" method="post">
+{% csrf_token %}
+
+<input type="text" id="name" name="id" placeholder="아이디" method="post" autofocus>
+<input type = "submit" value = "검색"/>
+</form>
+
+    <br/>
+    {% if schools %}
+    <h2>학교 검색결과</h2>
+    {% for school in schools %}
+    <p> {{ school.name }} </p>
+    {% endfor %}
+
+    {% elif search_term %}
+    <h2>학교 검색결과</h2>
+    <h3> Search Word ({{ search_term }}) Not Found !</h3>
+    {% endif %}
+
+    <br/>
+    {% if societys %}
+    <h2>동아리 검색결과</h2>
+    {% for society in societys %}
+    <p> {{ society.name }} </p>
+    {% endfor %}
+
+    {% elif search_term %}
+    <h2>동아리 검색결과</h2>
+    <h3> Search Word ({{ search_term }}) Not Found !</h3>
+    {% endif %}
+
+</body>
+</html>
