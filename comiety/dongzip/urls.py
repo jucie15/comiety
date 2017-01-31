@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^school_list/$', views.school_list, name = 'school_list'),
     url(r'^school_list/(?P<id>\d+)/$', views.society_list, name = 'society_list'),
     url(r'^society_search/$', views.society_search, name = 'society_search'),
+    url(r'^society_regist/$', views.society_regist, name = 'society_regist'),
 ]
