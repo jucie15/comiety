@@ -8,7 +8,6 @@
     {% for school in schools %}
     <a href = {{ school.id }} >
         {{ school.name }}</a> <p>
-        {{ school.name | slice:'Se'}}
     {% endfor %}
 </body>
 </html>

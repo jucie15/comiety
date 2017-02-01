@@ -19,9 +19,10 @@ from dongzip import views
 
 urlpatterns = [
     url(r'^$', views.index, name = 'index'),
-    url(r'^regist/$', views.member_regist, name = 'member_regist' ),
+    url(r'^member_regist/$', views.member_regist, name = 'member_regist' ),
     url(r'^school_list/$', views.school_list, name = 'school_list'),
     url(r'^school_list/(?P<id>\d+)/$', views.society_list, name = 'society_list'),
     url(r'^society_search/$', views.society_search, name = 'society_search'),
     url(r'^society_regist/$', views.society_regist, name = 'society_regist'),
+    url(r'^society_detail/(?P<id>\d+)/$', views.society_detail, name = 'society_detail')
 ]

@@ -5,8 +5,9 @@
 </head>
 <body>
     {% for society in societys %}
-        {{society.name}} <p>
+        <a href = "{% url 'dongzip:society_detail' society.id %}">
+            {{society.name}} <p>
+        </a>
 {% endfor %}
 </body>
-
 </html>
