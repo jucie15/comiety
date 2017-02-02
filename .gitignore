@@ -6,6 +6,7 @@
 .tox/
 */.DS_Store
 .DS_Store
+static/
 __pycache__
 MANIFEST
 dist/
