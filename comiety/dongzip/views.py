@@ -62,8 +62,8 @@ url
 url에서 society_detail뺼지
 
 '''
-
 def society_detail(request, id):
+    #동아리 별 세부페이지
     society = Society.objects.get(id = id)
 
     return render(request, 'dongzip/society_detail.html', {

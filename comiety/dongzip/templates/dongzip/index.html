@@ -1,135 +1,84 @@
-<!DOCTYPE html>
-{% load staticfiles %}
+{% extends 'dongzip/base.html' %}
 
-<html>
-    <head>
-        <meta charset="utf-8">
-        <style>
-
-        body {
-          background-image: url({% static 'dongzip/images/chessbw.jpg' %}) ;
-          background-position: center center;
-          background-repeat:  no-repeat;
-          background-attachment: fixed;
-          background-size:  cover;
-          background-color: #999;
-          text-align: center;
-          font-family: sans-serif;
-        }
-
-        #logo {
-          display: block;
-          height: 150px;
-          width: 150px;
-          margin-top: 50px;
-          margin-left: auto;
-          margin-right: auto;
-          filter: brightness(0%);
-        }
-
-        header {
-          font-family: sans-serif;
-        }
-
-        .icons{
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-        }
-
-        .login{
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-        }
-
-        #id{
-          width: 200px;
-          height:30px;
-          font-size: 1.3rem;
-        }
-
-        #pwd{
-          width: 200px;
-          height:30px;
-          font-size: 1.3rem;
-        }
-
-        #signin, #join{
-          background-color: #4CAF50;
-          border: none;
-          color: white;
-          padding: 15px 32px;
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-          font-size: 16px;
-          margin: 4px 2px;
-          width: 200px;
-          height: 50px;
-          cursor: pointer;
-        }
-
-        #signin:hover {
-          background-color: white
-          color: white;
-        }
-
-        </style>
-    </head>
-    <body>
-
-    <header>
-      <img src="{% static 'dongzip/images/logo.png' %}" alt="logo" id="logo" width=100px>
-      <p style="font-size: 0.8rem"><strong>전국 동아리 교류 사이트</strong></p>
-      <a style="font-size: 2rem">DONG ZIP</a>
-      <br>
-    </header>
-
-    <p class="icons">
-    <img src="{% static 'dongzip/images/school.png' %}" alt="school" height="75px" width="75px">
-    <img src="{% static 'dongzip/images/club.png' %}" alt="club" height="75px" width="75px">
-    <img src="{% static 'dongzip/images/meeting.png' %}" alt="meeting" height="75px" width="75px">
-    </p>
-
-    <p style="font: 1.5rem sans-serif": >
-    1 개 학교에서 000개의 동아리가 000개의 <strong>모임</strong>이 성사되었습니다.
-    </p>
-
-
-    <div class="login">
-      <form action="login.php" autocomplete="on">
-    <p>
-        <input type="text" id="id" name="id" placeholder="아이디" method="post" autofocus>
-
-    </p>
-    <p>
-        <input type="password" id="pwd" name="password" autocomplete="off" placeholder="비밀번호" method="post">
-    </p>
-        <input type="submit" id="signin" value="SIGN IN">
-        <br>
-        <input type="button" id="join" value="JOIN">
-    <p>
-      <a>비밀번호 찾기</a> | <a>DONGZIP 회원이세요?</a>
-    </p>
-    </form>
+{% block content %}
+<div class="page-Home">
+    <div class="page-Home-text">
+        <h1><strong>무엇을 좋아하시나요?</strong></h1>
+        <p><strong>교류의 장, 동집에 오신 것을 환영합니다!</strong></p>
     </div>
-    </div>
-     <a href="/dongzip/regist">
-     <input type="submit" id="d" value="d IN">
-     </a>
-     <a href="/dongzip/school_list"s>
-     <input type="submit" id="school_list" value="school_list">
-     </a>
-      <a href="/dongzip/society_regist">
-     <input type="submit" id="society_regist" value="society_regist">
-     </a>
-     <a href="/dongzip/society_search">
-     <input type="submit" id="society_search" value="society_search">
-     </a>
-     <a href="/dongzip/member_regist">
-     <input type="submit" id="member_regist" value="member_regist">
-     </a>
-    </body>
-    </body>
-</html>
+    <input type="button" value="가입하기" id="buttonjoin"><a href="join.html"></a>
+</div>
+
+<div class="show-event">
+    <h3>예정된 행사</h3>
+    <table class="table-event">
+        <tr class="event-photo" rowspan="2">
+            <td id="event1"></td>
+            <td id="event2"></td>
+            <td id="event3"></td>
+            <td id="event4"></td>
+            <td id="event5"></td>
+        </tr>
+        <tr class="event-info">
+            <td>Event1</td>
+            <td>Event2</td>
+            <td>Event3</td>
+            <td>Event4</td>
+            <td>Event5</td>
+        </tr>
+    </table>
+</div>
+
+<div class="societygroup">
+    <h2>동아리 탐구 사전</h2>
+    <table class="table-society">
+        <tr class="society-photo" rowspan="2">
+            <td id="sports"><a href="societylist.html"></a></td>
+            <td id="academics"><a href="societylist.html"></a></td>
+            <td id="show"><a href="societylist.html"></a></td>
+            <td id="volunteer"><a href="societylist.html"></a></td>
+        </tr>
+        <tr>
+            <td>스포츠</td>
+            <td>학술</td>
+            <td>공연예술</td>
+            <td>봉사</td>
+        </tr>
+        <tr>
+            <td><img src=""><br><a href="societylist.html">언어와 문화</a></td>
+            <td><img src=""><br><a href="societylist.html">기술</a></td>
+            <td><img src=""><br><a href="societylist.html">창작예술</a></td>
+            <td><img src=""><br><a href="societylist.html">취미와 교양</a></td>
+        </tr>
+        <tr>
+            <td><img src=""><br><a href="societylist.html">음식/여행</a></td>
+            <td><img src=""><br><a href="societylist.html">LGBT</a></td>
+            <td><img src=""><br><a href="societylist.html">종교</a></td>
+            <td><img src=""><br><a href="societylist.html">사회운동</a></td>
+        </tr>
+    </table>
+</div>
+
+
+
+<a href="/dongzip/regist">
+    <input type="submit" id="d" value="d IN">
+</a>
+
+<a href="/dongzip/school_list"s>
+ <input type="submit" id="school_list" value="school_list">
+</a>
+
+<a href="/dongzip/society_regist">
+    <input type="submit" id="society_regist" value="society_regist">
+</a>
+
+<a href="/dongzip/society_search">
+    <input type="submit" id="society_search" value="society_search">
+</a>
+
+<a href="/dongzip/member_regist">
+    <input type="submit" id="member_regist" value="member_regist">
+</a>
+{% endblock %}
+
