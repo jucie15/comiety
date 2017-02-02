@@ -1,0 +1,179 @@
+nav{
+    background-color: white!important;
+    filter: opacity(90%);
+}
+
+li a{
+    color:black!important;
+}
+
+#join{
+    color: white;
+    background-color: rgb(51, 204, 204);
+    border-radius: 5px;
+    margin-top: 17px;
+    margin-left: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.page-Home{
+    position: relative;
+    z-index: 0;
+    background-image: url("../images/balloons.jpg");
+    padding-top: 120px;
+    padding-bottom: 150px;
+    box-sizing: border-box;
+}
+
+.page-Home-text{
+    visibility: visible;
+    animation-name:fadeInUp;
+}
+
+.page-Home-text{
+    color:#fff;
+    text-shadow: 0 1px 6px rgba(51, 51, 51, 0.2);
+    margin-top:20px;
+    margin: .67em 0;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.page-Home-text h1{
+    font-size: 42px;
+    font-family: sans-serif;
+    font-weight: 700;
+    line-height: 54px;
+    display: block;
+    -webkit-margin-before: 0.67em;
+    -webkit-margin-after: 0.67em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    text-transform: none;
+    color: white;
+}
+
+.page-Home-text p{
+    font-size: 20px;
+    font-family: sans-serif;
+    display: inline-block;
+    max-width: 1000px;
+}
+
+#buttonjoin{
+    background-color: rgb(51, 204, 204);
+    border-radius: 5px;
+    margin-top: 15px;
+    color: white;
+    font-size: 20px;
+    padding: 10px 100px 10px 100px;
+}
+
+.show-event{
+    background-color: rgb(241, 240, 240);
+    height: 300px;
+}
+
+.show-event h3{
+    padding-top: 35px;
+    padding-left: 20px;
+    text-align: left;
+    color: black;
+}
+
+.table-event{
+    padding-top: 20px;
+    height: 180px;
+    width: 1230px;
+    margin: 15px;
+}
+
+.event-photo{
+    height: 150px;
+}
+
+#event1{
+    background-image: url(../images/frogphoto.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#event2{
+    background-image: url(../images/frog2.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#event3{
+    background-image: url(../images/frog4.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#event4{
+    background-image: url(../images/kermit2.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#event5{
+    background-image: url(../images/frog3.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.event-info{
+    font-size: 20px;
+    padding-top: 10px;
+    color: black;
+}
+
+.societygroup h2{
+    padding-top: 50px;
+    padding-bottom: 30px;
+    color: black;
+    text-align: center;
+}
+
+.table-society{
+    padding-top: 20px;
+    margin: 15px;
+    width: 1230px;
+    font-size: 25px;
+    text-align: center;
+}
+
+.society-photo td{
+    height: 180px;
+    width: 350px;
+}
+
+.society-info{
+    height: 30px;
+    color: black;
+}
+
+#sports{
+    background-image: url(../images/sports.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#academics{
+    background-image: url(../images/academics.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#show{
+    background-image: url(../images/show.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#volunteer{
+    background-image: url(../images/volunteer.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
