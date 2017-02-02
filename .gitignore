@@ -7,6 +7,7 @@
 */.DS_Store
 .DS_Store
 static/images/
+images/
 media/
 __pycache__
 MANIFEST
