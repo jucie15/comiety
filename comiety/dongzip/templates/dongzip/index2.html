@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Comiety</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:700,300,400">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="assets/elegant-font/code/style.css">
+        <link rel="stylesheet" href="assets/css/animate.css">
+        <link rel="stylesheet" href="assets/css/magnific-popup.css">
+        <link rel="stylesheet" href="assets/css/form-elements.css">
+        <link rel="stylesheet" href="assets/css/stylenew.css">
+        <link rel="stylesheet" href="assets/css/media-queries.css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <style>
+            nav{
+                background-color: white!important;
+                filter: opacity(90%);
+            }
+
+            li a{
+                color:black!important;
+            }
+
+            #join{
+                color: white;
+                background-color: rgb(51, 204, 204);
+                border-radius: 5px;
+                margin-top: 17px;
+                margin-left: 10px;
+                padding-bottom: 5px;
+                padding-top: 5px;
+            }
+
+            .page-Home{
+                position: relative;
+                z-index: 0;
+                background-image: url("../images/balloons.jpg");
+                padding-top: 120px;
+                padding-bottom: 150px;
+                box-sizing: border-box;
+            }
+
+            .page-Home-text{
+                visibility: visible;
+                animation-name:fadeInUp;
+            }
+
+            .page-Home-text{
+                color:#fff;
+                text-shadow: 0 1px 6px rgba(51, 51, 51, 0.2);
+                margin-top:20px;
+                margin: .67em 0;
+                font-family: sans-serif;
+                text-align: center;
+            }
+
+            .page-Home-text h1{
+                font-size: 42px;
+                font-family: sans-serif;
+                font-weight: 700;
+                line-height: 54px;
+                display: block;
+                -webkit-margin-before: 0.67em;
+                -webkit-margin-after: 0.67em;
+                -webkit-margin-start: 0px;
+                -webkit-margin-end: 0px;
+                text-transform: none;
+                color: white;
+            }
+
+            .page-Home-text p{
+                font-size: 20px;
+                font-family: sans-serif;
+                display: inline-block;
+                max-width: 1000px;
+            }
+
+            #buttonjoin{
+                background-color: rgb(51, 204, 204);
+                border-radius: 5px;
+                margin-top: 15px;
+                color: white;
+                font-size: 20px;
+                padding: 10px 100px 10px 100px;
+            }
+
+            .show-event{
+                background-color: rgb(241, 240, 240);
+                height: 300px;
+            }
+
+            .show-event h3{
+                padding-top: 35px;
+                padding-left: 20px;
+                text-align: left;
+                color: black;
+            }
+
+            .table-event{
+                padding-top: 20px;
+                height: 180px;
+                width: 100%;
+                margin: 15px;
+            }
+
+            .event-photo{
+                height: 150px;
+            }
+
+            #event1{
+                background-image: url(../images/frogphoto.jpg);
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+
+            #event2{
+                background-image: url(../images/frog2.jpg);
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+
+            #event3{
+                background-image: url(../images/frog4.jpg);
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+
+            #event4{
+                background-image: url(../images/kermit2.jpg);
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+
+            #event5{
+                background-image: url(../images/frog3.jpg);
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+
+            .event-info{
+                font-size: 20px;
+                padding-top: 10px;
+                color: black;
+            }
+
+            .societygroup h2{
+                padding-top: 50px;
+                padding-bottom: 30px;
+                color: black;
+                text-align: center;
+            }
+
+            .table-society{
+                padding-top: 20px;
+                width: 100%;
+                margin: 15px;
+                font-size: 25px;
+                color: black;
+                text-align: center;
+            }
+
+            .table-soceity td{
+                width: 350px;
+            }
+
+            #sports{
+                background-image: url(../images/sports.jpg);
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+
+            #academics{
+                background-image: url(../images/academics.jpg);
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+
+
+        </style>
+    </head>
+
+    <body>
+        <div class="loader">
+            <div class="loader-img"></div>
+        </div>
+
+        <nav class="navbar navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">Comiety</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="top-navbar-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a class="scroll-link" href="societylist.html">동아리</a></li>
+                        <li><a class="scroll-link" href="societyregist.html">동아리 등록</a></li>
+                        <li><a class="scroll-link" href="schoollist.html">학교로 검색</a></li>
+                        <li><a class="scroll-link" href="myprofile.html">내 페이지</a></li>
+                        <li><a class="scroll-link" href="notification.html">알림</a></li>
+                        <li><a class="scroll-link" href="login.html">로그인</a></li>
+                        <li><a class="scroll-link" id="join" href="join.html">가입하기</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="page-Home">
+            <div class="page-Home-text">
+                <h1><strong>무엇을 좋아하시나요?</strong></h1>
+                <p><strong>교류의 장, 동집에 오신 것을 환영합니다!</strong></p>
+            </div>
+            <input type="button" value="가입하기" id="buttonjoin"><a href="join.html"></a>
+        </div>
+
+        <div class="show-event">
+            <h3>예정된 행사</h3>
+            <table class="table-event">
+                <tr class="event-photo" rowspan="2">
+                    <td id="event1"></td>
+                    <td id="event2"></td>
+                    <td id="event3"></td>
+                    <td id="event4"></td>
+                    <td id="event5"></td>
+                </tr>
+                <tr class="event-info">
+                    <td>Event1</td>
+                    <td>Event2</td>
+                    <td>Event3</td>
+                    <td>Event4</td>
+                    <td>Event5</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="societygroup">
+            <h2>동아리 탐구 사전</h2>
+            <table class="table-society">
+                <tr class="society-photo" rowspan="2">
+                    <td id="sports"><a href="societylist.html"></a></td>
+                    <td id="academics"><a href="societylist.html"></a></td>
+                    <td id="show"><a href="societylist.html"></a></td>
+                    <td id="volunteer"><a href="societylist.html"></a></td>
+                </tr>
+                <tr>
+                    <td>스포츠</td>
+                    <td>학술</td>
+                    <td>공연예술</td>
+                    <td>봉사</td>
+                </tr>
+                <tr>
+                    <td><img src=""><br><a href="societylist.html">언어와 문화</a></td>
+                    <td><img src=""><br><a href="societylist.html">기술</a></td>
+                    <td><img src=""><br><a href="societylist.html">창작예술</a></td>
+                    <td><img src=""><br><a href="societylist.html">취미와 교양</a></td>
+                </tr>
+                <tr>
+                    <td><img src=""><br><a href="societylist.html">음식/여행</a></td>
+                    <td><img src=""><br><a href="societylist.html">LGBT</a></td>
+                    <td><img src=""><br><a href="societylist.html">종교</a></td>
+                    <td><img src=""><br><a href="societylist.html">사회운동</a></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Javascript -->
+        <script src="assets/js/jquery-1.11.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery.backstretch.min.js"></script>
+        <script src="assets/js/wow.min.js"></script>
+        <script src="assets/js/retina-1.1.0.min.js"></script>
+        <script src="assets/js/jquery.magnific-popup.min.js"></script>
+        <script src="assets/js/waypoints.min.js"></script>
+        <script src="assets/js/jquery.countTo.js"></script>
+        <script src="assets/js/masonry.pkgd.min.js"></script>
+        <script src="assets/js/scripts.js"></script>
+
+        <!--[if lt IE 10]>
+            <script src="assets/js/placeholder.js"></script>
+        <![endif]-->
+    </body>
+</html>

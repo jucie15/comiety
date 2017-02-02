@@ -55,7 +55,7 @@ ROOT_URLCONF = 'comiety.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR, 'comiety', 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
