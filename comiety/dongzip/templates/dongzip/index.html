@@ -6,7 +6,10 @@
         <h1><strong>무엇을 좋아하시나요?</strong></h1>
         <p><strong>교류의 장, 동집에 오신 것을 환영합니다!</strong></p>
     </div>
-    <input type="button" value="가입하기" id="buttonjoin"><a href="join.html"></a>
+    <input type="button" value="가입하기" id="buttonjoin" onclick="location.href='{% url "dongzip:login" %}'">
+    <!--
+    <a href="{% url 'dongzip:login' %}">
+    <button type="button" onclick="location.href='{% url "dongzip:login" %}'">회원가입</button> -->
 </div>
 
 <div class="show-event">
