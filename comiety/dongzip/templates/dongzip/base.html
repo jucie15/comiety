@@ -14,9 +14,8 @@
 
         <!-- CSS -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:700,300,400">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{% static 'dongzip/css/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static 'dongzip/css/font-awesome.min.css' %}">
-        <link rel="stylesheet" href="{% static 'dongzip/css/style.css' %}">
         <link rel="stylesheet" href="{% static 'dongzip/css/animate.css' %}">
         <link rel="stylesheet" href="{% static 'dongzip/css/magnific-popup.css' %}">
         <link rel="stylesheet" href="{% static 'dongzip/css/form-elements.css' %}">
@@ -24,17 +23,7 @@
         <link rel="stylesheet" href="{% static 'dongzip/css/media-queries.css' %}">
         <link rel='stylesheet' href="{% static 'dongzip/css/base.css' %}">
 
-        <!-- Javascript -->
-        <script src="{% static 'dongzip/js/jquery-1.11.1.min.js' %}"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="{% static 'dongzip/js/jquery.backstretch.min.js' %}"></script>
-        <script src="{% static 'dongzip/js/wow.min.js' %}"></script>
-        <script src="{% static 'dongzip/js/retina-1.1.0.min.js' %}"></script>
-        <script src="{% static 'dongzip/js/jquery.magnific-popup.min.js' %}"></script>
-        <script src="{% static 'dongzip/js/waypoints.min.js' %}"></script>
-        <script src="{% static 'dongzip/js/jquery.countTo.js' %}"></script>
-        <script src="{% static 'dongzip/js/masonry.pkgd.min.js' %}"></script>
-        <script src="{% static 'dongzip/js/scripts.js' %}"></script>
+
         {% block extra_style %}
 
         {% endblock %}
@@ -65,7 +54,7 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="top-navbar-1">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a class="scroll-link" href="societylist.html">동아리</a></li>
+                        <li><a class="scroll-link" href="{% url 'dongzip:school_list' %}">동아리</a></li>
                         <li><a class="scroll-link" href="societyregist.html">동아리 등록</a></li>
                         <li><a class="scroll-link" href="schoollist.html">학교로 검색</a></li>
                         <li><a class="scroll-link" href="myprofile.html">내 페이지</a></li>
@@ -83,6 +72,17 @@
         <!--[if lt IE 10]>
             <script src="assets/js/placeholder.js"></script>
         <![endif]-->
+                <!-- Javascript -->
+        <script src="{% static 'dongzip/js/jquery-1.11.1.min.js' %}"></script>
+        <script src="{% static 'dongzip/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'dongzip/js/jquery.backstretch.min.js' %}"></script>
+        <script src="{% static 'dongzip/js/wow.min.js' %}"></script>
+        <script src="{% static 'dongzip/js/retina-1.1.0.min.js' %}"></script>
+        <script src="{% static 'dongzip/js/jquery.magnific-popup.min.js' %}"></script>
+        <script src="{% static 'dongzip/js/waypoints.min.js' %}"></script>
+        <script src="{% static 'dongzip/js/jquery.countTo.js' %}"></script>
+        <script src="{% static 'dongzip/js/masonry.pkgd.min.js' %}"></script>
+        <script src="{% static 'dongzip/js/scripts.js' %}"></script>
 
     </body>
 </html>

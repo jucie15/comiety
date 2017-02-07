@@ -85,7 +85,7 @@ li a{
 .table-event{
     padding-top: 20px;
     height: 180px;
-    width: 100%;
+    width: 1230px;
     margin: 15px;
 }
 
@@ -138,15 +138,20 @@ li a{
 
 .table-society{
     padding-top: 20px;
-    width: 100%;
     margin: 15px;
+    width: 1230px;
     font-size: 25px;
-    color: black;
     text-align: center;
 }
 
-.table-soceity td{
+.society-photo td{
+    height: 180px;
     width: 350px;
+}
+
+.society-info{
+    height: 30px;
+    color: black;
 }
 
 #sports{
@@ -157,6 +162,18 @@ li a{
 
 #academics{
     background-image: url(../images/academics.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#show{
+    background-image: url(../images/show.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#volunteer{
+    background-image: url(../images/volunteer.png);
     background-size: contain;
     background-repeat: no-repeat;
 }

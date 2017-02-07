@@ -6,7 +6,10 @@
         <h1><strong>무엇을 좋아하시나요?</strong></h1>
         <p><strong>교류의 장, 동집에 오신 것을 환영합니다!</strong></p>
     </div>
-    <input type="button" value="가입하기" id="buttonjoin"><a href="join.html"></a>
+    <input type="button" value="가입하기" id="buttonjoin" onclick="location.href='{% url "dongzip:login" %}'">
+    <!--
+    <a href="{% url 'dongzip:login' %}">
+    <button type="button" onclick="location.href='{% url "dongzip:login" %}'">회원가입</button> -->
 </div>
 
 <div class="show-event">
@@ -32,29 +35,41 @@
 <div class="societygroup">
     <h2>동아리 탐구 사전</h2>
     <table class="table-society">
-        <tr class="society-photo" rowspan="2">
-            <td id="sports"><a href="societylist.html"></a></td>
-            <td id="academics"><a href="societylist.html"></a></td>
-            <td id="show"><a href="societylist.html"></a></td>
-            <td id="volunteer"><a href="societylist.html"></a></td>
+        <tr class="society-photo">
+            <td id="sports"></td>
+            <td id="academics"></td>
+            <td id="show"></td>
+            <td id="volunteer"></td>
         </tr>
-        <tr>
-            <td>스포츠</td>
-            <td>학술</td>
-            <td>공연예술</td>
-            <td>봉사</td>
+        <tr class="society-info">
+            <td><a href="societylist.html">스포츠</a></td>
+            <td><a href="societylist.html">학술</a></td>
+            <td><a href="societylist.html">공연예술</a></td>
+            <td><a href="societylist.html">봉사</a></td>
         </tr>
-        <tr>
-            <td><img src=""><br><a href="societylist.html">언어와 문화</a></td>
-            <td><img src=""><br><a href="societylist.html">기술</a></td>
-            <td><img src=""><br><a href="societylist.html">창작예술</a></td>
-            <td><img src=""><br><a href="societylist.html">취미와 교양</a></td>
+        <tr class="society-photo">
+            <td id="culture"></td>
+            <td id="technology"></td>
+            <td id="craft"></td>
+            <td id="hobby"></td>
         </tr>
-        <tr>
-            <td><img src=""><br><a href="societylist.html">음식/여행</a></td>
-            <td><img src=""><br><a href="societylist.html">LGBT</a></td>
-            <td><img src=""><br><a href="societylist.html">종교</a></td>
-            <td><img src=""><br><a href="societylist.html">사회운동</a></td>
+        <tr class="society-info">
+            <td><a href="societylist.html">언어와 문화</a></td>
+            <td><a href="societylist.html">기술</a></td>
+            <td><a href="societylist.html">창작예술</a></td>
+            <td><a href="societylist.html">취미와 교양</a></td>
+        </tr>
+        <tr class="society-photo">
+            <td id="food"></td>
+            <td id="lgbt"></td>
+            <td id="religion"></td>
+            <td id="move"></td>
+        </tr>
+        <tr class="society-info">
+            <td><a href="societylist.html">음식/여행</a></td>
+            <td><a href="societylist.html">LGBT</a></td>
+            <td><a href="societylist.html">종교</a></td>
+            <td><a href="societylist.html">사회운동</a></td>
         </tr>
     </table>
 </div>

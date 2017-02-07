@@ -55,15 +55,14 @@ img { max-width: 100%; }
 }
 
 .loader-img {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	margin: -30px 0 0 -30px;
-	width: 60px;
-	height: 60px;
-	background: url(../img/loading.gif) center center no-repeat;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -30px 0 0 -30px;
+    width: 60px;
+    height: 60px;
+    background: url(../images/loading.gif) center center no-repeat;
 }
-
 
 /***** General style, all sections *****/
 
@@ -74,10 +73,10 @@ img { max-width: 100%; }
 
 .section-container-gray { background: #fff; }
 
-.section-container-full-bg, 
-.section-container-full-bg h1, 
-.section-container-full-bg h2, 
-.section-container-full-bg h3, 
+.section-container-full-bg,
+.section-container-full-bg h1,
+.section-container-full-bg h2,
+.section-container-full-bg h3,
 .section-container-full-bg h4 { color: #fff; }
 
 .section-description {
@@ -191,12 +190,14 @@ ul.navbar-nav li a:focus { background: none; color: #2ba560; outline: 0; }
 
 .navbar>.container .navbar-brand { margin-left: 0; }
 
+
 .navbar-brand {
 	width: 175px;
 	height: 66px;
-	background: url(../../../images/logocomiety.png) left center no-repeat;
+    background-size: 117px 47px !important;
+	background: url(../images/logocomiety.png) left center no-repeat;
 	text-indent: -99999px;
 }
 
 
-/***** 
+/*****
