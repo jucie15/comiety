@@ -235,7 +235,7 @@
 
         <div class="page-Home">
                 <h1><strong>무엇을 좋아하시나요?</strong></h1>
-                <p><strong><span class="badge">0</span> 학교 <span class="badge">0</span> 동아리 <span class="badge">0</span> 교류전이 오가는</strong></p>
+                <p><strong><span class="badge school">0</span> 학교 <span class="badge">0</span> 동아리 <span class="badge">0</span> 교류전이 오가는</strong></p>
                 <p><strong>교류의 장, 동집에 오신 것을 환영합니다!</strong></p>
         </div>
 
@@ -449,6 +449,24 @@
                         </ul>
                     </div>
                 </div>
+                <script type="text/javascript">
+                (function poll(){
+                    $.ajax({
+                        url: "{% url 'dongzip:index_number_count' %}" , // 요청 url
+                        success: function(data){
+                         //Update your dashboard gauge
+                             $('.badge.school').text(data);
+                            console.log($('.badge.school').text());
+                        }, // 요청이 성공했을 경우
+                        error: function(data){
+                            console.log('error');
+                        }, // 에러가 날 경우
+                        dataType: "json",
+                        timeout: 1300, // 응답 대기 제한 시간
+                        complete: poll, // 요청이 완료된 후 실행 할 아이 });
+                })();
+</script>
+
                 <!-- <div class="col-md-3 col-sm-4 col-xs-2 footer-social animated fadeInDown">
                     <h4>Follow Us</h4>
                     <ul>

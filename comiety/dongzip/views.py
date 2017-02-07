@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import School, Society, Profile
 from .forms import *
 from django.shortcuts import redirect, render
+import time
 
 def index(request):
     # 인덱스 페이지
@@ -39,7 +40,7 @@ def member_regist(request):
     return render(request, 'dongzip/member_regist.html', {'school', school})
 
 def school_list(request):
-    #전체 학교 리스트
+    # 전체 학교 리스트
     schools = School.objects.all()
     return render(request, 'dongzip/school_list.html', {'schools' : schools} )
 
@@ -49,7 +50,7 @@ def school_list(request):
 url 어떤식을 나눌까.
 '''
 def society_list(request, id):
-    #학교 별 동아리 리스트
+    # 학교 별 동아리 리스트
     societys = Society.objects.filter(school_id = id)
     return render(request, 'dongzip/society_list.html', {
             'societys' : societys,
@@ -63,7 +64,7 @@ url에서 society_detail뺼지
 
 '''
 def society_detail(request, id):
-    #동아리 별 세부페이지
+    # 동아리 별 세부페이지
     society = Society.objects.get(id = id)
 
     return render(request, 'dongzip/society_detail.html', {
@@ -72,7 +73,7 @@ def society_detail(request, id):
 
 
 def society_search(request):
-    #동아리 및 학교 검색
+    # 동아리 및 학교 검색
     if request.method == 'POST':
         name = request.POST['id']
 
@@ -87,8 +88,7 @@ def society_search(request):
     return render(request, 'dongzip/society_search.html')
 
 def society_regist(request):
-    #동아리 등록
-
+    # 동아리 등록
     if request.method == 'POST':
         form = SocietyForm(request.POST)
         if form.is_valid():
@@ -100,4 +100,15 @@ def society_regist(request):
     else:
         form = SocietyForm()
     return render(request, 'dongzip/society_regist.html', {'form' : form})
+
+def index_number_count(request):
+    # 메인페이지 대쉬보드 카운트
+    time.sleep(1) # 응답 대기 시간
+    school_cnt = School.objects.all().count()
+    #mimetype = 'application/json'
+
+    # 깔끔하게 추가 구현 뷰 이름도 바꿀까?
+    if request.is_ajax():
+        print(request, school_cnt)
+    return HttpResponse(school_cnt)
 

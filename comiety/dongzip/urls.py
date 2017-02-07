@@ -27,4 +27,6 @@ urlpatterns = [
     url(r'^society_regist/$', views.society_regist, name = 'society_regist'),
     url(r'^society_detail/(?P<id>\d+)/$', views.society_detail, name = 'society_detail'),
     url(r'^login/$', accounts_views.login, name = 'login'),
+    url(r'^index_number_count/$', views.index_number_count, name = 'index_number_count'),
+
 ]
