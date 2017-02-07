@@ -1,0 +1,99 @@
+{% extends 'dongzip/base.html' %}
+
+{% block content %}
+<div class="page-Home">
+    <div class="page-Home-text">
+        <h1><strong>무엇을 좋아하시나요?</strong></h1>
+        <p><strong>교류의 장, 동집에 오신 것을 환영합니다!</strong></p>
+    </div>
+    <input type="button" value="가입하기" id="buttonjoin" onclick="location.href='{% url "dongzip:login" %}'">
+    <!--
+    <a href="{% url 'dongzip:login' %}">
+    <button type="button" onclick="location.href='{% url "dongzip:login" %}'">회원가입</button> -->
+</div>
+
+<div class="show-event">
+    <h3>예정된 행사</h3>
+    <table class="table-event">
+        <tr class="event-photo" rowspan="2">
+            <td id="event1"></td>
+            <td id="event2"></td>
+            <td id="event3"></td>
+            <td id="event4"></td>
+            <td id="event5"></td>
+        </tr>
+        <tr class="event-info">
+            <td>Event1</td>
+            <td>Event2</td>
+            <td>Event3</td>
+            <td>Event4</td>
+            <td>Event5</td>
+        </tr>
+    </table>
+</div>
+
+<div class="societygroup">
+    <h2>동아리 탐구 사전</h2>
+    <table class="table-society">
+        <tr class="society-photo">
+            <td id="sports"></td>
+            <td id="academics"></td>
+            <td id="show"></td>
+            <td id="volunteer"></td>
+        </tr>
+        <tr class="society-info">
+            <td><a href="societylist.html">스포츠</a></td>
+            <td><a href="societylist.html">학술</a></td>
+            <td><a href="societylist.html">공연예술</a></td>
+            <td><a href="societylist.html">봉사</a></td>
+        </tr>
+        <tr class="society-photo">
+            <td id="culture"></td>
+            <td id="technology"></td>
+            <td id="craft"></td>
+            <td id="hobby"></td>
+        </tr>
+        <tr class="society-info">
+            <td><a href="societylist.html">언어와 문화</a></td>
+            <td><a href="societylist.html">기술</a></td>
+            <td><a href="societylist.html">창작예술</a></td>
+            <td><a href="societylist.html">취미와 교양</a></td>
+        </tr>
+        <tr class="society-photo">
+            <td id="food"></td>
+            <td id="lgbt"></td>
+            <td id="religion"></td>
+            <td id="move"></td>
+        </tr>
+        <tr class="society-info">
+            <td><a href="societylist.html">음식/여행</a></td>
+            <td><a href="societylist.html">LGBT</a></td>
+            <td><a href="societylist.html">종교</a></td>
+            <td><a href="societylist.html">사회운동</a></td>
+        </tr>
+    </table>
+</div>
+
+
+
+<a href="/dongzip/regist">
+    <input type="submit" id="d" value="d IN">
+</a>
+
+<a href="/dongzip/school_list"s>
+ <input type="submit" id="school_list" value="school_list">
+</a>
+
+<a href="/dongzip/society_regist">
+    <input type="submit" id="society_regist" value="society_regist">
+</a>
+
+<a href="/dongzip/society_search">
+    <input type="submit" id="society_search" value="society_search">
+</a>
+
+<a href="/dongzip/member_regist">
+    <input type="submit" id="member_regist" value="member_regist">
+</a>
+{% endblock %}
+
