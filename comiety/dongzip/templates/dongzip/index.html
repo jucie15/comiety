@@ -1,99 +1,465 @@
-{% extends 'dongzip/base.html' %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../../static/dongzip/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://npmcdn.com/flickity@2/dist/flickity.css">
+        <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-{% block content %}
-<div class="page-Home">
-    <div class="page-Home-text">
-        <h1><strong>무엇을 좋아하시나요?</strong></h1>
-        <p><strong>교류의 장, 동집에 오신 것을 환영합니다!</strong></p>
-    </div>
-    <input type="button" value="가입하기" id="buttonjoin" onclick="location.href='{% url "dongzip:login" %}'">
-    <!--
-    <a href="{% url 'dongzip:login' %}">
-    <button type="button" onclick="location.href='{% url "dongzip:login" %}'">회원가입</button> -->
-</div>
+        <style>
+            .navbar{
+                background-color: white;
+                margin-bottom: 0;
+                padding: 10px 30px 5px 30px;
+                font-size: 16px;
+                border: 0;
+                -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;
+            }
 
-<div class="show-event">
-    <h3>예정된 행사</h3>
-    <table class="table-event">
-        <tr class="event-photo" rowspan="2">
-            <td id="event1"></td>
-            <td id="event2"></td>
-            <td id="event3"></td>
-            <td id="event4"></td>
-            <td id="event5"></td>
-        </tr>
-        <tr class="event-info">
-            <td>Event1</td>
-            <td>Event2</td>
-            <td>Event3</td>
-            <td>Event4</td>
-            <td>Event5</td>
-        </tr>
-    </table>
-</div>
+            .navbar-brand{
+                width: 180px;
+                height: 50px;
+                background-image: url(../../static/dongzip/images/logocomietypng.png);
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
 
-<div class="societygroup">
-    <h2>동아리 탐구 사전</h2>
-    <table class="table-society">
-        <tr class="society-photo">
-            <td id="sports"></td>
-            <td id="academics"></td>
-            <td id="show"></td>
-            <td id="volunteer"></td>
-        </tr>
-        <tr class="society-info">
-            <td><a href="societylist.html">스포츠</a></td>
-            <td><a href="societylist.html">학술</a></td>
-            <td><a href="societylist.html">공연예술</a></td>
-            <td><a href="societylist.html">봉사</a></td>
-        </tr>
-        <tr class="society-photo">
-            <td id="culture"></td>
-            <td id="technology"></td>
-            <td id="craft"></td>
-            <td id="hobby"></td>
-        </tr>
-        <tr class="society-info">
-            <td><a href="societylist.html">언어와 문화</a></td>
-            <td><a href="societylist.html">기술</a></td>
-            <td><a href="societylist.html">창작예술</a></td>
-            <td><a href="societylist.html">취미와 교양</a></td>
-        </tr>
-        <tr class="society-photo">
-            <td id="food"></td>
-            <td id="lgbt"></td>
-            <td id="religion"></td>
-            <td id="move"></td>
-        </tr>
-        <tr class="society-info">
-            <td><a href="societylist.html">음식/여행</a></td>
-            <td><a href="societylist.html">LGBT</a></td>
-            <td><a href="societylist.html">종교</a></td>
-            <td><a href="societylist.html">사회운동</a></td>
-        </tr>
-    </table>
-</div>
+            nav .navbar-nav li a:hover { background: none; color: #2ba560; }
+            nav .navbar-nav li a:focus { background: none; color: #2ba560; outline: 0; }
+
+            nav .navbar-nav li{
+                height: 45px;
+                display: flex;
+                align-items: center;
+            }
+
+            /*nav .navbar-nav #join{
+                background-color: rgb(51, 204, 204);
+                border-radius: 5px;
+                margin-left: 10px;
+            }*/
+
+            .page-Home{
+                position: relative;
+                z-index: 0;
+                background-image: url("../../static/dongzip/images/balloons.jpg");
+                background-repeat: no-repeat;
+                padding-top: 100px;
+                padding-bottom: 150px;
+                box-sizing: border-box;
+                color: white;
+                text-shadow: 0 1px 6px rgba(51, 51, 51, 0.2);
+                margin-top:20px;
+                margin: .67em 0;
+                font-family: sans-serif;
+                text-align: center;
+            }
+
+            .page-Home h1{
+                font-size: 42px;
+                font-family: sans-serif;
+                font-weight: 700;
+                line-height: 54px;
+                display: block;
+                -webkit-margin-before: 0.67em;
+                -webkit-margin-after: 0.67em;
+                -webkit-margin-start: 0px;
+                -webkit-margin-end: 0px;
+            }
+
+            .page-Home p{
+                font-size: 20px;
+                font-family: sans-serif;
+            }
+
+            .badge{
+                width: 40px;
+                height: 40px;
+                font-size: 30px;
+                background-color: gray;
+                color: rgb(51, 204, 204);
+            }
+
+            .show-event{
+                height: 370px;
+                box-sizing: border-box;
+                background-color: rgb(241, 240, 240);
+            }
+
+            .show-event h3{
+                padding-top: 40px;
+                padding-left: 20px;
+                text-align: left;
+                color: black;
+                font-size: 30px;
+            }
+
+            .carousel {
+              width: 100%;
+            }
+
+            .carousel .thumbnail{
+                background-color: transparent;
+                padding-top: 30px;
+            }
+
+            .container-fluid .clubdic{
+                padding-bottom: 200px;
+            }
+
+            .container-fluid h2{
+                padding-top: 50px;
+                padding-bottom: 30px;
+                color: black;
+                text-align: center;
+                font-size: 42px;
+            }
+
+            .thumbnail{
+                width: 295px;
+                height: 230px;
+                border: 0;
+                -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;
+                font-size: 20px;
+                text-align: center;
+            }
+
+            .thumbnail img{
+                width: 100%;
+                height: 180px!important;
+            }
+
+            footer{
+                width: 100%;
+            }
+
+            .footer-bs {
+                background-color: #3c3d41;
+                padding: 60px 40px;
+                color: rgba(255,255,255,1.00);
+                margin-bottom: 20px;
+                border-bottom-right-radius: 6px;
+                border-top-left-radius: 0px;
+                border-bottom-left-radius: 6px;
+            }
+            .footer-bs .footer-brand, .footer-bs .footer-nav, .footer-bs .footer-social, .footer-bs { padding:10px 25px; }
+            .footer-bs .footer-nav, .footer-bs .footer-social, .footer-bs { border-color: transparent; }
+            .footer-bs .footer-brand h2 { margin:0px 0px 10px; }
+            .footer-bs .footer-brand p { padding-top: 15px; font-size:12px; color:rgba(255,255,255,0.70); }
+
+            .footer-bs .footer-nav ul.pages { list-style:none; padding:0px; }
+            .footer-bs .footer-nav ul.pages li { padding:5px 60px;}
+            .footer-bs .footer-nav ul.pages a { color:rgba(255,255,255,1.00); font-weight:bold; text-transform:uppercase; }
+            .footer-bs .footer-nav ul.pages a:hover { color:rgba(255,255,255,0.80); text-decoration:none; }
+            .footer-bs .footer-nav h4 {
+                font-size: 13px;
+                text-transform: uppercase;
+                letter-spacing: 3px;
+                margin-bottom:10px;
+                padding-left: 50px;
+            }
+
+            .footer-bs .footer-nav ul.list { list-style:none; padding:0px; }
+            .footer-bs .footer-nav ul.list li { padding:5px 60px;}
+            .footer-bs .footer-nav ul.list a { color:rgba(255,255,255,0.80); }
+            .footer-bs .footer-nav ul.list a:hover { color:rgba(255,255,255,0.60); text-decoration:none; }
+
+            .footer-bs .footer-social ul { list-style:none; padding:0px; }
+            .footer-bs .footer-social h4 {
+                font-size: 13px;
+                text-transform: uppercase;
+                letter-spacing: 3px;
+            }
+            .footer-bs .footer-social li { padding:5px 60px;}
+            .footer-bs .footer-social a { color:rgba(255,255,255,1.00);}
+            .footer-bs .footer-social a:hover { color:rgba(255,255,255,0.80); text-decoration:none; }
+
+            .footer-bs h4 {
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 3px;
+                margin-bottom:10px;
+                padding-left: 30px;
+            }
+            .footer-bs p { font-size:12px; color:rgba(255,255,255,0.70); }
+
+            @media (min-width: 768px) {
+                .footer-bs .footer-nav, .footer-bs .footer-social, .footer-bs { border-left:solid 1px rgba(255,255,255,0.10); }
+            }
 
 
 
-<a href="/dongzip/regist">
-    <input type="submit" id="d" value="d IN">
-</a>
+            /*media query: navbar*/
 
-<a href="/dongzip/school_list"s>
- <input type="submit" id="school_list" value="school_list">
-</a>
+            @media (min-width: 767px) and (max-width: 946px) {
+                .collapse {
+                    display: none !important;
+                }
+                .container-fluid{
+                    display: flex;
+                    flex-wrap: nowrap;
+                }
 
-<a href="/dongzip/society_regist">
-    <input type="submit" id="society_regist" value="society_regist">
-</a>
+                .navbar-right{
+                    flex-shrink: 0;
+                }
+            }
 
-<a href="/dongzip/society_search">
-    <input type="submit" id="society_search" value="society_search">
-</a>
 
-<a href="/dongzip/member_regist">
-    <input type="submit" id="member_regist" value="member_regist">
-</a>
-{% endblock %}
 
+
+        </style>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="try4.html" title="Comiety"></a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#societylist.html">동아리</a></li>
+                    <li><a href="#societyregist.html">동아리 등록</a></li>
+                    <li><a href="#schoollist.html">학교로 검색</a></li>
+                    <li><a href="#myprofile.html">내 페이지</a></li>
+                    <li><a href="#notification.html">알림</a></li>
+                    <li><a href="#login.html"><span class="glyphicon glyphicon-log-in"></span> 로그인</a></li>
+                    <li id="join"><span class="glyphicon glyphicon-user"></span><input type="button" value="가입하기" id="buttonjoin" onclick="location.href='{% url "dongzip:login" %}'"></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="page-Home">
+                <h1><strong>무엇을 좋아하시나요?</strong></h1>
+                <p><strong><span class="badge">0</span> 학교 <span class="badge">0</span> 동아리 <span class="badge">0</span> 교류전이 오가는</strong></p>
+                <p><strong>교류의 장, 동집에 오신 것을 환영합니다!</strong></p>
+        </div>
+
+        <div class="show-event">
+            <h3><strong>예정된 행사</strong></h3>
+            <div class="carousel" data-flickity='{ "initialIndex": 1 }' data-flickity='{"wrapAround"=true}' contain>
+                <div class="carousel-image">
+                    <div class="thumbnail">
+                        <a href="event.html" target="_blank">
+                            <img src="../../static/dongzip/images/frogphoto.jpg" alt="Event1">
+                            <div class="caption">
+                                <p>Event1</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="carousel-image">
+                    <div class="thumbnail">
+                        <a href="event.html" target="_blank">
+                            <img src="../../static/dongzip/images/frog2.jpg" alt="Event2">
+                            <div class="caption">
+                                <p>Event2</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="carousel-image">
+                    <div class="thumbnail">
+                        <a href="event.html" target="_blank">
+                            <img src="../../static/dongzip/images/frog4.jpg" alt="Event3">
+                            <div class="caption">
+                                <p>Event3</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="carousel-image">
+                    <div class="thumbnail">
+                        <a href="event.html" target="_blank">
+                            <img src="../../static/dongzip/images/kermit1.jpg" alt="Event4">
+                            <div class="caption">
+                                <p>Event4</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="carousel-image">
+                    <div class="thumbnail">
+                        <a href="event.html" target="_blank">
+                            <img src="../../static/dongzip/images/kermit2.jpg" alt="Event5">
+                            <div class="caption">
+                                <p>Event5</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="clubdic">
+                <h2><strong>동아리 탐구 사전</strong></h2>
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                  <div class="thumbnail col1">
+                    <a href="societylist.html" target="_blank">
+                      <img src="../../static/dongzip/images/sports.jpg" alt="Sports">
+                      <div class="caption">
+                        <p><strong>스포츠</strong></p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                  <div class="thumbnail col2">
+                    <a href="societylist.html" target="_blank">
+                      <img src="../../static/dongzip/images/academics.jpg" alt="Academics">
+                      <div class="caption">
+                        <p><strong>학술</strong></p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                  <div class="thumbnail col3">
+                    <a href="societylist.html" target="_blank">
+                      <img src="../../static/dongzip/images/show.jpg" alt="Show">
+                      <div class="caption">
+                        <p><strong>공연예술</strong></p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                  <div class="thumbnail col4">
+                    <a href="societylist.html" target="_blank">
+                      <img src="../../static/dongzip/images/volunteer.png" alt="Volunteer">
+                      <div class="caption">
+                        <p><strong>봉사</strong></p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                  <div class="thumbnail col1">
+                    <a href="societylist.html" target="_blank">
+                      <img src="../../static/dongzip/images/language2.png" alt="Language">
+                      <div class="caption">
+                        <p><strong>언어와 문화</strong></p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                  <div class="thumbnail col2">
+                    <a href="societylist.html" target="_blank">
+                      <img src="../../static/dongzip/images/technology.png" alt="Technology">
+                      <div class="caption">
+                        <p><strong>기술</strong></p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                  <div class="thumbnail col3">
+                    <a href="societylist.html" target="_blank">
+                      <img src="../../static/dongzip/images/photography.jpg" alt="Art">
+                      <div class="caption">
+                        <p><strong>창작예술</strong></p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                  <div class="thumbnail col4">
+                    <a href="societylist.html" target="_blank">
+                      <img src="../../static/dongzip/images/movie.jpg" alt="Hobby">
+                      <div class="caption">
+                        <p><strong>취미와 교양</strong></p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                  <div class="thumbnail col1">
+                    <a href="societylist.html" target="_blank">
+                      <img src="../../static/dongzip/images/travel.jpg" alt="Travel">
+                      <div class="caption">
+                        <p><strong>음식/여행</strong></p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                  <div class="thumbnail col2">
+                    <a href="societylist.html" target="_blank">
+                      <img src="../../static/dongzip/images/lgbt.jpg" alt="LGBT">
+                      <div class="caption">
+                        <p><strong>LGBT</strong></p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                  <div class="thumbnail col3">
+                    <a href="societylist.html" target="_blank">
+                      <img src="../../static/dongzip/images/religion.jpg" alt="Religion">
+                      <div class="caption">
+                        <p><strong>종교</strong></p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                  <div class="thumbnail col4">
+                    <a href="societylist.html" target="_blank">
+                      <img src="../../static/dongzip/images/socmove.jpg" alt="SocialMovement">
+                      <div class="caption">
+                        <p><strong>사회운동</strong></p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer-bs">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-12 footer-brand animated fadeInLeft">
+                    <h2>DONGZIP</h2>
+                    <p>다양한 사람들과 더 많은 교류를 할 수 있는 만남의 장, 동집입니다! 동아리 검색을 통해서 같은 관심사를 가진 다른 동아리들을 만날 수 있다면 어떨까요? 각 동아리별 행사 일정을 참고해서 다채로운 활동을 즐기면 어떨까요? 이러한 고민을 현실화하기 위해서 만든 사이트입니다.</p>
+                    <p>&copy;2017 COMIETY, All rights reserved</p>
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-12 footer-nav animated fadeInUp">
+                    <h4>Menu —</h4>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <ul class="pages">
+                            <li><a href="societylist.html">동아리</a></li>
+                            <li><a href="societyregist.html">동아리 등록</a></li>
+                            <li><a href="schoollist.html">학교로 검색</a></li>
+                            <li><a href="myprofile.html">내 페이지</a></li>
+                            <li><a href="notification.html">알림</a></li>
+                            <li><a href="login.html">로그인</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <ul class="list">
+                            <li><a href="aboutus.html">About Us</a></li>
+                            <li><a href="contacts.html">Contacts</a></li>
+                            <li><a href="terms.html">Terms & Condition</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- <div class="col-md-3 col-sm-4 col-xs-2 footer-social animated fadeInDown">
+                    <h4>Follow Us</h4>
+                    <ul>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">RSS</a></li>
+                    </ul>
+                </div> -->
+            </div>
+        </footer>
+
+    </body>
+</html>
