@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    {% for society in societys %}
+        <a href = "{% url 'dongzip:society_detail' society.id %}">
+            {{society.name}} <p>
+        </a>
+{% endfor %}
+</body>
+</html>
