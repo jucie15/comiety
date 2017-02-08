@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        {% load staticfiles %}
+
+        <link rel="stylesheet" href="{% static 'dongzip/css/layout.css' %}">
+        <link rel="stylesheet" href="{% static 'dongzip/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="https://npmcdn.com/flickity@2/dist/flickity.css">
+        <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <style>
+        {% block extra_style %}
+        {% endblock %}
+        </style>
+
+    </head>
+
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="try4.html" title="Comiety"></a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#societylist.html">동아리</a></li>
+                    <li><a href="#societyregist.html">동아리 등록</a></li>
+                    <li><a href="#schoollist.html">학교로 검색</a></li>
+                    <li><a href="#myprofile.html">내 페이지</a></li>
+                    <li><a href="#notification.html">알림</a></li>
+                    <li><a href="#login.html"><span class="glyphicon glyphicon-log-in"></span> 로그인</a></li>
+                    <li id="join"><span class="glyphicon glyphicon-user"></span><input type="button" value="가입하기" id="buttonjoin" onclick="location.href='{% url "dongzip:login" %}'"></li>
+                </ul>
+            </div>
+        </nav>
+
+        {% block content %}
+        {% endblock %}
+
+        <footer class="footer-bs">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-12 footer-brand animated fadeInLeft">
+                    <h2>DONGZIP</h2>
+                    <p>다양한 사람들과 더 많은 교류를 할 수 있는 만남의 장, 동집입니다! 동아리 검색을 통해서 같은 관심사를 가진 다른 동아리들을 만날 수 있다면 어떨까요? 각 동아리별 행사 일정을 참고해서 다채로운 활동을 즐기면 어떨까요? 이러한 고민을 현실화하기 위해서 만든 사이트입니다.</p>
+                    <p>&copy;2017 COMIETY, All rights reserved</p>
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-12 footer-nav animated fadeInUp">
+                    <h4>Menu —</h4>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <ul class="pages">
+                            <li><a href="societylist.html">동아리</a></li>
+                            <li><a href="societyregist.html">동아리 등록</a></li>
+                            <li><a href="schoollist.html">학교로 검색</a></li>
+                            <li><a href="myprofile.html">내 페이지</a></li>
+                            <li><a href="notification.html">알림</a></li>
+                            <li><a href="login.html">로그인</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <ul class="list">
+                            <li><a href="aboutus.html">About Us</a></li>
+                            <li><a href="contacts.html">Contacts</a></li>
+                            <li><a href="terms.html">Terms & Condition</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                (function poll(){
+                    $.ajax({
+                        url: "{% url 'dongzip:index_number_count' %}" , // 요청 url
+                        success: function(data){
+                         //Update your dashboard gauge
+                             $('.badge.school').text(data);
+                            console.log($('.badge.school').text());
+                        }, // 요청이 성공했을 경우
+                        error: function(data){
+                            console.log('error');
+                        }, // 에러가 날 경우
+                        dataType: "json",
+                        timeout: 1500, // 응답 대기 제한 시간
+                        complete: poll, // 요청이 완료된 후 실행 할 아이
+                    });
+                })();
+                </script>
+
+            </div>
+        </footer>
+
+    </body>
+</html>
