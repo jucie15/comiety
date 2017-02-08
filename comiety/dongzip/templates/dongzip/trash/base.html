@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Comiety{% endblock %}</title>
+
+
+
+        {% load staticfiles %}
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:700,300,400">
+        <link rel="stylesheet" href="{% static 'dongzip/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'dongzip/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'dongzip/css/animate.css' %}">
+        <link rel="stylesheet" href="{% static 'dongzip/css/magnific-popup.css' %}">
+        <link rel="stylesheet" href="{% static 'dongzip/css/form-elements.css' %}">
+        <link rel="stylesheet" href="{% static 'dongzip/css/stylenew.css' %}">
+        <link rel="stylesheet" href="{% static 'dongzip/css/media-queries.css' %}">
+        <link rel='stylesheet' href="{% static 'dongzip/css/base.css' %}">
+
+
+        {% block extra_style %}
+
+        {% endblock %}
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <div class="loader">
+            <div class="loader-img"></div>
+        </div>
+
+        <nav class="navbar navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">Comiety</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="top-navbar-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a class="scroll-link" href="{% url 'dongzip:school_list' %}">동아리</a></li>
+                        <li><a class="scroll-link" href="societyregist.html">동아리 등록</a></li>
+                        <li><a class="scroll-link" href="schoollist.html">학교로 검색</a></li>
+                        <li><a class="scroll-link" href="myprofile.html">내 페이지</a></li>
+                        <li><a class="scroll-link" href="notification.html">알림</a></li>
+                        <li><a class="scroll-link" href="login.html">로그인</a></li>
+                        <li><a class="scroll-link" id="join" href="join.html">가입하기</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        {% block content %}
+
+        {% endblock %}
+        <!--[if lt IE 10]>
+            <script src="assets/js/placeholder.js"></script>
+        <![endif]-->
+                <!-- Javascript -->
+        <script src="{% static 'dongzip/js/jquery-1.11.1.min.js' %}"></script>
+        <script src="{% static 'dongzip/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'dongzip/js/jquery.backstretch.min.js' %}"></script>
+        <script src="{% static 'dongzip/js/wow.min.js' %}"></script>
+        <script src="{% static 'dongzip/js/retina-1.1.0.min.js' %}"></script>
+        <script src="{% static 'dongzip/js/jquery.magnific-popup.min.js' %}"></script>
+        <script src="{% static 'dongzip/js/waypoints.min.js' %}"></script>
+        <script src="{% static 'dongzip/js/jquery.countTo.js' %}"></script>
+        <script src="{% static 'dongzip/js/masonry.pkgd.min.js' %}"></script>
+        <script src="{% static 'dongzip/js/scripts.js' %}"></script>
+
+    </body>
+</html>

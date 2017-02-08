@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+
+    {% for school in schools %}
+    <a href = {{ school.id }} >
+        {{ school.name }}</a> <p>
+    {% endfor %}
+</body>
+</html>
