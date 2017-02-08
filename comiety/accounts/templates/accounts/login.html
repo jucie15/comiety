@@ -1,20 +1,130 @@
-{#{% extends "accounts/layout.html" %}#}
 
-{% load socialaccount %}
-{% block content %}
-    <ul>
-        {% for provider in providers %}
-            <li>
-            {% if provider.social_app %}
-                <a href="{% provider_login_url provider.id %}">
-                    {{ provider.name }}
-                </a>
-            {% else %}
-                <a>
-                    {{ provider.name }} 앱이 설정되지 않았습니다.
-                </a>
-            {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <style>
+            body{
+                background-color: ghostwhite;
+            }
+
+            img{
+                width: 350px;
+                margin-top: 10px;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            table{
+                border-spacing: 15px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 20px;
+
+            }
+
+            td{
+                width: 500px;
+                height: 30px;
+                padding: 10px;
+                background-color: white;
+            }
+
+            .loginform td{
+                border: 1px solid lightgray;
+            }
+
+            td input{
+                width: 450px;
+                height: 30px;
+                font-size: 20px;
+                border: 0;
+            }
+
+            .submit{
+                background-color: rgb(51, 204, 204);
+                color: white;
+                font-weight: bold;
+            }
+
+            #submitbig{
+                box-shadow: inset 0px 0px 0px, 0px 1px 0px 0px rgb(25, 100, 100), 0px 2px 2px #999;
+                border: 0px;
+            }
+
+            #Facebook{
+                background-color: rgb(59, 89, 152);
+                text-align: center;
+                box-shadow: inset 0px 0px 0px, 0px 1px 0px 0px rgb(30, 40, 70), 0px 2px 2px #999;
+            }
+
+            #Facebook a{
+                color: white;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+            #Kakao{
+                background-color: rgb(252, 212, 17);
+                text-align: center;
+                box-shadow: inset 0px 0px 0px, 0px 1px 0px 0px rgb(120, 130, 9), 0px 2px 2px #999;
+            }
+
+            #Kakao a{
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+
+        </style>
+    </head>
+
+    <body>
+        <img src="/static/dongzip/images/logocomietypng.png">
+
+        <table class="loginform">
+            <form method="POST">
+                <tr>
+                    <td>
+                        <input type="text" name="id" placeholder="아이디">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="password" name="password" placeholder="비밀번호">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="submit" id="submitbig">
+                        <input type="submit" value="로그인" class="submit">
+                    </td>
+                </tr>
+            </form>
+        </table>
+
+        <table>
+            {% load socialaccount %}
+            {% block content %}
+                {% for provider in providers %}
+                    <tr>
+                        <td id="{{ provider.name }}" >
+                            {% if provider.social_app %}
+                                <a href="{% provider_login_url provider.id %}">
+                                    {{ provider.name }}
+                                    으로 로그인하기
+                                </a>
+                            {% else %}
+                                <a>
+                                    {{ provider.name }} 앱이 설정되지 않았습니다.
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endblock %}
+
+        </table>
+
+    </body>
+</html>
