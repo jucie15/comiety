@@ -4,6 +4,7 @@ from .models import School, Society, Profile, Event
 from .forms import *
 from django.shortcuts import redirect, render
 from django.db.models import Q
+from django.contrib.gis.measure import D
 import json
 import time
 
@@ -32,7 +33,7 @@ def member_info_regist(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST)
         if form.is_valid():
-            member = form.save()
+            member = form.save(commit = False)
             # reverse('dongzip:society_list', args=[society.id]). => "/soceity/1/""
             # resolve_url('dongzip:society_list', society.id).    => "/soceity/1/"
             # redirect('dongzip:society_list', society.id)        => HttpResponse
@@ -73,21 +74,35 @@ def society_detail(request, id):
             'society' : society,
         })
 
-
 def society_search(request):
     # 동아리 검색
     '''
         학교 이름도 키워드로 넣어야 함 더러운 방법 뿐인가??
         자동완성 기능 넣기
     '''
+
     if request.method == 'GET':
         keyword = request.GET.get('q','')
+        distance = request.GET.get('distance')
+        school_name = request.GET.get('school')
 
-        societys = Society.objects.filter(
-            Q(description__icontains = keyword) | Q(name__icontains = keyword))
+        school_pnt = School.objects.get(name = school_name).point
+
+        school_list = School.objects.filter(
+            point__distance_lte = (school_pnt, D(km = distance)))
+
+        school_society_list = []
+        for school in school_list:
+            society = Society.objects.filter(school = school)
+            school_society_list.append(society)
+
+        print(school_society_list)
+        search_society_list = Society.objects.filter(
+                Q(description__icontains = keyword) | Q(name__icontains = keyword) | Q(school__name__icontains = keyword))
+
 
         context = {}
-        context['societys'] = societys
+        context['search_society_list'] = search_society_list
         context['keyword'] = keyword
 
         return render(request, 'dongzip/society_search.html', context)
@@ -107,6 +122,7 @@ def society_regist(request):
         form = SocietyForm()
     return render(request, 'dongzip/society_regist.html', {'form' : form})
 
+
 def ajax_counter(request):
     # 메인페이지 대쉬보드 카운트
 
@@ -124,4 +140,3 @@ def ajax_counter(request):
 
     data = json.dumps(count_json)# json형식을 씌워 넘겨준다
     return HttpResponse(data)
-
