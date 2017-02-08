@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.gis',
 
         #thirdparty_apps
     'allauth',
@@ -51,6 +52,8 @@ INSTALLED_APPS = [
         # local_apps
     'dongzip.apps.DongzipConfig',
     'accounts.apps.AccountsConfig',
+    'geodjango.apps.GeodjangoConfig',
+    'accounts.providers.kakao'
 ]
 
 MIDDLEWARE = [
@@ -88,23 +91,20 @@ WSGI_APPLICATION = 'comiety.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "NAME": "[YOUR_DATABASE_NAME]",
-#         "USER": "[YOUR_USER_NAME]",
-#         "PASSWORD": "",
-#         "HOST": "localhost",
-#         "PORT": "",
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+DATABASES = {
+    'default': {
+         'ENGINE': 'django.contrib.gis.db.backends.postgis',
+         'NAME': 'gustos',
+         'USER': 'gustos',
+    },
+}
 
 
 # Password validation
@@ -163,7 +163,7 @@ ACCOUNT_ADAPTER = 'FBlogin.views.MyAdapter'
 SITE_ID = 1
 
 LOGIN_REDIRECT_URL = '/dongzip/' # 로그인 후 리디렉션할 페이지
-ACCOUNT_LOGOUT_REDIRECT_URL = "/accounts/login"  # 로그아웃 후 리디렉션 할 페이지
+ACCOUNT_LOGOUT_REDIRECT_URL = "/dongzip/"  # 로그아웃 후 리디렉션 할 페이지
 ACCOUNT_LOGOUT_ON_GET = True # 로그아웃 버튼 클릭 시 자동 로그아웃
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
