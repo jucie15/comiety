@@ -449,22 +449,21 @@
                         </ul>
                     </div>
                 </div>
-<<<<<<< HEAD
-=======
                 <script type="text/javascript">
                 (function poll(){
                     $.ajax({
-                        url: "{% url 'dongzip:index_number_count' %}" , // 요청 url
+                        url: "{% url 'dongzip:ajax_counter' %}" , // 요청 url
                         success: function(data){
-                         //Update your dashboard gauge
-                             $('.badge.school').text(data);
-                            console.log($('.badge.school').text());
+                            //update index_dashboard
+                             $('#school_badge').text(data.school_cnt);
+                             $('#society_badge').text(data.society_cnt);
+                             $('#event_badge').text(data.event_cnt);
                         }, // 요청이 성공했을 경우
                         error: function(data){
                             console.log('error');
                         }, // 에러가 날 경우
                         dataType: "json",
-                        timeout: 1500, // 응답 대기 제한 시간
+                        timeout: 2500, // 응답 대기 제한 시간
                         complete: poll, // 요청이 완료된 후 실행 할 아이
                     });
                 })();
@@ -479,7 +478,6 @@
                         <li><a href="#">RSS</a></li>
                     </ul>
                 </div> -->
->>>>>>> 228b3800f1607a680c187525d1619f10740b50fb
             </div>
         </footer>
 

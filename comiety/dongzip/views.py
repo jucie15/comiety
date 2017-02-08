@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import School, Society, Profile
+from .models import School, Society, Profile, Event
 from .forms import *
 from django.shortcuts import redirect, render
+import json
 import time
 
 def index(request):
@@ -101,14 +102,21 @@ def society_regist(request):
         form = SocietyForm()
     return render(request, 'dongzip/society_regist.html', {'form' : form})
 
-def index_number_count(request):
+def ajax_counter(request):
     # 메인페이지 대쉬보드 카운트
-    time.sleep(1) # 응답 대기 시간
-    school_cnt = School.objects.all().count()
-    #mimetype = 'application/json'
 
-    # 깔끔하게 추가 구현 뷰 이름도 바꿀까?
     if request.is_ajax():
-        print(request, school_cnt)
-    return HttpResponse(school_cnt)
+        time.sleep(2) # 응답 대기 시간
+
+        school_cnt = School.objects.all().count()
+        society_cnt = Society.objects.all().count()
+        event_cnt = Event.objects.all().count()
+
+        count_json = {} # 넘겨줄 데이터
+        count_json['school_cnt'] = school_cnt
+        count_json['society_cnt'] = society_cnt
+        count_json['event_cnt'] = event_cnt
+
+    data = json.dumps(count_json)# json형식을 씌워 넘겨준다
+    return HttpResponse(data)
 
