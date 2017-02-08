@@ -72,7 +72,7 @@
     }
 
     #modegroup{
-        margin-left: 150px;
+        margin-left: 80px;
         background-color: gray;
         color: white;
         padding: 8px 8px;
@@ -129,9 +129,9 @@
         </div>
         <div class="search">
 
-            <form action="searchresult.html" method="get">
+            <form action="#" method="get">
 
-            <input type="text" name="keyword" placeholder="전체 동아리" class="keywordselect">
+            <input type="text" name="q" placeholder="전체 동아리" class="keywordselect">
 
             <select name="distance" class=distanceselect>
               <option value="5">5km</option>
@@ -140,15 +140,21 @@
               <option value="20">20km</option>
             </select>
 
-            <select name="location" class=locationselect>
-              <option value="1">서울특별시</option>
-              <option value="2">인천광역시</option>
-              <option value="3">부산광역시</option>
-              <option value="4">광주광역시</option>
+            <select name="school" class=locationselect>
+              <option value="서울대학교">서울대학교</option>
+              <option value="세종대학교">세종대학교</option>
+              <option value="등등">등등</option>
+              <option value="등등">등등</option>
             </select>
+
+            <button type="button" class="btn btn-default" onClick="javascript:this.form.submit();">
+              <span class="glyphicon glyphicon-search"></span> 검색
+            </button>
 
             <a id="modegroup" href="#">그룹들</a>
             <a id="modecalender" href="society_listcal.html">달 력 </a>
+
+            </form>
         </div>
 
         <div class="container-fluid">
@@ -176,4 +182,5 @@
           {% endfor %}
 
         </div>
+
     {% endblock %}
