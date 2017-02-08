@@ -98,7 +98,7 @@
     {% block content %}
         <div class="page-Home">
                 <h1><strong>무엇을 좋아하시나요?</strong></h1>
-                <p><strong><span class="badge" id="school_badge">0</span> 학교 <span class="badge" id="society_badge">0</span> 동아리 <span class="badge" id="event_badge">0</span> 교류전이 오가는</strong></p>
+                <p><strong><span class="badge" id="school_badge">{{schools}}</span> 학교 <span class="badge" id="society_badge">{{societys}}</span> 동아리 <span class="badge" id="event_badge">{{events}}</span> 교류전이 오가는</strong></p>
                 <p><strong>교류의 장, 동집에 오신 것을 환영합니다!</strong></p>
         </div>
 
@@ -313,7 +313,7 @@
                     </div>
                 </div>
                 <script type="text/javascript">
-                (function poll(){
+                $(function poll(){
                     $.ajax({
                         url: "{% url 'dongzip:ajax_counter' %}" , // 요청 url
                         success: function(data){
@@ -329,7 +329,19 @@
                         timeout: 2500, // 응답 대기 제한 시간
                         complete: poll, // 요청이 완료된 후 실행 할 아이
                     });
-                })();
+                });
+
+                $('.badge').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: 4000,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+});
 </script>
 
                 <!-- <div class="col-md-3 col-sm-4 col-xs-2 footer-social animated fadeInDown">

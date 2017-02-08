@@ -8,14 +8,17 @@ import time
 
 def index(request):
     # 인덱스 페이지
-    # schools = School.objects.all()
+    schools = School.objects.all().count()
+    societys = Society.objects.all().count()
+    events = Event.objects.all().count()
+    context = {}
+    context['schools'] = schools
+    context['societys'] = societys
+    context['events'] = events
 
-    # for school in schools:
-    #     school_cnt = Profile.objects.filter(school_id = school.id).count()
-    #     school.member_number = school_cnt
-    #     school.save()
 
-    return render(request, 'dongzip/index.html')
+
+    return render(request, 'dongzip/index.html',context)
 
 
 def member_regist(request):
