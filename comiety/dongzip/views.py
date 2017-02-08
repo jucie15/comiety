@@ -3,30 +3,31 @@ from django.http import HttpResponse
 from .models import School, Society, Profile, Event
 from .forms import *
 from django.shortcuts import redirect, render
+from django.db.models import Q
 import json
 import time
 
 def index(request):
     # 인덱스 페이지
-    schools = School.objects.all().count()
-    societys = Society.objects.all().count()
-    events = Event.objects.all().count()
+    school_cnt = School.objects.all().count()
+    society_cnt = Society.objects.all().count()
+    event_cnt = Event.objects.all().count()
     context = {}
-    context['schools'] = schools
-    context['societys'] = societys
-    context['events'] = events
+    context['school_cnt'] = school_cnt
+    context['society_cnt'] = society_cnt
+    context['event_cnt'] = event_cnt
 
-
-
-    return render(request, 'dongzip/index.html',context)
+    return render(request, 'dongzip/index.html', context)
 
 
 def member_regist(request):
     # 회원 가입
-    ########################################################
-    #auth.user FORM을 따로 만들어서 연동해야하나??
-    #allauth로 페북 가입 후 추가 정보(Profile)만 입력 받아서 저장 혹은 업데이트 해주면되나??
-    ########################################################
+    '''
+        auth.user FORM을 따로 만들어서 연동해야하나??
+        allauth로 페북 가입 후 추가 정보(Profile)만 입력 받아서 저장 혹은 업데이트 해주면되나??
+        페북등으로 가입 후 우리 페이지 가입이 되었는지 어케확인하지?
+        인증비트하나추가할까?
+    '''
 
     if request.method == 'POST':
         form = ProfileForm(request.POST)
@@ -39,9 +40,6 @@ def member_regist(request):
     else:
         form = ProfileForm()
     return render(request, 'dongzip/member_regist.html', {'form' : form})
-
-
-    return render(request, 'dongzip/member_regist.html', {'school', school})
 
 def school_list(request):
     # 전체 학교 리스트
@@ -77,16 +75,20 @@ def society_detail(request, id):
 
 
 def society_search(request):
-    # 동아리 및 학교 검색
-    if request.method == 'POST':
-        name = request.POST['id']
+    # 동아리 검색
+    '''
+        학교 이름도 키워드로 넣어야 함 더러운 방법 뿐인가??
+        자동완성 기능 넣기
+    '''
+    if request.method == 'GET':
+        keyword = request.GET.get('q','')
 
-        schools = School.objects.filter(name__icontains = name)
-        societys = Society.objects.filter(name__icontains = name)
+        societys = Society.objects.filter(
+            Q(description__icontains = keyword) | Q(name__icontains = keyword))
 
         context = {}
-        context['schools'] = schools
         context['societys'] = societys
+        context['keyword'] = keyword
 
         return render(request, 'dongzip/society_search.html', context)
     return render(request, 'dongzip/society_search.html')

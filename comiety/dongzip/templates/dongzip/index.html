@@ -98,7 +98,7 @@
     {% block content %}
         <div class="page-Home">
                 <h1><strong>무엇을 좋아하시나요?</strong></h1>
-                <p><strong><span class="badge" id="school_badge">{{schools}}</span> 학교 <span class="badge" id="society_badge">{{societys}}</span> 동아리 <span class="badge" id="event_badge">{{events}}</span> 교류전이 오가는</strong></p>
+                <p><strong><span class="badge" id="school_badge">{{school_cnt}}</span> 학교 <span class="badge" id="society_badge">{{society_cnt}}</span> 동아리 <span class="badge" id="event_badge">{{event_cnt}}</span> 교류전이 오가는</strong></p>
                 <p><strong>교류의 장, 동집에 오신 것을 환영합니다!</strong></p>
         </div>
 
@@ -331,17 +331,17 @@
                     });
                 });
 
+                // 문제가 있다. 처음에 4로 설정된 후 다시 카운팅 하는 듯
                 $('.badge').each(function () {
-    $(this).prop('Counter',0).animate({
-        Counter: $(this).text()
-    }, {
-        duration: 4000,
-        easing: 'swing',
-        step: function (now) {
-            $(this).text(Math.ceil(now));
-        }
-    });
-});
+                    $(this).prop('Counter',0).animate({
+                        Counter: $(this).text() }, {
+                            duration: 4000,
+                            easing: 'swing',
+                            step: function (now) {
+                                $(this).text(Math.ceil(now));
+                            }
+                        });
+                    });
 </script>
 
                 <!-- <div class="col-md-3 col-sm-4 col-xs-2 footer-social animated fadeInDown">
