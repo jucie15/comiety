@@ -20,7 +20,7 @@ def index(request):
     return render(request, 'dongzip/index.html', context)
 
 
-def member_regist(request):
+def member_info_regist(request):
     # 회원 가입
     '''
         auth.user FORM을 따로 만들어서 연동해야하나??
@@ -39,7 +39,7 @@ def member_regist(request):
             return redirect('dongzip:index')
     else:
         form = ProfileForm()
-    return render(request, 'dongzip/member_regist.html', {'form' : form})
+    return render(request, 'dongzip/member_info_regist.html', {'form' : form})
 
 def school_list(request):
     # 전체 학교 리스트
