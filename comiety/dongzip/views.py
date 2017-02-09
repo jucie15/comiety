@@ -76,6 +76,8 @@ def society_detail(request, id):
 
 def society_search(request):
     # 동아리 검색
+    # 동아리가 소속된 학교 위치 기반으로 필터링 후 키워드 검색
+
     '''
         학교 이름도 키워드로 넣어야 함 더러운 방법 뿐인가??
         자동완성 기능 넣기
@@ -88,25 +90,16 @@ def society_search(request):
 
         school_pnt = School.objects.get(name = school_name).point
 
-        school_list = School.objects.filter(
-            point__distance_lte = (school_pnt, D(km = distance)))
+        condition = Q(description__icontains = keyword) | Q(name__icontains = keyword) | Q(school__name__icontains = keyword)
 
-        school_society_list = []
-        for school in school_list:
-            society = Society.objects.filter(school = school)
-            school_society_list.append(society)
-
-        print(school_society_list)
-        search_society_list = Society.objects.filter(
-                Q(description__icontains = keyword) | Q(name__icontains = keyword) | Q(school__name__icontains = keyword))
-
+        search_society_list = Society.objects.filter(Q(school__point__distance_lte=(school_pnt, D(km = distance))), condition)
 
         context = {}
         context['search_society_list'] = search_society_list
         context['keyword'] = keyword
 
-        return render(request, 'dongzip/society_search.html', context)
-    return render(request, 'dongzip/society_search.html')
+        return render(request, 'dongzip/test/society_search.html', context)
+    return render(request, 'dongzip/test/society_search.html')
 
 def society_regist(request):
     # 동아리 등록
