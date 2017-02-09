@@ -174,8 +174,12 @@
 
         <div class="container-fluid">
 
-            <h3 style="padding-left:30px; padding-top:25px;">{{keyword_display}}</h3>
-          {% for school in schools %}
+            <h3 style="padding-left:30px; padding-top:25px;">
+                {% if keyword != '' %}
+                    {{ keyword }} 검색 결과입니다.
+                {% endif %}
+            </h3>
+          {% for school in school_list %}
             <div class="col-md-3 col-sm-4 col-xs-6">
               <div class="thumbnail">
                 <a href="{% url 'dongzip:school_detail' school.id %}" target="_blank">
@@ -191,6 +195,11 @@
         </div>
 
         <script type="text/javascript">
+
+    <!--
+        코드 정리 및 autocomplete 구조 공부
+        에러 확인 후 수
+    -->
             $(function(){
         $('#search_sch').autocomplete({
             source:'/dongzip/school_list/ajax_search/',
@@ -198,30 +207,27 @@
         });
     });
 
-                    $(document).ready(function(){
-        var $body = $(document.body), //자주 사용하기에 캐시되게 변수에 넣어준다
-            $top = '';
+        $(document).ready(function(){
+            var $body = $(document.body), //자주 사용하기에 캐시되게 변수에 넣어준다
+                $top = '';
 
-        $top=$('<div>') //div 를 만들고
-                .addClass('top') //top className을 주고
-                .hide() //처음에는 숨겨둔다
-                .click(function(){  // 클릭이 이벤트 할당
-                    $body.animate({ scrollTop: 0 }); //animation효과로 scollTop=0으로 이동
-                })
-                .appendTo($body); // body에 top을 넣는다
-
-        //윈도우의 스크롤위치로 위로가기 버튼을 보여줘야기에 핸들러 작성
-        $(window).scroll(function(){
-
-            var y = $(this).scrollTop();
-
-            if(y >= 0){
-                $top.fadeIn();
-            }
-            else {
-                $top.fadeOut();
-            }
-        });
+            $top=$('<div>') //div 를 만들고
+                    .addClass('top') //top className을 주고
+                    .hide() //처음에는 숨겨둔다
+                    .click(function(){  // 클릭이 이벤트 할당
+                        $body.animate({ scrollTop: 0 }); //animation효과로 scollTop=0으로 이동
+                    })
+                    .appendTo($body); // body에 top을 넣는다
+            //윈도우의 스크롤위치로 위로가기 버튼을 보여줘야기에 핸들러 작성
+            $(window).scroll(function(){
+                var y = $(this).scrollTop();
+                if(y >= 0){
+                    $top.fadeIn();
+                }
+                else {
+                    $top.fadeOut();
+                }
+            });
     });
         </script>
     {% endblock %}

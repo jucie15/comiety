@@ -68,14 +68,10 @@ def member_info_regist(request):
 def school_list(request):
     # 전체 학교 리스트
     keyword = request.GET.get('keyword','')
-    result = School.objects.all().filter(name__contains=keyword)
-    keyword_display=""
-    schools = School.objects.all()
-    if keyword:
-        schools = result
-        keyword_display = request.GET.get('keyword','')+" 에 대한 검색결과입니다."
+    school_list = School.objects.all().filter(name__contains=keyword)
 
-    context={'keyword' : keyword, 'schools':schools, 'keyword_display':keyword_display}
+    context={'keyword' : keyword, 'school_list':school_list,}
+
     return render(request, 'dongzip/school_list.html', context )
 
 def school_detail(request, id):
@@ -123,10 +119,12 @@ def society_search(request):
         distance = request.GET.get('distance')
         school_name = request.GET.get('school')
 
-        school_pnt = School.objects.get(name = school_name).point
+        school_pnt = School.objects.get(name = school_name).point # 지정 학교의 좌표
 
+        # 키워드 검색 쿼리문
         condition = Q(description__icontains = keyword) | Q(name__icontains = keyword) | Q(school__name__icontains = keyword)
 
+        # 지정 학교에서 distance 내에 있는 동아리들을 필터한 후 condition조건에 맞는 동아리만 필터링
         search_society_list = Society.objects.filter(Q(school__point__distance_lte=(school_pnt, D(km = distance))), condition)
 
         context = {}
@@ -157,9 +155,7 @@ def ajax_search(request):
         results = []
         for school in school_list:
             school_json = {}
-            school_json['id'] = school.id
             school_json['label'] = school.name
-            school_json['value'] = school.name
             results.append(school_json)
         data = json.dumps(results)
     else:
