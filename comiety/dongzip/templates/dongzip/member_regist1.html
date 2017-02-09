@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <style>
+            img{
+                width: 250px;
+                margin-top: 10px;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            h1{
+                text-align: center;
+            }
+
+            .container{
+                /*border: solid;*/
+                width: 450px;
+                margin-right: auto;
+                margin-left: auto;
+                margin-bottom: 30px;
+            }
+
+            button{
+                display: inline-block;
+                width: 100%;
+                margin-bottom: 15px;
+                height: 40px;
+                font-size: 15px;
+                border: 0px;
+                border-radius: 5px;
+            }
+
+            #Facebook{
+                background-color: rgb(59, 89, 152);
+                text-align: center;
+                box-shadow: inset 0px 0px 0px, 0px 1px 0px 0px rgb(30, 40, 70), 0px 2px 2px #999;
+            }
+
+            #Facebook a{
+                color: white;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+            #Kakao{
+                background-color: rgb(252, 212, 17);
+                text-align: center;
+                box-shadow: inset 0px 0px 0px, 0px 1px 0px 0px rgb(120, 130, 9), 0px 2px 2px #999;
+            }
+
+            #Kakao a{
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+            table{
+                display: inline-block;
+                box-sizing: border-box;
+                border-spacing: 0px;
+                margin-left: auto;
+                margin-right: auto;
+
+            }
+
+            td{
+                width: 450px;
+                height: 30px;
+                padding-bottom: 10px;
+                background-color: white;
+                font-weight: bold;
+                font-size: 15px;
+            }
+
+            td input{
+                width: 100%;
+                height: 40px;
+                font-size: 20px;
+                border: 1px;
+                border-radius: 5px;
+                background-color: rgb(247, 247, 245);
+            }
+
+            #join_submit{
+                background-color: rgb(51, 204, 204);
+                cursor: pointer;
+            }
+
+            #terms_privacy{
+                text-align: center;
+                font-size: 13px;
+            }
+
+            hr{
+                width: 350px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .to_login{
+                text-align: center;
+                font-size: 12px;
+            }
+
+
+        </style>
+    </head>
+
+    <body>
+
+        <img src="/static/dongzip/images/logocomietypng.png">
+
+        <h1>가입하기</h1>
+        <div class="container">
+            {% load socialaccount %}
+            {% block content %}
+                {% for provider in providers %}
+                    <button type="button" class="btn btn-primary" id="{{ provider.name }}">
+                        {% if provider.social_app %}
+                            <a href="{% provider_login_url provider.id %}">
+                                {{ provider.name }}
+                                으로 가입하기
+                            </a>
+                        {% else %}
+                            <a>
+                                {{ provider.name }} 앱이 설정되지 않았습니다.
+                            </a>
+                        {% endif %}
+                    </button>
+                    <br>
+                {% endfor %}
+            {% endblock %}
+        </div>
+
+        <div class="container">
+            <table class="joinform">
+                <form method="POST">
+                    <tr>
+                        <td>
+                            이름<br>
+                            <input type="text" name="name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            이메일 주소<br>
+                            <input type="text" name="email">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            비밀번호<br>
+                            <input type="password" name="password">
+                        </td>
+                    </tr>
+                </form>
+            </table>
+        </div>
+        <div class="container">
+            <a href="member_regist2.html"><button type="button" class="btn btn-primary" id="join_submit">가입하기</button></a>
+        </div>
+        <div class="container" id="terms_privacy">
+            By clicking "Sign up", you confirm that you accept our <a href="#terms.html">Terms of Service</a> and <a href="#privacy.html">Privacy Policy</a>.
+        </div>
+
+        <hr>
+        <div class="to_login">
+            이미 회원이신가요? <a href="../../../accounts">로그인</a>
+        </div>
+
+    </body>
+</html>
