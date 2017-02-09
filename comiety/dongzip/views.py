@@ -2,6 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import School, Society, Profile
 from .forms import *
+from django.contrib.auth.views import login as auth_login
+from allauth.socialaccount.models import SocialApp
+from allauth.socialaccount.templatetags.socialaccount import get_providers
+from django.conf import settings
 from django.shortcuts import redirect, render
 import time
 
@@ -34,10 +38,24 @@ def member_regist(request):
             return redirect('dongzip:index')
     else:
         form = ProfileForm()
-    return render(request, 'dongzip/member_regist.html', {'form' : form})
 
 
-    return render(request, 'dongzip/member_regist.html', {'school', school})
+    providers = []
+    for provider in get_providers():
+        try:
+            provider.social_app = SocialApp.objects.get(provider=provider.id, sites=settings.SITE_ID)
+        except SocialApp.DoesNotExist:
+            provider.social_app = None
+        providers.append(provider)
+
+    return render(request, 'dongzip/member_regist1.html', {'providers': providers})
+
+    return render(request, 'dongzip/member_regist1.html', {'form' : form})
+
+
+    return render(request, 'dongzip/member_regist1.html', {'school', school})
+
+
 
 def school_list(request):
     # 전체 학교 리스트
