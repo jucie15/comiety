@@ -8,10 +8,9 @@
                 margin:0;
                 min-width: 800px;
                 font-family: arial;
-                background-color: ghostwhite;
             }
 
-            .nav {
+            ul {
                 display: flex;
                 list-style-type: none;
                 margin: 0;
@@ -23,16 +22,16 @@
                 justify-content: center;
             }
 
-            .navi {
+            li {
                 flex-shrink: 0;
                 border-right:1px solid white;
             }
 
-            .navi:last-child {
+            li:last-child {
                 border-right: none;
             }
 
-            .navi a {
+            li a {
                 display: block;
                 color: black;
                 text-align: center;
@@ -40,7 +39,7 @@
                 text-decoration: none;
             }
 
-            .navi a:hover:not(.active) {
+            li a:hover:not(.active) {
                 background-color: none;
             }
 
@@ -48,7 +47,7 @@
                 background-color: none;
             }
 
-            #join {
+            .join {
                 color: white;
                 background-color: rgb(51, 204, 204);
                 border-radius: 10px;
@@ -163,18 +162,59 @@
                 text-align: right;
             }
 
-            #modegroup{
-                background-color: black;
-                color: white;
-                padding: 14px 15px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                border: 1px solid gray;
-                border-right: none;
+            .result{
+                border-collapse:separate;
+                border-spacing:30px 20px;
             }
 
-             #modecalender{
+            .result td{
+                width: 225px;
+                height: 120px;
+                font-size: 1.2rem;
+                color: white;
+                padding: 15px;
+                vertical-align: bottom;
+                border: 1px solid lightgray;
+            }
+
+            .det{
+                color: lightgray;
+                font-size: 0.7rem;
+            }
+
+            /*사진 추가!!*/
+
+            #list1{
+                background-image: url(../../static/images/list1.jpg);
+                background-size: contain;
+            }
+
+            #list2{
+                background-image: url(../../static/images/list2.jpg);
+                background-size: contain;
+            }
+
+            #list3{
+                background-image: url(../../static/images/list3.jpg);
+                background-size: contain;
+            }
+
+            #list4{
+                background-image: url(../../static/images/list4.jpg);
+                background-size: contain;
+            }
+
+            #list5{
+                background-image: url(../../static/images/list5.jpg);
+                background-size: contain;
+            }
+
+            #list6{
+                background-image: url(../../static/images/list6.jpg);
+                background-size: contain;
+            }
+
+            #modegroup{
                 background-color: gray;
                 color: white;
                 padding: 14px 15px;
@@ -185,86 +225,15 @@
                 box-shadow: inset 1px 1px 1px;
             }
 
-            /*캘린더*/
-
-            .calender{
-                background-color: white;
-            }
-
-            .date{
-                font-weight: bold;
-                font-size: 0.8rem;
-                margin-left: 150px;
-            }
-
-            .month {
-                padding: 1px 1px;
-                width: 100%;
-                color: #666;
+            #modecalender{
+                background-color: black;
+                color: white;
+                padding: 14px 15px;
                 text-align: center;
-            }
-
-            .weekdays li {
+                text-decoration: none;
                 display: inline-block;
-                width: 13.6%;
-                color: #666;
-                text-align: center;
-                font-size: 10px;
-            }
-
-            .days li {
-                list-style-type: none;
-                display: inline-block;
-                width: 13.6%;
-                text-align: center;
-                margin-bottom: 5px;
-                font-size:10px;
-                color: #777;
-            }
-            /*캘린더 끝*/
-
-            .event{
                 border: 1px solid gray;
-                width: 600px;
-                border-collapse: collapse;
-                color: #33334d;
-                margin-right: auto;
-                margin-left: auto;
-                background-color: white;
-            }
-
-            .time{
-                width: 80px;
-                text-align: center;
-                padding: 20px;
-                /*border-right: 1px solid gray;*/
-                border-bottom: 1px solid gray;
-                color: gray;
-            }
-
-            .eventdetail{
-                padding-left: 20px;
-                padding-top: 15px;
-                padding-bottom: 15px;
-                border-bottom: 1px solid gray;
-                line-height: 10px;
-            }
-
-            .clubname{
-                font-weight: bold;
-                font-size: 0.8rem;
-                color: gray;
-            }
-
-            .eventname{
-                font-weight: bold;
-                font-size: 1rem;
-            }
-
-            .eventparti{
-                font-size: 0.9rem;
-                margin: 0px;
-                color: gray;
+                border-left: none;
             }
 
         </style>
@@ -273,16 +242,16 @@
 
     <body>
 
-        <ul class="nav">
-          <li class="navi" style="float: left;"><a class="reg" href="societyregist.html">동아리 등록</a></li>
-          <li class="navi" style="float: left;"><a href="index.html"><img src="추가필요" alt="logo"></a></li>
-          <li class="navi"><a href="index.html">홈</a></li>
-          <li class="navi"><a href="societylist.html">동아리</a></li>
-          <li class="navi"><a href="schoollist.html">학교로 검색</a></li>
-          <li class="navi"><a href="myprofile.html">내 페이지</a></li>
-          <li class="navi"><a href="notification.html">알림</a></li>
-          <li class="navi"><a href="login.html">로그인</a></li>
-          <li class="navi"><a id="join" href="memberregist.html">가입하기</a></li>
+        <ul>
+          <li style="float: left;"><a class="reg" href="societyregist.html">동아리 등록</a></li>
+          <li style="float: left;"><a href="index.html"><img src="추가필요" alt="logo"></a></li>
+          <li><a href="index.html">홈</a></li>
+          <li><a href="societylist.html">동아리</a></li>
+          <li><a href="schoollist.html">학교로 검색</a></li>
+          <li><a href="myprofile.html">내 페이지</a></li>
+          <li><a href="notification.html">알림</a></li>
+          <li><a href="login.html">로그인</a></li>
+          <li><a class="join" href="memberregist.html">가입하기</a></li>
         </ul>
 
         <!-- 여기까지는 navigationbar입니다-->
@@ -357,12 +326,12 @@
                         }
                 });
                     </script>
-
+                    <!--  -->
 
                     </td>
                     <td style="text-align:right;padding-right: 20px">
-                        <a class="mode" id="modegroup" href="society_listgroup.html">그룹들</a>
-                        <a class="mode" id="modecalender" href="#">달 력 </a>
+                        <a class="mode" id="modegroup" href="#">그룹들</a>
+                        <a class="mode" id="modecalender" href="society_listcal.html">달 력 </a>
                         </table>
 
                     </td>
@@ -370,81 +339,60 @@
                 </table>
 
                 <br>
-                    <!-- 캘린더 -->
-                    <div class="calender">
-                        <div class="month">
-                              August 2016
-                        </div>
 
-                        <ul class="weekdays">
-                          <li>Mo</li>
-                          <li>Tu</li>
-                          <li>We</li>
-                          <li>Th</li>
-                          <li>Fr</li>
-                          <li>Sa</li>
-                          <li>Su</li>
-                        </ul>
+                <div id="align">
+                정렬기준
+                    <select id="ddlDropDownList2" style="color:black;">
+                            <option value="1">관련도순</option>
+                            <option value="2">최신순</option>
+                            <option value="3">거리순</option>
+                            <option value="-1">참가인원순</option>
+                        </select>
+                        <input id="txtTextBox" type="text" />
 
-                        <ul class="days">
-                          <li>1</li>
-                          <li>2</li>
-                          <li>3</li>
-                          <li>4</li>
-                          <li>5</li>
-                          <li>6</li>
-                          <li>7</li>
-                          <li>8</li>
-                          <li>9</li>
-                          <li><span class="active">10</span></li>
-                          <li>11</li>
-                          <li>12</li>
-                          <li>13</li>
-                          <li>14</li>
-                          <li>15</li>
-                          <li>16</li>
-                          <li>17</li>
-                          <li>18</li>
-                          <li>19</li>
-                          <li>20</li>
-                          <li>21</li>
-                          <li>22</li>
-                          <li>23</li>
-                          <li>24</li>
-                          <li>25</li>
-                          <li>26</li>
-                          <li>27</li>
-                          <li>28</li>
-                          <li>29</li>
-                          <li>30</li>
-                          <li>31</li>
-                        </ul>
-                    </div>
-                    <!--  캘린더-->
+                    <script>
+                        jQuery(".gfield_select").change(function() {
+                        var val = jQuery(this).val();
+                        var enter = jQuery(this).parent().find('option:selected').text();
+                        var x = jQuery(this).parent();
+                        if (enter ==="Enter a value" || enter === "Enter value"){
+                          var holder = x.find('.holder');
+                          holder.val('');
+                          holder.prop('disabled',false);
+                          holder.focus();
+                        } else {
+                          x.find('.holder').val(x.find('option:selected').text());
+                        }
+                });
+                    </script>
 
-                    <table class="event">
-                        <thead>
-                            <p class="date"> 2016년 10월 11일 </p>
-                        </thead>
-                        <tr>
-                            <td class="time">19:00</td>
-                            <td class="eventdetail"> <div class="clubname"> Deep Learning </div> <br> <div class="eventname"> Deeplearning in Production </div> <br> <div class="eventparti"> 20 명 참가 </div> </td>
-                        </tr>
-                        <tr>
-                            <td class="time">19:00</td>
-                            <td class="eventdetail"> <div class="clubname"> Deep Learning </div> <br> <div class="eventname"> Deeplearning in Production </div> <br> <div class="eventparti"> 20 명 참가 </div> </td>
-                        </tr>
-                        <tr>
-                            <td class="time">19:00</td>
-                            <td class="eventdetail"> <div class="clubname"> Deep Learning </div> <br> <div class="eventname"> Deeplearning in Production </div> <br> <div class="eventparti"> 20 명 참가 </div> </td>
-                        </tr>
-                        <tr>
-                            <td class="time">19:00</td>
-                            <td class="eventdetail"> <div class="clubname"> Deep Learning </div> <br> <div class="eventname"> Deeplearning in Production </div> <br> <div class="eventparti"> 20 명 참가 </div> </td>
-                        </tr>
-                    </table>
+                </div>
 
+                <br>
 
+                <!-- 내용 추가!!  -->
+                <table class="result">
+                    <tr>
+                        <td id="list1">1 <br><div class="det">We're 180players</div> </td>
+                        <td id="list2">2 <br><div class="det">We're 180players</div> </td>
+                        <td id="list3">3 <br><div class="det">We're 180players</div> </td>
+                    </tr>
+                    <tr>
+                        <td id="list4">4 <br><div class="det">We're 180players</div> </td>
+                        <td id="list5">5 <br><div class="det">We're 180players</div> </td>
+                        <td id="list6">6 <br><div class="det">We're 180players</div> </td>
+                    </tr>
+                    <tr>
+                        <td id="list7">7 <br><div class="det">We're 180players</div> </td>
+                        <td id="list8">8 <br><div class="det">We're 180players</div> </td>
+                        <td id="list9">9 <br><div class="det">We're 180players</div> </td>
+                    </tr>
+                    <tr>
+                        <td id="list10">10 <br><div class="det">We're 180players</div> </td>
+                        <td id="list11">11 <br><div class="det">We're 180players</div> </td>
+                        <td id="list12">12 <br><div class="det">We're 180players</div> </td>
+                    </tr>
+                </table>
 
             </div>
             <div class="layouti">
