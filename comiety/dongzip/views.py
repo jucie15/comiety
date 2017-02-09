@@ -45,9 +45,20 @@ def member_regist(request):
 
 def school_list(request):
     # 전체 학교 리스트
+    keyword = request.GET.get('keyword','')
+    result = School.objects.all().filter(name__contains=keyword)
+    keyword_display=""
     schools = School.objects.all()
-    return render(request, 'dongzip/school_list.html', {'schools' : schools} )
+    if keyword:
+        schools = result
+        keyword_display = request.GET.get('keyword','')+" 에 대한 검색결과입니다."
 
+    context={'keyword' : keyword, 'schools':schools, 'keyword_display':keyword_display}
+    return render(request, 'dongzip/school_list.html', context )
+
+def school_detail(request, id):
+    school = School.objects.filter(id=id)
+    return render(request,'dongzip/school_detail.html',{'school':school})
 '''
 학교별 동아리 리스트
 관심사 별 동아리 리스트 별개
@@ -59,6 +70,7 @@ def society_list(request, id):
     return render(request, 'dongzip/society_list.html', {
             'societys' : societys,
         } )
+
 
 '''
 url
@@ -104,6 +116,23 @@ def society_regist(request):
     else:
         form = SocietyForm()
     return render(request, 'dongzip/society_regist.html', {'form' : form})
+
+def ajax_search(request):
+    if request.is_ajax():
+        keyword = request.GET.get('term','')
+        school_list = School.objects.all().filter(name__icontains = keyword)
+        results = []
+        for school in school_list:
+            school_json = {}
+            school_json['id'] = school.id
+            school_json['label'] = school.name
+            school_json['value'] = school.name
+            results.append(school_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
 
 def ajax_counter(request):
     # 메인페이지 대쉬보드 카운트
