@@ -18,7 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^dongzip/', include('dongzip.urls', namespace = 'dongzip')),
+    url(r'^dongzip/', include('dongzip.urls', namespace = 'dongzip'), name='dongzip'),
     url(r'^accounts/', include('allauth.urls')),
-
 ]

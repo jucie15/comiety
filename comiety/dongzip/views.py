@@ -2,6 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import School, Society, Profile, Event
 from .forms import *
+from django.contrib.auth.views import login as auth_login
+from allauth.socialaccount.models import SocialApp
+from allauth.socialaccount.templatetags.socialaccount import get_providers
+from django.conf import settings
 from django.shortcuts import redirect, render
 from django.db.models import Q
 from django.contrib.gis.measure import D
@@ -40,13 +44,43 @@ def member_info_regist(request):
             return redirect('dongzip:index')
     else:
         form = ProfileForm()
+
+
+    providers = []
+    for provider in get_providers():
+        try:
+            provider.social_app = SocialApp.objects.get(provider=provider.id, sites=settings.SITE_ID)
+        except SocialApp.DoesNotExist:
+            provider.social_app = None
+        providers.append(provider)
+
+    return render(request, 'dongzip/member_regist1.html', {'providers': providers})
+
+    return render(request, 'dongzip/member_regist1.html', {'form' : form})
+
+
+    return render(request, 'dongzip/member_regist1.html', {'school', school})
+
+
     return render(request, 'dongzip/member_info_regist.html', {'form' : form})
+
 
 def school_list(request):
     # 전체 학교 리스트
+    keyword = request.GET.get('keyword','')
+    result = School.objects.all().filter(name__contains=keyword)
+    keyword_display=""
     schools = School.objects.all()
-    return render(request, 'dongzip/school_list.html', {'schools' : schools} )
+    if keyword:
+        schools = result
+        keyword_display = request.GET.get('keyword','')+" 에 대한 검색결과입니다."
 
+    context={'keyword' : keyword, 'schools':schools, 'keyword_display':keyword_display}
+    return render(request, 'dongzip/school_list.html', context )
+
+def school_detail(request, id):
+    school = School.objects.filter(id=id)
+    return render(request,'dongzip/school_detail.html',{'school':school})
 '''
 학교별 동아리 리스트
 관심사 별 동아리 리스트 별개
@@ -58,6 +92,7 @@ def society_list(request, id):
     return render(request, 'dongzip/society_list.html', {
             'societys' : societys,
         } )
+
 
 '''
 url
@@ -115,6 +150,22 @@ def society_regist(request):
         form = SocietyForm()
     return render(request, 'dongzip/society_regist.html', {'form' : form})
 
+def ajax_search(request):
+    if request.is_ajax():
+        keyword = request.GET.get('term','')
+        school_list = School.objects.all().filter(name__icontains = keyword)
+        results = []
+        for school in school_list:
+            school_json = {}
+            school_json['id'] = school.id
+            school_json['label'] = school.name
+            school_json['value'] = school.name
+            results.append(school_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
 
 def ajax_counter(request):
     # 메인페이지 대쉬보드 카운트
