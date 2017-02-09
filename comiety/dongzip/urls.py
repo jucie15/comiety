@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^school_detail/(?P<id>\d+)/$', views.school_detail, name = 'school_detail'),
     url(r'^society_search/$', views.society_search, name = 'society_search'),
     url(r'^society_regist/$', views.society_regist, name = 'society_regist'),
+    url(r'^society_list/(?P<id>\d+)/$', views.society_list, name = 'society_list'),
     url(r'^society_detail/(?P<id>\d+)/$', views.society_detail, name = 'society_detail'),
     url(r'^login/$', accounts_views.login, name = 'login'),
     url(r'^ajax_counter/$', views.ajax_counter, name = 'ajax_counter'),
