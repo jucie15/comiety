@@ -6,8 +6,3 @@ class SocietyForm(ModelForm):
         model = Society
         #fields = '__all__'
         fields = ['school', 'name', 'main_tel_number', 'address', 'description', 'users']
-
-class ProfileForm(ModelForm):
-    class Meta:
-        model = Profile
-        fields = '__all__'

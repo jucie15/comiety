@@ -1,5 +1,6 @@
 from django.conf import settings
-from django.contrib.gis.db import models
+from django.db import models
+# from django.contrib.gis.db import models
 from django.utils import timezone
 from django.db.models.signals import post_save
 # Create your models here.
@@ -11,7 +12,7 @@ class School(models.Model):
     member_number = models.IntegerField(default = 0, blank = False, null = False) # 멤버 수
     society_number = models.IntegerField(default = 0 , blank = False, null = False) # 동아리 수
     description = models.TextField(max_length = 512, blank = True, null = True) # 학교 소개
-    point = models.PointField(srid = 4326, null = True, blank = True) # 학교 위치 좌표
+    # point = models.PointField(srid = 4326, null = True, blank = True) # 학교 위치 좌표
 
     def __str__(self):
         return self.name

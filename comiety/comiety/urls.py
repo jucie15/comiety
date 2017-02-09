@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^dongzip/', include('dongzip.urls', namespace = 'dongzip'), name='dongzip'),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^accounts/', include('accounts.urls',namespace='accounts')),
 ]

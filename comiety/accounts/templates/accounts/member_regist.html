@@ -160,9 +160,23 @@
                 </form>
             </table>
         </div>
+
+
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="가입하기" />
+</form>
+
+
+
         <div class="container">
             <a href="member_regist2.html"><button type="button" class="btn btn-primary" id="join_submit">가입하기</button></a>
         </div>
+
+
         <div class="container" id="terms_privacy">
             By clicking "Sign up", you confirm that you accept our <a href="#terms.html">Terms of Service</a> and <a href="#privacy.html">Privacy Policy</a>.
         </div>
