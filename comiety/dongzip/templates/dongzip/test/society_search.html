@@ -5,10 +5,20 @@
 </head>
 <body>
     <h1>동아리, 학교 검색하기</h1>
-   <form action="" method="post">
+   <form action="" method="get">
 {% csrf_token %}
 
-<input type="text" id="name" name="id" placeholder="아이디" method="post" autofocus>
+<input type="text" id="name" name="q" placeholder="아이디" method="post" autofocus>
+<select name="distance" class=distanceselect>
+              <option value="5">5km</option>
+              <option value="10">10km</option>
+              <option value="15">15km</option>
+              <option value="20">20km</option>
+            </select>
+<select name="school" class=distanceselect>
+              <option value="세종대">세종</option>
+              <option value="건국대">건국</option>
+            </select>
 <input type = "submit" value = "검색"/>
 </form>
 
@@ -25,9 +35,9 @@
     {% endif %}
 
     <br/>
-    {% if societys %}
+    {% if search_society_list %}
     <h2>동아리 검색결과</h2>
-    {% for society in societys %}
+    {% for society in search_society_list %}
     <p> {{ society.name }} </p>
     {% endfor %}
 

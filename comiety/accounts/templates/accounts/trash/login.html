@@ -1,0 +1,37 @@
+<!-- {% load socialaccount %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+
+<a href="{% provider_login_url "facebook" method="oauth2" %}">Facebook OAuth2</a>
+
+<a href="{% provider_login_url "kakao" %}">카카오 로그인</a>
+    </body>
+</html>
+
+ -->
+
+
+{#{% extends "accounts/layout.html" %}#}
+
+{% load socialaccount %}
+{% block content %}
+    <ul>
+        {% for provider in providers %}
+            <li>
+            {% if provider.social_app %}
+                <a href="{% provider_login_url provider.id %}">
+                    {{ provider.name }}
+                </a>
+            {% else %}
+                <a>
+                    {{ provider.name }} 앱이 설정되지 않았습니다.
+                </a>
+            {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

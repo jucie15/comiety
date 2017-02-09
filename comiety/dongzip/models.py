@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.db import models
+from django.contrib.gis.db import models
 from django.utils import timezone
 from django.db.models.signals import post_save
 # Create your models here.
@@ -11,7 +11,7 @@ class School(models.Model):
     member_number = models.IntegerField(default = 0, blank = False, null = False) # 멤버 수
     society_number = models.IntegerField(default = 0 , blank = False, null = False) # 동아리 수
     description = models.TextField(max_length = 512, blank = True, null = True) # 학교 소개
-    logo_image = models.ImageField(upload_to = 'uploaded/school_profile/' , null = True)
+    point = models.PointField(srid = 4326, null = True, blank = True) # 학교 위치 좌표
 
     def __str__(self):
         return self.name
@@ -31,7 +31,7 @@ class Profile(models.Model):
     #favorite = 태그로 ㄱ?
     tel_number = models.CharField(max_length = 32, blank = False, null = False) # 전화번호
 
-    profile_image = models.ImageField(upload_to = 'uploaded/user_profile/' , null = True)
+    profile_image = models.ImageField(upload_to = 'uploaded/user_profile/', null = True, blank = True)
 
     def __str__(self):
         return self.user.username
@@ -54,8 +54,8 @@ class Society(models.Model):
     address = models.CharField(max_length = 256, blank = False, null = False) # 동아리 주소
     description = models.TextField(max_length = 512, blank = True, null = True) # 동아리 소개
     users = models.ManyToManyField(Profile) # USER TABLE과 다대다 관계 형성
-    logo_image = models.ImageField(upload_to = 'uploaded/society_profile/', null = True)
-    background_image = models.ImageField(upload_to = 'uploaded/society_profile/', null = True)
+    logo_image = models.ImageField(upload_to = 'uploaded/society_profile/', null = True, blank = True)
+    background_image = models.ImageField(upload_to = 'uploaded/society_profile/', null = True, blank = True)
 
     #category  = models.CharField # 관심사 및 카테고리를 따로 빼야하나?
 

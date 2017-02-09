@@ -20,7 +20,7 @@ from accounts import views as accounts_views
 
 urlpatterns = [
     url(r'^$', views.index, name = 'index'),
-    url(r'^member_regist/$', views.member_regist, name = 'member_regist' ),
+    url(r'^member_info_regist/$', views.member_info_regist, name = 'member_info_regist' ),
     url(r'^school_list/$', views.school_list, name = 'school_list'),
     url(r'^school_list/ajax_search/$', views.ajax_search, name = 'ajax_search'),
     url(r'^school_detail/(?P<id>\d+)/$', views.school_detail, name = 'school_detail'),
