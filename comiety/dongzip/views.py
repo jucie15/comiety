@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import School, Society, Profile, Event
+from geodjango.models import SchoolLocation
 from .forms import *
 from django.contrib.auth.views import login as auth_login
 from allauth.socialaccount.models import SocialApp
@@ -72,8 +73,8 @@ def society_search(request):
     # 동아리가 소속된 학교 위치 기반으로 필터링 후 키워드 검색
 
     '''
-        학교 이름도 키워드로 넣어야 함 더러운 방법 뿐인가??
         자동완성 기능 넣기
+        혹시나 학교의 좌표 받아올때(get() 사용) 값이 없을 경우 예외 처리 혹시나
     '''
 
     if request.method == 'GET':
@@ -81,13 +82,18 @@ def society_search(request):
         distance = request.GET.get('distance')
         school_name = request.GET.get('school')
 
-        school_pnt = School.objects.get(name = school_name).point # 지정 학교의 좌표
-
         # 키워드 검색 쿼리문
         condition = Q(description__icontains = keyword) | Q(name__icontains = keyword) | Q(school__name__icontains = keyword)
 
-        # 지정 학교에서 distance 내에 있는 동아리들을 필터한 후 condition조건에 맞는 동아리만 필터링
-        search_society_list = Society.objects.filter(Q(school__point__distance_lte=(school_pnt, D(km = distance))), condition)
+        if school_name == '':
+            #학교 주변이 아닌 전체 검색을 원할 경우
+            search_society_list = Society.objects.filter(condition)
+        else:
+            #학교 주변 검색을 원할 경우
+            school_pnt = SchoolLocation.objects.get(school__name = school_name).point # 지정 학교의 좌표
+
+            # 지정 학교에서 distance 내에 있는 동아리들을 필터한 후 condition조건에 맞는 동아리만 필터링
+            search_society_list = Society.objects.filter(Q(school__schoollocation__point__distance_lte=(school_pnt, D(km = distance))), condition)
 
         context = {}
         context['search_society_list'] = search_society_list
