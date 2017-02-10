@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, School, Society, Event
+from .models import *
 
 class  ProfileAdmin(admin.ModelAdmin):
 
@@ -15,7 +15,12 @@ class SocietyAdmin(admin.ModelAdmin):
 class EventAdmin(admin.ModelAdmin):
     model = Event
 
+class CategoeryAdmin(admin.ModelAdmin):
+    model = Category
+
+
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(School, SchoolAdmin)
 admin.site.register(Society, SocietyAdmin)
 admin.site.register(Event, EventAdmin)
+admin.site.register(Category, CategoeryAdmin)

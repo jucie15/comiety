@@ -131,22 +131,23 @@
         </div>
         <div class="search">
 
-            <form action="#" method="get">
+            <form action="" method="get">
 
             <input type="text" name="q" placeholder="전체 동아리" class="keywordselect">
 
-            <select name="distance" class=distanceselect>
+
+<select name="distance" class=distanceselect>
               <option value="5">5km</option>
               <option value="10">10km</option>
               <option value="15">15km</option>
               <option value="20">20km</option>
+              <option value="100">100km</option>
             </select>
-
-            <select name="school" class=locationselect>
-              <option value="서울대학교">서울대학교</option>
-              <option value="세종대학교">세종대학교</option>
-              <option value="등등">등등</option>
-              <option value="등등">등등</option>
+<select name="school" class=distanceselect>
+              <option value="">전체</option>
+              <option value="세종대">세종</option>
+              <option value="건국대">건국</option>
+              <option value="서울대">서울</option>
             </select>
 
             <button type="button" class="btn btn-default" onClick="javascript:this.form.submit();">
@@ -171,7 +172,7 @@
 
         <div class="container-fluid">
 
-          {% for society in societys %}
+          {% for society in search_society_list %}
             <div class="col-md-3 col-sm-4 col-xs-6">
               <div class="thumbnail">
                 <a href="{% url 'dongzip:society_detail' society.id %}" target="_blank">
