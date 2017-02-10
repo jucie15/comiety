@@ -25,46 +25,6 @@ def index(request):
     return render(request, 'dongzip/index.html', context)
 
 
-def member_info_regist(request):
-    # 회원 가입
-    '''
-        auth.user FORM을 따로 만들어서 연동해야하나??
-        allauth로 페북 가입 후 추가 정보(Profile)만 입력 받아서 저장 혹은 업데이트 해주면되나??
-        페북등으로 가입 후 우리 페이지 가입이 되었는지 어케확인하지?
-        인증비트하나추가할까?
-    '''
-
-    if request.method == 'POST':
-        form = ProfileForm(request.POST)
-        if form.is_valid():
-            member = form.save(commit = False)
-            # reverse('dongzip:society_list', args=[society.id]). => "/soceity/1/""
-            # resolve_url('dongzip:society_list', society.id).    => "/soceity/1/"
-            # redirect('dongzip:society_list', society.id)        => HttpResponse
-            return redirect('dongzip:index')
-    else:
-        form = ProfileForm()
-
-
-    providers = []
-    for provider in get_providers():
-        try:
-            provider.social_app = SocialApp.objects.get(provider=provider.id, sites=settings.SITE_ID)
-        except SocialApp.DoesNotExist:
-            provider.social_app = None
-        providers.append(provider)
-
-    return render(request, 'dongzip/member_regist1.html', {'providers': providers})
-
-    return render(request, 'dongzip/member_regist1.html', {'form' : form})
-
-
-    return render(request, 'dongzip/member_regist1.html', {'school', school})
-
-
-    return render(request, 'dongzip/member_info_regist.html', {'form' : form})
-
-
 def school_list(request):
     # 전체 학교 리스트
     keyword = request.GET.get('keyword','')
@@ -180,3 +140,8 @@ def ajax_counter(request):
 
     data = json.dumps(count_json)# json형식을 씌워 넘겨준다
     return HttpResponse(data)
+
+# front test
+def profile(request):
+    return render(request, 'dongzip/my_profile.html')
+

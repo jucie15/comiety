@@ -94,8 +94,10 @@
 
     #orderblock{
         text-align: right;
-        margin-bottom: 20px;
+        height:50px;
+        padding: 20px;
         font-size: 18px;
+        margin-bottom: 10px;
     }
 
     .thumbnail{
@@ -157,8 +159,7 @@
             </form>
         </div>
 
-        <div class="container-fluid">
-          <div class="col-md-12 col-sm-12 col-xs-12" id="orderblock">
+        <div class="col-md-12 col-sm-12 col-xs-12" id="orderblock">
             정렬기준:
             <select name="order">
               <option value="1">관련도순</option>
@@ -166,7 +167,9 @@
               <option value="3">거리순</option>
               <option value="4">참가인원순</option>
             </select>
-          </div>
+        </div>
+
+        <div class="container-fluid">
 
           {% for society in societys %}
             <div class="col-md-3 col-sm-4 col-xs-6">

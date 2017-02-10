@@ -17,6 +17,9 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from accounts import views
 
+
 urlpatterns = [
     url(r'^$', views.login, name = 'login'),
+    url(r'^member_info_regist/$', views.member_info_regist, name = 'member_info_regist'),
+    url(r'^member_regist/$', views.member_regist, name = 'member_regist' ),
 ]

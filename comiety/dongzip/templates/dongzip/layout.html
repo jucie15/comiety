@@ -13,6 +13,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+
         <style>
         {% block extra_style %}
         {% endblock %}
@@ -35,11 +36,11 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#societylist.html">동아리</a></li>
                     <li><a href="#societyregist.html">동아리 등록</a></li>
-                    <li><a href="#schoollist.html">검색</a></li>
+                    <li><a href="#schoollist.html">학교로 검색</a></li>
                     <!-- <li><a href="#myprofile.html">내 페이지</a></li> -->
-                    <li><a href="#notification.html">알림</a></li>
+                    <!-- <li><a href="#notification.html">알림</a></li> -->
                     <li><a href="#login.html"><span class="glyphicon glyphicon-log-in"></span> 로그인</a></li>
-                    <li id="join"><span class="glyphicon glyphicon-user"></span><input type="button" value="가입하기" id="buttonjoin" onclick="location.href='{% url "dongzip:login" %}'"></li>
+                    <li id="join"><span class="glyphicon glyphicon-user"></span><input type="button" value="가입하기" id="buttonjoin" onclick="location.href='{% url "accounts:member_regist" %}'"></li>
                 </ul>
                 </div>
             </div>
