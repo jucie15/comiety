@@ -1,5 +1,9 @@
 {% extends "dongzip/layout.html" %}
 
+    {% block extra_links %}
+
+    {% endblock %}
+
     {% block extra_style %}
 
     .bck{
@@ -11,6 +15,19 @@
         margin-right: auto;
     }
 
+    button, .btn-info{
+        border: none;
+        padding: 5px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .btn-primary{
+        border: none;
+        padding: 5px;
+        width: 200px;
+    }
+
     table{
         width: 800px;
     }
@@ -20,8 +37,16 @@
         text-align: center;
     }
 
+    .add_event table{
+        width: 500px;
+    }
+
+    #edit_event{
+        border: none;
+    }
+
     .my_society_managers, .my_society_info_edit, .my_society_user_edit, .my_society_schedule_manage, .my_society_participation{
-        border: dashed;
+        border: 1px solid lightgray;
         width: 800px;
         margin-bottom: 50px;
     }
@@ -31,18 +56,36 @@
 
     {% block content %}
 
+
         <div class="bck">
             <div class="edit_block" align="center">
-                <h2>동아리 관리자 페이지 </h2>
-            <br>
+                <h2>동아리 매니저 페이지 </h2>
+                <br><br>
 
-                <div class="my_society_managers">
-                    <h3>동아리 페이지 관리자 정보</h3>
+                <div class="my_society_managers well">
+                    <h3>
+                    <span class="glyphicon glyphicon-user"></span>
+                    동아리 페이지 관리자 정보
+                    </h3>
+
+                    <table>
+                        <tr>
+                            <td>스탭 추가하기</td>
+                            <td> <input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td>동아리 매니저 위임하기</td>
+                            <td><input type="text"></td>
+                        </tr>
+                    </table>
 
                 </div>
 
-                <div class="my_society_info_edit">
-                    <h3>동아리 정보 수정하기</h3>
+                <div class="my_society_info_edit well">
+                    <h3>
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    동아리 정보 수정하기
+                    </h3>
 
                     <table align="center">
                         <tr>
@@ -75,8 +118,11 @@
                     </table>
                 </div>
 
-                <div class="my_society_user_edit">
-                    <h3>동아리 부원 관리하기</h3>
+                <div class="my_society_user_edit well">
+                    <h3>
+                    <span class="glyphicon glyphicon-globe"></span>
+                    동아리 부원 관리하기
+                    </h3>
 
                     <table align="center">
                         <tr>
@@ -94,60 +140,200 @@
 
                 </div>
 
-                <div class="my_society_schedule_manage">
-                    <h3>우리 동아리 주최 행사 관리하기</h3>
+                <div class="my_society_schedule_manage panel">
+                    <h3>
+                    <span class="glyphicon glyphicon-list-alt"></span>
+                    동아리 주최 행사 관리하기</h3>
+                    <br>
 
-                    <table align="center">
-                        <tr>
-                            <td>행사 정보 (동아리 승인)</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>행사 추가하기</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>행사 수정하기</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><input type="submit" value="저장하기" class="btn-info"></td>
-                        </tr>
-                    </table>
+                    <div class="my_society_event_list">
+                        <h4> 행사 신청 목록 </h4>
+
+                        <table class="table-hover" id="society_schedule">
+                            <thead style="font-weight: bold">
+                                <td>날짜</td>
+                                <td>행사명</td>
+                                <td> 신청인/신청 동아리 </td>
+                                <td> 참석 승인 여부 </td>
+                            </thead>
+
+                            <tr>
+                                <td class="td1">[2월 2일(월)]</td>
+                                <td class="td2">피로그래밍 수업</td>
+                                <td>참석 동아리명</td>
+                                <td> <button class="btn-success"> 참석 승인 </button></td>
+                            </tr>
+                            <tr>
+                                <td class="td1">[2월 3일(화)]</td>
+                                <td class="td2">피로그래밍 팀플</td>
+                                <td>참석 동아리명</td>
+                                <td> <button class="btn-success"> 참석 승인 </button></td>
+                            </tr>
+                            <tr>
+                                <td class="td1">[2월 4일(수)]</td>
+                                <td class="td2">피로그래밍 수업</td>
+                                <td>참석 동아리명</td>
+                                <td> <button class="btn-success">
+                                참석 승인 </button></td>
+                            </tr>
+                            <tr>
+                                <td class="td1">[2월 5일(목)]</td>
+                                <td class="td2">피로그래밍 워크샵</td>
+                                <td>참석 동아리명</td>
+                                <td> <button class="btn-success"> 참석 승인 </button></td>
+                            </tr>
+                            <tr>
+                                <td class="td1">[2월 16일(금)]</td>
+                                <td class="td2">피로그래밍 스키</td>
+                                <td>참석 동아리명</td>
+                                <td> <button class="btn-success"> 참석 승인 </button></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <br>
+
+                    <div class="edit_event">
+                        <h4> 행사 수정하기 </h4>
+                        <h5> 행사 목록</h5>
+                        <table id="edit_event" align="center">
+                            <thead style="font-weight: bold">
+                                <td></td>
+                                <td>날짜</td>
+                                <td>행사명</td>
+                                <td> 주최인/주최 동아리 </td>
+                                <td> 참석 승인 여부 </td>
+                            </thead>
+                            <tr>
+                                <td><input name="event_select" type="radio"></td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td><input name="event_select" type="radio"></td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td><input name="event_select" type="radio"></td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>4</td>
+                            </tr>
+                        </table>
+
+                        <br>
+
+                        <table>
+                            <thead style="font-weight: bold">
+                                <td>날짜</td>
+                                <td>행사명</td>
+                                <td> 주최인/주최 동아리 </td>
+                                <td> 참석 승인 여부 </td>
+                            </thead>
+                            <tr>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"><input type="submit" value="행사 수정하기" class="btn-primary">
+                            </tr>
+                        </table>
+
+                    </div>
+
+                    <br>
+
+                    <div class="add_event">
+                        <h4> 행사 추가하기</h4>
+
+                        <table class="table-bordered" align="center">
+                            <tr>
+                                <td>날짜 선택</td>
+                                <td><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td>행사명</td>
+                                <td><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td>행사설명</td>
+                                <td><textarea name="" id="" cols="30" rows="10"></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>신청 마감일</td>
+                                <td><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td>신청 인원 제한</td>
+                                <td><input type="text"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><input type="submit" value="행사 추가" class="btn-primary"></td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+
+
+                    <br>
 
                 </div>
 
-                <div class="my_society_participation">
-                    <h3>우리 동아리가 참여하기로 한 행사 관리</h3>
+                <div class="my_society_participation panel">
+                    <h3>
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    우리 동아리가 참여하기로 한 행사 관리
+                    </h3>
+                    <br>
 
                     <table class="table-hover" id="society_schedule">
+                        <thead style="font-weight: bold">
+                            <td>날짜</td>
+                            <td>행사명</td>
+                            <td> 주최인/주최 동아리 </td>
+                            <td> 참석 승인 여부 </td>
+                        </thead>
                         <tr>
                             <td class="td1">[2월 2일(월)]</td>
                             <td class="td2">피로그래밍 수업</td>
+                            <td> 주최인/주최 동아리 </td>
                             <td> <button class="btn-danger"> 참석 취소 신청 </button></td>
                         </tr>
                         <tr>
                             <td class="td1">[2월 3일(화)]</td>
                             <td class="td2">피로그래밍 팀플</td>
+                            <td> 주최인/주최 동아리 </td>
                             <td> <button class="btn-danger"> 참석 취소 신청 </button>
                         </tr>
                         <tr>
                             <td class="td1">[2월 4일(수)]</td>
                             <td class="td2">피로그래밍 수업</td>
+                            <td> 주최인/주최 동아리 </td>
                             <td> <button class="btn-danger"> 참석 취소 신청 </button>
                         </tr>
                         <tr>
                             <td class="td1">[2월 5일(목)]</td>
                             <td class="td2">피로그래밍 워크샵</td>
+                            <td> 주최인/주최 동아리 </td>
                             <td> <button class="btn-danger"> 참석 취소 신청 </button>
                         </tr>
                         <tr>
                             <td class="td1">[2월 16일(금)]</td>
                             <td class="td2">피로그래밍 스키</td>
+                            <td> 주최인/주최 동아리 </td>
                             <td> <button class="btn-danger"> 참석 취소 신청 </button>
                         </tr>
                     </table>
-
+                    <br>
 
                 </div>
 
