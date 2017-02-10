@@ -36,7 +36,18 @@ def school_list(request):
 
 def school_detail(request, id):
     school = School.objects.filter(id=id)
-    return render(request,'dongzip/school_detail.html',{'school':school})
+
+    # 잠시추가
+    keyword=request.GET.get('keyword','')
+    society_list=Society.objects.all().filter(school_id=id).filter(name__contains=keyword)
+
+    return render(request,'dongzip/school_detail.html',{
+        'school':school,
+        # 'societys' : societys,
+        'keyword':keyword,
+        'society_list': society_list
+        })
+
 '''
 학교별 동아리 리스트
 관심사 별 동아리 리스트 별개
@@ -144,4 +155,7 @@ def ajax_counter(request):
 # front test
 def profile(request):
     return render(request, 'dongzip/my_profile.html')
+
+def society_admin(request):
+    return render(request, 'dongzip/society_admin.html')
 
