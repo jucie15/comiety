@@ -1,0 +1,193 @@
+{% extends "dongzip/layout.html" %}
+
+    {% block extra_style %}
+
+    body{
+        background-color: #f5f8fa;
+    }
+
+    .bck {
+         text-align:center;
+         padding: 200px;
+         padding-top: 10px;
+         padding-bottom: 100px;
+         height: 100%;
+    }
+
+    .info_block {
+        background-color: rgba(250,250,250,0);
+        height: 1000px;
+        padding: 30px;
+    }
+
+    #profile_image{
+        height: 200px;
+        padding: 10px;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        background-color: white;
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: bold;
+
+        text-align: left;
+    }
+
+    .profile_image1{
+        border-right: 1px solid lightgray;
+    }
+
+    #profile_image img{
+        margin-right: 50px;
+    }
+
+    .all_block {
+        border: 1px solid lightgray;
+        background-color: white;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    #info{
+        height: 200px;
+    }
+
+    table{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #info td{
+        border: 1px solid lightgray;
+        padding: 10px;
+        border-radius: 5px;
+
+    }
+
+    #my_society{
+        text-align: center;
+    }
+
+    .my_society_logo{
+        display: inline-block;
+    }
+
+    .my_society_logo img{
+        width: 90px;
+        height: 90px;
+    }
+
+    #my_society_schedule table{
+        font-size: 17px;
+        margin-bottom: 10px;
+    }
+
+
+    .td2{
+        text-align: left;
+    }
+
+    #schedule{
+        width: 100%;
+    }
+
+    {% endblock %}
+
+    {% block content %}
+
+    {% load staticfiles %}
+        <div class="bck">
+
+            <h2> 내 프로필 </h2>
+            <div class="info_block">
+                <div id="profile_image">
+                    <div class="profile_image1 col-md-6">
+                        <img src="{% static 'dongzip/images/balloons.jpg' %}" alt="profile_image" class="img-circle" style="width: 180px;height:180px;">
+
+                        이름
+                    </div>
+                    <div class="profile_image2 col-md-6">
+
+                    </div>
+
+                </div>
+                <div class="all_block" id="info">
+                    <h4> 내 정보 </h4>
+                    <hr>
+
+                    <table>
+                        <tr>
+                            <td> 학교/학과: 서울대학교 정치외교학과 </td>
+                            <td> e-mail: gaskdj@naver.com </td>
+                            <td> TP: 01202314141 </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"> 관심사: 운동 / 봉사 / 국제 / 교류 / 외교 / 법 </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+
+                <div class="all_block" id="my_society">
+                    <h4> 내 동아리 </h4>
+                    <hr>
+
+                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
+                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
+                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
+                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
+                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
+                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
+                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
+                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
+                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
+                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
+                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
+                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
+                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
+
+
+                </div>
+
+                <div class="all_block" id="my_society_schedule">
+                    <h4> 동아리 일정 </h4>
+                    <hr>
+
+                    <table class="table-hover" id="schedule">
+                        <tr>
+                            <td class="td1">[2월 2일(월)]</td>
+                            <td class="td2">피로그래밍 수업</td>
+                        </tr>
+                        <tr>
+                            <td class="td1">[2월 3일(화)]</td>
+                            <td class="td2">피로그래밍 팀플</td>
+                        </tr>
+                        <tr>
+                            <td class="td1">[2월 4일(수)]</td>
+                            <td class="td2">피로그래밍 수업</td>
+                        </tr>
+                        <tr>
+                            <td class="td1">[2월 5일(목)]</td>
+                            <td class="td2">피로그래밍 워크샵</td>
+                        </tr>
+                        <tr>
+                            <td class="td1">[2월 16일(금)]</td>
+                            <td class="td2">피로그래밍 스키</td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+    {% endblock %}

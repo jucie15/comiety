@@ -144,3 +144,8 @@ def ajax_counter(request):
 
     data = json.dumps(count_json)# json형식을 씌워 넘겨준다
     return HttpResponse(data)
+
+# front test
+def profile(request):
+    return render(request, 'dongzip/my_profile.html')
+

@@ -29,5 +29,6 @@ urlpatterns = [
     url(r'^society_detail/(?P<id>\d+)/$', views.society_detail, name = 'society_detail'),
     url(r'^login/$', accounts_views.login, name = 'login'),
     url(r'^ajax_counter/$', views.ajax_counter, name = 'ajax_counter'),
-
+    # front test
+    url(r'^my_profile/$', views.profile, name='my_profile')
 ]
