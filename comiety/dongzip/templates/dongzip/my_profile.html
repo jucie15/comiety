@@ -8,19 +8,20 @@
 
     .bck {
          text-align:center;
-         padding: 200px;
          padding-top: 10px;
          padding-bottom: 100px;
          height: 100%;
     }
 
     .info_block {
+        margin-left: auto;
+        margin-right: auto;
         background-color: rgba(250,250,250,0);
-        height: 1000px;
-        padding: 30px;
+        height: 100%;
     }
 
     #profile_image{
+        width: 800px;
         height: 200px;
         padding: 10px;
         border: 1px solid lightgray;
@@ -35,10 +36,13 @@
 
     .profile_image1{
         border-right: 1px solid lightgray;
+        width: 400px;
     }
 
     #profile_image img{
         margin-right: 50px;
+        width: 180px;
+        height: 180px;
     }
 
     .all_block {
@@ -47,6 +51,7 @@
         margin-bottom: 20px;
         border-radius: 5px;
         padding: 5px;
+        width: 800px;
     }
 
     #info{
@@ -92,6 +97,27 @@
         width: 100%;
     }
 
+   @media screen and (max-width: 480px) {
+        #profile_image, .all_block { width: 460px; }
+        .profile_image1 { width: 100%; border-right: 0px; padding-top: 15px; }
+        #info {font-size: 13px;}
+        #schedule td {font-size: 15px;}
+        #profile_image img { width: 150px; height: 150px;margin-right: 50px; }
+    }
+
+    @media screen and (min-width: 481px) and (max-width: 767px) {
+        #profile_image, .all_block { width: 600px; }
+        .profile_image1 { width: 100%; border-right: 0px; padding-top: 0px; }
+        #profile_image img {margin-right: 50px; }
+    }
+
+    @media screen and (min-width: 768px) {
+    }
+
+
+
+
+
     {% endblock %}
 
     {% block content %}
@@ -100,10 +126,12 @@
         <div class="bck">
 
             <h2> 내 프로필 </h2>
-            <div class="info_block">
+            <br>
+
+            <div class="info_block" align="center">
                 <div id="profile_image">
                     <div class="profile_image1 col-md-6">
-                        <img src="{% static 'dongzip/images/balloons.jpg' %}" alt="profile_image" class="img-circle" style="width: 180px;height:180px;">
+                        <img src="{% static 'dongzip/images/balloons.jpg' %}" alt="profile_image" class="img-circle">
 
                         이름
                     </div>
@@ -118,7 +146,7 @@
 
                     <table>
                         <tr>
-                            <td> 학교/학과: 서울대학교 정치외교학과 </td>
+                            <td> 학교/학과: <br> 서울대학교 정치외교학과 </td>
                             <td> e-mail: gaskdj@naver.com </td>
                             <td> TP: 01202314141 </td>
                         </tr>
