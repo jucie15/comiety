@@ -31,7 +31,9 @@ def school_list(request):
     keyword = request.GET.get('keyword','')
     school_list = School.objects.filter(name__contains=keyword)
 
-    context={'keyword' : keyword, 'school_list':school_list,}
+    context = {}
+    context['keyword'] = keyword
+    context['school_list'] = school_list
 
     return render(request, 'dongzip/school_list.html', context )
 
@@ -40,15 +42,15 @@ def school_detail(request, id):
     school = School.objects.filter(id=id)
 
     # 잠시추가
-    keyword=request.GET.get('keyword','')
-    society_list=Society.objects.all().filter(school_id=id).filter(name__contains=keyword)
+    keyword = request.GET.get('keyword','')
+    society_list = Society.objects.filter(school_id=id, name__contains=keyword)
 
-    return render(request,'dongzip/school_detail.html',{
-        'school':school,
-        # 'societys' : societys,
-        'keyword':keyword,
-        'society_list': society_list
-        })
+    context = {}
+    context['keyword'] = keyword
+    context['society_list'] = society_list
+    context['school'] = school
+
+    return render(request,'dongzip/school_detail.html', context)
 '''
 society_list = Society.objects.filter(school = school)
 
@@ -58,6 +60,7 @@ society_list = Society.objects.filter(school = school)
 
     return render(request,'dongzip/school_detail.html', context)
 '''
+
 '''
 url
 동아리 id값을 받아올지
