@@ -68,7 +68,7 @@ def member_info_regist(request):
 def school_list(request):
     # 전체 학교 리스트
     keyword = request.GET.get('keyword','')
-    school_list = School.objects.all().filter(name__contains=keyword)
+    school_list = School.objects.filter(name__contains=keyword)
 
     context={'keyword' : keyword, 'school_list':school_list,}
 
@@ -77,6 +77,8 @@ def school_list(request):
 def school_detail(request, id):
     school = School.objects.filter(id=id)
     return render(request,'dongzip/school_detail.html',{'school':school})
+
+
 '''
 학교별 동아리 리스트
 관심사 별 동아리 리스트 별개
@@ -87,7 +89,7 @@ def society_list(request, id):
     societys = Society.objects.filter(school_id = id)
     return render(request, 'dongzip/society_list.html', {
             'societys' : societys,
-        } )
+        })
 
 
 '''

@@ -179,7 +179,7 @@
                     {{ keyword }} 검색 결과입니다.
                 {% endif %}
             </h3>
-          {% for school in school_list %}
+          {% for school in schools %}
             <div class="col-md-3 col-sm-4 col-xs-6">
               <div class="thumbnail">
                 <a href="{% url 'dongzip:school_detail' school.id %}" target="_blank">
@@ -196,10 +196,9 @@
 
         <script type="text/javascript">
 
-    <!--
-        코드 정리 및 autocomplete 구조 공부
-        에러 확인 후 수
-    -->
+
+      /*  코드 정리 및 autocomplete 구조 공부
+        에러 확인 후 수 */
             $(function(){
         $('#search_sch').autocomplete({
             source:'/dongzip/school_list/ajax_search/',
