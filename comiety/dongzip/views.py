@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import School, Society, Profile, Event
+from geodjango.models import SchoolLocation
 from .forms import *
 from django.contrib.auth.views import login as auth_login
 from allauth.socialaccount.models import SocialApp
@@ -28,13 +29,14 @@ def index(request):
 def school_list(request):
     # 전체 학교 리스트
     keyword = request.GET.get('keyword','')
-    school_list = School.objects.all().filter(name__contains=keyword)
+    school_list = School.objects.filter(name__contains=keyword)
 
     context={'keyword' : keyword, 'school_list':school_list,}
 
     return render(request, 'dongzip/school_list.html', context )
 
 def school_detail(request, id):
+    # 학교별 세부페이지
     school = School.objects.filter(id=id)
 
     # 잠시추가
@@ -47,20 +49,15 @@ def school_detail(request, id):
         'keyword':keyword,
         'society_list': society_list
         })
-
 '''
-학교별 동아리 리스트
-관심사 별 동아리 리스트 별개
-url 어떤식을 나눌까.
+society_list = Society.objects.filter(school = school)
+
+    context = {}
+    context['school'] = school
+    context['society_list'] = society_list
+
+    return render(request,'dongzip/school_detail.html', context)
 '''
-def society_list(request, id):
-    # 학교 별 동아리 리스트
-    societys = Society.objects.filter(school_id = id)
-    return render(request, 'dongzip/society_list.html', {
-            'societys' : societys,
-        } )
-
-
 '''
 url
 동아리 id값을 받아올지
@@ -76,34 +73,39 @@ def society_detail(request, id):
             'society' : society,
         })
 
-def society_search(request):
+def society_search(request, name):
     # 동아리 검색
     # 동아리가 소속된 학교 위치 기반으로 필터링 후 키워드 검색
 
     '''
-        학교 이름도 키워드로 넣어야 함 더러운 방법 뿐인가??
         자동완성 기능 넣기
+        혹시나 학교의 좌표 받아올때(get() 사용) 값이 없을 경우 예외 처리 혹시나
     '''
-
     if request.method == 'GET':
-        keyword = request.GET.get('q','')
+        keyword = request.GET.get('q', '')
         distance = request.GET.get('distance')
-        school_name = request.GET.get('school')
-
-        school_pnt = School.objects.get(name = school_name).point # 지정 학교의 좌표
+        school_name = request.GET.get('school', '')
 
         # 키워드 검색 쿼리문
         condition = Q(description__icontains = keyword) | Q(name__icontains = keyword) | Q(school__name__icontains = keyword)
 
-        # 지정 학교에서 distance 내에 있는 동아리들을 필터한 후 condition조건에 맞는 동아리만 필터링
-        search_society_list = Society.objects.filter(Q(school__point__distance_lte=(school_pnt, D(km = distance))), condition)
+        if school_name != '':
+            # 학교 위치 기반 필터링을 원할 경우 조건 추가
+            school_pnt = SchoolLocation.objects.get(school__name = school_name).point # 지정 학교의 좌표
+            condition = condition & Q(school__schoollocation__point__distance_lte = (school_pnt, D(km = distance)))
+
+        if name != 'all':
+            # 카테고리 분류별 필터링을 원할 경우 조건 추가
+            condition = condition & Q(categorys__name = name)
+
+        search_society_list = Society.objects.filter(condition)
 
         context = {}
         context['search_society_list'] = search_society_list
         context['keyword'] = keyword
 
-        return render(request, 'dongzip/test/society_search.html', context)
-    return render(request, 'dongzip/test/society_search.html')
+        return render(request, 'dongzip/society_search.html', context)
+    return render(request, 'dongzip/society_search.html')
 
 def society_regist(request):
     # 동아리 등록

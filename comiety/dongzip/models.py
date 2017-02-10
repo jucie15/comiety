@@ -55,10 +55,9 @@ class Society(models.Model):
     address = models.CharField(max_length = 256, blank = False, null = False) # 동아리 주소
     description = models.TextField(max_length = 512, blank = True, null = True) # 동아리 소개
     users = models.ManyToManyField(Profile) # USER TABLE과 다대다 관계 형성
+    categorys = models.ManyToManyField('Category', blank = True)
     logo_image = models.ImageField(upload_to = 'uploaded/society_profile/', null = True, blank = True)
     background_image = models.ImageField(upload_to = 'uploaded/society_profile/', null = True, blank = True)
-
-    #category  = models.CharField # 관심사 및 카테고리를 따로 빼야하나?
 
     def __str__(self):
         return self.name
@@ -80,3 +79,9 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title
+
+class Category(models.Model):
+    name = models.CharField(max_length = 32)
+
+    def __str__(self):
+        return self.name

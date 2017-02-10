@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>동아리, 학교 검색하기</h1>
-   <form action="" method="get">
+    <form action="" method="get">
 {% csrf_token %}
 
 <input type="text" id="name" name="q" placeholder="아이디" method="post" autofocus>
@@ -14,10 +14,13 @@
               <option value="10">10km</option>
               <option value="15">15km</option>
               <option value="20">20km</option>
+              <option value="100">100km</option>
             </select>
 <select name="school" class=distanceselect>
+              <option value="">전체</option>
               <option value="세종대">세종</option>
               <option value="건국대">건국</option>
+              <option value="서울대">서울</option>
             </select>
 <input type = "submit" value = "검색"/>
 </form>
