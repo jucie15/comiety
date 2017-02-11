@@ -12,13 +12,16 @@
         <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        {% block extra_links%}
+        {% block extra_links %}
         {% endblock %}
 
         <style>
         {% block extra_style %}
         {% endblock %}
         </style>
+        <!--href의 base url 설정(최상위 링크) href=''-->
+        <base href="http://127.0.0.1:8000/dongzip/" />
+
     </head>
 
     <body>
@@ -30,13 +33,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#" title="Comiety"></a>
+                    <a class="navbar-brand" href="" title="Comiety"></a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#societylist.html">동아리</a></li>
+                    <li><a href="{% url 'dongzip:school_list' %}">학교 목록</a></li>
                     <li><a href="#societyregist.html">동아리 등록</a></li>
-                    <li><a href="#schoollist.html">학교로 검색</a></li>
+                    <li><a href="{% url 'dongzip:aboutus' %}">우리들</a></li>
                     <!-- <li><a href="#myprofile.html">내 페이지</a></li> -->
                     <!-- <li><a href="#notification.html">알림</a></li> -->
                     <li><a href="#login.html"><span class="glyphicon glyphicon-log-in"></span> 로그인</a></li>

@@ -98,7 +98,10 @@
     {% block content %}
         <div class="page-Home">
                 <h1><strong>무엇을 좋아하시나요?</strong></h1>
-                <p><strong><span class="badge" id="school_badge">{{school_cnt}}</span> 학교 <span class="badge" id="society_badge">{{society_cnt}}</span> 동아리 <span class="badge" id="event_badge">{{event_cnt}}</span> 교류전이 오가는</strong></p>
+                <a href = "{% url 'dongzip:school_list' %}">
+                <p><strong><span class="badge" id="school_badge">{{school_cnt}}</span></strong> 학교</a>
+                <a href = "{% url 'dongzip:society_search' 'all' %}">
+                <span class="badge" id="society_badge">{{society_cnt}}</span> 동아리 <span class="badge" id="event_badge">{{event_cnt}}</span> 교류전이 오가는</strong></p>
                 <p><strong>교류의 장, 동집에 오신 것을 환영합니다!</strong></p>
         </div>
 
@@ -163,7 +166,7 @@
                 <h2><strong>동아리 탐구 사전</strong></h2>
                 <div class="col-md-3 col-sm-4 col-xs-6">
                   <div class="thumbnail col1">
-                    <a href="societylist.html" target="_blank">
+                    <a href="{% url 'dongzip:society_search' 'sports' %}" target="_self">
                       <img src="../../static/dongzip/images/sports.jpg" alt="Sports">
                       <div class="caption">
                         <p><strong>스포츠</strong></p>
@@ -173,7 +176,7 @@
                 </div>
                 <div class="col-md-3 col-sm-4 col-xs-6">
                   <div class="thumbnail col2">
-                    <a href="societylist.html" target="_blank">
+                    <a href="{% url 'dongzip:society_search' 'study' %}" target="_self">
                       <img src="../../static/dongzip/images/academics.jpg" alt="Academics">
                       <div class="caption">
                         <p><strong>학술</strong></p>
@@ -183,7 +186,7 @@
                 </div>
                 <div class="col-md-3 col-sm-4 col-xs-6">
                   <div class="thumbnail col3">
-                    <a href="societylist.html" target="_blank">
+                    <a href="{% url 'dongzip:society_search' 'performingart' %}" target="_self">
                       <img src="../../static/dongzip/images/show.jpg" alt="Show">
                       <div class="caption">
                         <p><strong>공연예술</strong></p>
@@ -193,7 +196,7 @@
                 </div>
                 <div class="col-md-3 col-sm-4 col-xs-6">
                   <div class="thumbnail col4">
-                    <a href="societylist.html" target="_blank">
+                    <a href="{% url 'dongzip:society_search' 'service' %}" target="_self">
                       <img src="../../static/dongzip/images/volunteer.png" alt="Volunteer">
                       <div class="caption">
                         <p><strong>봉사</strong></p>
