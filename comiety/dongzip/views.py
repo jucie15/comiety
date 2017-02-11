@@ -18,6 +18,7 @@ def index(request):
     school_cnt = School.objects.all().count()
     society_cnt = Society.objects.all().count()
     event_cnt = Event.objects.all().count()
+
     context = {}
     context['school_cnt'] = school_cnt
     context['society_cnt'] = society_cnt
@@ -39,27 +40,22 @@ def school_list(request):
 
 def school_detail(request, id):
     # 학교별 세부페이지
-    school = School.objects.filter(id=id)
+    school = School.objects.get(id=id)
 
-    # 잠시추가
     keyword = request.GET.get('keyword','')
-    society_list = Society.objects.filter(school_id=id, name__contains=keyword)
+
+    # 키워드 검색 조건
+    condition = (Q(description__icontains = keyword) | Q(name__icontains = keyword)) & Q(school = school)
+
+    society_list = Society.objects.filter(condition)
 
     context = {}
     context['keyword'] = keyword
     context['society_list'] = society_list
-    context['school'] = school
+    context['school'] = school # 수정 할지 확인하기
 
     return render(request,'dongzip/school_detail.html', context)
-'''
-society_list = Society.objects.filter(school = school)
 
-    context = {}
-    context['school'] = school
-    context['society_list'] = society_list
-
-    return render(request,'dongzip/school_detail.html', context)
-'''
 
 '''
 url
