@@ -37,11 +37,26 @@
         text-align: center;
     }
 
+    .my_society_managers table{
+        width: 600px;
+    }
+
+    #society_managers_table{
+        width: 400px;
+    }
+
+    .my_society_user_edit table{
+        width: 400px;
+    }
+    .my_society_user_edit select{
+        width: 150px;
+    }
+
     .add_event table{
         width: 500px;
     }
 
-    #edit_event{
+    #event_edit{
         border: none;
     }
 
@@ -49,6 +64,29 @@
         border: 1px solid lightgray;
         width: 800px;
         margin-bottom: 50px;
+    }
+
+    @media screen and (max-width: 480px) {
+        .edit_block { width: 460px; }
+        table { width: 420px; font-size: 12px; }
+        button{ width: auto; padding: auto;}
+        .my_society_managers, .my_society_info_edit, .my_society_user_edit, .my_society_schedule_manage, .my_society_participation { width: 460px; }
+        .my_society_participation table { font-size: 11px; }
+        .my_society_managers table, .my_society_schedule_manage table { width: 420px;}
+        #editing_event { width: 40px; }
+    }
+
+    @media screen and (min-width: 481px) and (max-width: 767px) {
+        .edit_block { width: 700px; }
+        table { width: 650px; }
+        button{ width: auto; padding: auto;}
+        .my_society_managers, .my_society_info_edit, .my_society_user_edit, .my_society_schedule_manage, .my_society_participation{ width: 650px; font-size: 15px; }
+        .my_society_managers table, .my_society_schedule_manage table { width: 650px;}
+        #editing_event { width: 650px; }
+
+    }
+
+    @media screen and (min-width: 768px) {
     }
 
 
@@ -68,14 +106,36 @@
                     동아리 페이지 관리자 정보
                     </h3>
 
+                    <h4>동아리 스텝 목록</h4>
+                    <table class="table-hover" id="society_managers_table">
+                        <thead style="font-weight: bold">
+                            <td>매니저 이름</td>
+                            <td>지위</td>
+                             <td colspan="2"> 변경/삭제 </td>
+                        </thead>
+                        <tr>
+                            <td> 양가은 </td>
+                            <td> 매니저 </td>
+                            <td> <button class="btn-info"> 변경 </button></td>
+                        </tr>
+                        <tr>
+                            <td> 김예은 </td>
+                            <td> 부매니저 </td>
+                            <td> <button class="btn-info"> 변경 </button></td>
+                            <td> <button class="btn-danger"> 삭제 </button></td>
+                        </tr>
+                    </table>
+
                     <table>
                         <tr>
                             <td>스탭 추가하기</td>
-                            <td> <input type="text"></td>
-                        </tr>
-                        <tr>
-                            <td>동아리 매니저 위임하기</td>
-                            <td><input type="text"></td>
+                            <td> <select name="manager_add" id="add_manager">
+                                <option value="">양가은</option>
+                            </select></td>
+                            <td> <select name="roles" id="role">
+                                <option value="">부매니저</option>
+                            </select></td>
+                            <td> <button class="btn-success"> 추가 </button></td>
                         </tr>
                     </table>
 
@@ -90,27 +150,27 @@
                     <table align="center">
                         <tr>
                             <td>동아리 이름</td>
-                            <td> <input type="text"></td>
+                            <td> <input type="text" value="laba"></td>
                         </tr>
                         <tr>
                             <td>동아리 연락처</td>
-                            <td><input type="text"></td>
+                            <td><input type="text" value="12312312"></td>
                         </tr>
                         <tr>
                             <td>동아리 주소</td>
-                            <td><input type="text"></td>
+                            <td><input type="text" value="23434325"></td>
                         </tr>
                         <tr>
                             <td>동아리 소개</td>
-                            <td><input type="text"></td>
+                            <td><input type="text" value="농구 동아리입니다."></td>
                         </tr>
                         <tr>
                             <td>동아리 로고</td>
-                            <td><input type="text"></td>
+                            <td><input type="text" value="사진"></td>
                         </tr>
                         <tr>
                             <td>페이지 배경사진</td>
-                            <td><input type="text"></td>
+                            <td><input type="text" value="배경사진"></td>
                         </tr>
                         <tr>
                             <td colspan="2"><input type="submit" value="저장하기" class="btn-info"></td>
@@ -127,11 +187,32 @@
                     <table align="center">
                         <tr>
                             <td>부원 승인</td>
-                            <td><textarea name="" id="" cols="30" rows="10"></textarea></td>
+                            <td style="text-align: left;">
+                                <br>
+                                <input type="checkbox" name="users" value="김아무개"> 김아무개 <br>
+                                <input type="checkbox" name="users" value="김아무개"> 김아무개 <br>
+                                <input type="checkbox" name="users" value="김아무개"> 김아무개 <br>
+                                <input type="checkbox" name="users" value="김아무개"> 김아무개 <br>
+                            </td>
+                            <td> <button class="btn-success"> 승인 </button> </td>
                         </tr>
                         <tr>
                             <td>부원 추가/삭제하기</td>
-                            <td><textarea name="" id="" cols="30" rows="10"></textarea></td>
+                            <td style="text-align: left;">
+                                <SELECT NAME="Morefruit" SIZE="4" MULTIPLE >
+                                <OPTION SELECTED> Apples
+                                <OPTION> Bananas
+                                <OPTION> Oranges
+                                <OPTION> Watermelon
+                                <OPTION> Kiwi
+                                <OPTION> Cantaloupe
+                                <OPTION> Strawberries
+                                </SELECT>
+                            </td>
+                            <td>
+                                <button class="btn-danger"> 삭제 </button>
+
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="2"><input type="submit" value="저장하기" class="btn-info"></td>
@@ -196,7 +277,7 @@
                     <div class="edit_event">
                         <h4> 행사 수정하기 </h4>
                         <h5> 행사 목록</h5>
-                        <table id="edit_event" align="center">
+                        <table id="event_edit" align="center">
                             <thead style="font-weight: bold">
                                 <td></td>
                                 <td>날짜</td>
@@ -229,27 +310,25 @@
 
                         <br>
 
-                        <table>
+                        <table id="editing_event">
                             <thead style="font-weight: bold">
                                 <td>날짜</td>
                                 <td>행사명</td>
                                 <td> 주최인/주최 동아리 </td>
-                                <td> 참석 승인 여부 </td>
                             </thead>
                             <tr>
+                                <td><input type="date"></td>
                                 <td><input type="text"></td>
-                                <td><input type="text"></td>
-                                <td><input type="text"></td>
-                                <td><input type="text"></td>
+                                <td><input type="text" value="우리 동아리"></td>
                             </tr>
                             <tr>
-                                <td colspan="4"><input type="submit" value="행사 수정하기" class="btn-primary">
+                                <td colspan="3"><input type="submit" value="행사 수정하기" class="btn-primary">
                             </tr>
                         </table>
 
                     </div>
 
-                    <br>
+                    <br><br><br>
 
                     <div class="add_event">
                         <h4> 행사 추가하기</h4>

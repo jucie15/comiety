@@ -31,4 +31,5 @@ urlpatterns = [
     # front test
     url(r'^my_profile/$', views.profile, name='my_profile'),
     url(r'^society_admin/$', views.society_admin, name='society_admin'),
+    # url(r'^school_list/(?P<id>\d+)/$', views.school_detail),
 ]
