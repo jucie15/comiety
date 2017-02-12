@@ -155,9 +155,15 @@ def ajax_counter(request):
     return HttpResponse(data)
 
 # front test
-def profile(request):
-    return render(request, 'dongzip/my_profile.html')
+# def profile(request):
+#     return render(request, 'dongzip/my_profile.html')
 
-def society_admin(request):
-    return render(request, 'dongzip/society_admin.html')
+# def society_admin(request):
+#     return render(request, 'dongzip/society_admin.html')
+
+# def society_search_test(request):
+#     return render(request, 'dongzip/society_search.html')
+
+# def society_search_events_test(request):
+#     return render(request, 'dongzip/society_search_events.html')
 
