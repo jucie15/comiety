@@ -36,4 +36,8 @@ urlpatterns = [
     url(r'^my_profile/$', views.profile, name='my_profile'),
     url(r'^society_admin/$', views.society_admin, name='society_admin'),
     # url(r'^school_list/(?P<id>\d+)/$', views.school_detail),
+    # url(r'^society_search_test/$', views.society_search_test, name=
+    #     'society_search_test'),
+    # url(r'^society_search_events/$', views.society_search_events_test, name=
+    #     'society_search_events_test'),
 ]
