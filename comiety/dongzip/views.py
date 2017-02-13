@@ -120,8 +120,8 @@ def society_regist(request):
         form = SocietyForm()
     return render(request, 'dongzip/society_regist.html', {'form' : form})
 
-def event_list(requets):
-    pass
+def event_list(request):
+    return render(request, 'dongzip/event_list.html')
 
 
 '''
