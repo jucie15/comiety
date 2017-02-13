@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.views import login as auth_login
 from allauth.socialaccount.models import SocialApp
 from allauth.socialaccount.templatetags.socialaccount import get_providers
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from .forms import *
 
@@ -58,4 +59,7 @@ def member_info_regist(request):
 
     return render(request, 'accounts/member_info_regist.html', {'form':form})
 
+@login_required
+def my_profile(request):
+    return render(request, 'accounts/my_profile.html')
 

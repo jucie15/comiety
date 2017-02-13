@@ -71,8 +71,8 @@
         margin-left: 0px;
     }
 
-    #modegroup{
-        margin-left: 80px;
+    #modecalender{
+
         background-color: gray;
         color: white;
         padding: 8px 8px;
@@ -80,16 +80,18 @@
         text-decoration: none;
         border: 1px solid gray;
         box-shadow: inset 1px 1px 1px;
+
     }
 
-    #modecalender{
+    #modegroup{
+        margin-left: 80px;
         background-color: black;
         color: white;
         padding: 8px 8px;
         text-align: center;
         text-decoration: none;
         border: 1px solid gray;
-        border-left: none;
+        border-right: none;
     }
 
     #orderblock{
@@ -98,28 +100,20 @@
         padding: 20px;
         font-size: 18px;
         margin-bottom: 10px;
+
     }
 
-    .thumbnail{
-        width: 295px;
-        height: 230px;
-        border: 0;
-        -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;
-        font-size: 20px;
+    #events_list {
+        width: 900px;
+    }
+
+    #events_list td {
+        padding: 10px;
+        padding-top: 3px;
+        padding-bottom: 3px;
         text-align: center;
     }
 
-    .thumbnail img{
-        width: 100%;
-        height: 180px!important;
-    }
-
-    .thumbnail .caption{
-        margin-top: -61px;
-        text-align: left;
-        color: white;
-        background-color: rgba(0,0,0,0.3)
-    }
 
     {% endblock %}
 
@@ -133,7 +127,7 @@
 
             <form action="" method="get">
 
-            <input type="text" name="q" placeholder="연관 검색어" class="keywordselect">
+            <input type="text" name="q" placeholder="이벤트 검색" class="keywordselect">
 
 
 <select name="distance" class=distanceselect>
@@ -172,18 +166,54 @@
 
         <div class="container-fluid">
 
-          {% for society in search_society_list %}
-            <div class="col-md-3 col-sm-4 col-xs-6">
-              <div class="thumbnail">
-                <a href="{% url 'dongzip:society_detail' society.id %}" target="_blank">
-                  <img src="../../static/dongzip/images/volunteer.png" alt="Volunteer">
-                  <div class="caption">
-                    <p><strong>{{ society.name }}</strong></p>
-                  </div>
-                </a>
-              </div>
-            </div>
-          {% endfor %}
+        <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h3 align="center">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    OOO 에 대한 행사 검색 결과입니다
+                    </h3>
+                    <br>
+
+                    <table class="table-hover" id="events_list" align="center">
+                        <thead style="font-weight: bold">
+                            <td>날짜</td>
+                            <td>행사명</td>
+                            <td> 주최인/주최 동아리 </td>
+                            <td>  </td>
+                        </thead>
+                        <tr>
+                            <td class="td1">[2월 2일(월)]</td>
+                            <td class="td2">피로그래밍 수업</td>
+                            <td> 주최인/주최 동아리 </td>
+                            <td> <button class="btn-success"> 참가 신청 </button>
+                        </tr>
+                        <tr>
+                            <td class="td1">[2월 3일(화)]</td>
+                            <td class="td2">피로그래밍 팀플</td>
+                            <td> 주최인/주최 동아리 </td>
+                            <td> <button class="btn-success"> 참가 신청 </button>
+                        </tr>
+                        <tr>
+                            <td class="td1">[2월 4일(수)]</td>
+                            <td class="td2">피로그래밍 수업</td>
+                            <td> 주최인/주최 동아리 </td>
+                            <td> <button class="btn-success"> 참가 신청 </button>
+                        </tr>
+                        <tr>
+                            <td class="td1">[2월 5일(목)]</td>
+                            <td class="td2">피로그래밍 워크샵</td>
+                            <td> 주최인/주최 동아리 </td>
+                            <td> <button class="btn-success"> 참가 신청 </button>
+                        </tr>
+                        <tr>
+                            <td class="td1">[2월 16일(금)]</td>
+                            <td class="td2">피로그래밍 스키</td>
+                            <td> 주최인/주최 동아리 </td>
+                            <td> <button class="btn-success"> 참가 신청 </button>
+                        </tr>
+                    </table>
+                    <br>
+
+                </div>
 
         </div>
 

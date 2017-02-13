@@ -16,7 +16,6 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from dongzip import views
-from accounts import views as accounts_views
 
 urlpatterns = [
     url(r'^$', views.index, name = 'index'),
@@ -26,14 +25,11 @@ urlpatterns = [
     url(r'^society_search/(?P<name>[a-z]+)/$', views.society_search, name = 'society_search'),
     url(r'^society_regist/$', views.society_regist, name = 'society_regist'),
     url(r'^society_detail/(?P<id>\d+)/$', views.society_detail, name = 'society_detail'),
+    url(r'^event_list/$', views.event_list, name = 'event_list'),
     url(r'^aboutus', views.aboutus, name = 'aboutus'),
-
-    url(r'^login/$', accounts_views.login, name = 'login'),
     url(r'^ajax_counter/$', views.ajax_counter, name = 'ajax_counter'),
 
 
     # front test
-    url(r'^my_profile/$', views.profile, name='my_profile'),
     url(r'^society_admin/$', views.society_admin, name='society_admin'),
-    # url(r'^school_list/(?P<id>\d+)/$', views.school_detail),
 ]

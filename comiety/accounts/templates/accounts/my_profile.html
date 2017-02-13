@@ -133,7 +133,7 @@
                     <div class="profile_image1 col-md-6">
                         <img src="{% static 'dongzip/images/balloons.jpg' %}" alt="profile_image" class="img-circle">
 
-                        이름
+                        {{ user }}
                     </div>
                     <div class="profile_image2 col-md-6">
 
@@ -146,9 +146,10 @@
 
                     <table>
                         <tr>
-                            <td> 학교/학과: <br> 서울대학교 정치외교학과 </td>
-                            <td> e-mail: gaskdj@naver.com </td>
-                            <td> TP: 01202314141 </td>
+                            <td> 학교/학과: <br>
+                            {{ user.profile.school }} </td>
+                            <td> e-mail: {{ user.email }} </td>
+                            <td> TP: {{ user.profile.tel_number }} </td>
                         </tr>
                         <tr>
                             <td colspan="3"> 관심사: 운동 / 봉사 / 국제 / 교류 / 외교 / 법 </td>
@@ -161,22 +162,9 @@
                 <div class="all_block" id="my_society">
                     <h4> 내 동아리 </h4>
                     <hr>
-
-                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
-                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
-                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
-                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
-                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
-                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
-                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
-                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
-                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
-                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
-                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
-                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
-                    <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> 동아리 이름1 </div>
-
-
+                    {% for society in user.profile.society_set.all %}
+                        <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> {{ society.name }}</div>
+                    {% endfor %}
                 </div>
 
                 <div class="all_block" id="my_society_schedule">

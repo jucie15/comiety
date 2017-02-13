@@ -120,7 +120,16 @@ def society_regist(request):
         form = SocietyForm()
     return render(request, 'dongzip/society_regist.html', {'form' : form})
 
+def event_list(requets):
+    pass
+
+
+'''
+    검색창 들어간곳 모두 자동 완성 기능 추가하기
+
+'''
 def ajax_search(request):
+    # 자동 완성 기능
     if request.is_ajax():
         keyword = request.GET.get('term','')
         school_list = School.objects.all().filter(name__icontains = keyword)
@@ -156,9 +165,6 @@ def ajax_counter(request):
 def aboutus(request):
     return render(request, 'dongzip/aboutus.html')
 # front test
-def profile(request):
-    return render(request, 'dongzip/my_profile.html')
 
 def society_admin(request):
     return render(request, 'dongzip/society_admin.html')
-

@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="https://npmcdn.com/flickity@2/dist/flickity.css">
         <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="{% static 'dongzip/js/bootstrap.min.js' %}"></script>
         {% block extra_links %}
         {% endblock %}
 
@@ -42,8 +42,24 @@
                     <li><a href="{% url 'dongzip:aboutus' %}">우리들</a></li>
                     <!-- <li><a href="#myprofile.html">내 페이지</a></li> -->
                     <!-- <li><a href="#notification.html">알림</a></li> -->
-                    <li><a href="#login.html"><span class="glyphicon glyphicon-log-in"></span> 로그인</a></li>
-                    <li id="join"><span class="glyphicon glyphicon-user"></span><input type="button" value="가입하기" id="buttonjoin" onclick="location.href='{% url "accounts:member_regist" %}'"></li>
+
+                    {% if not user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'accounts:login' %}?next={{  request.path }}">
+                            <span class="glyphicon glyphicon-log-in"></span> 로그인</a>
+                        </li>
+                        <li id="join">
+                            <span class="glyphicon glyphicon-user"></span>
+                            <input type="button" value="가입하기" id="buttonjoin" onclick="location.href='{% url "accounts:member_regist" %}'">
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'accounts:my_profile' %}">{{ user }}'s 프로필</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'accounts:logout' %}">로그아웃</a>
+                        </li>
+                    {% endif %}
                 </ul>
                 </div>
             </div>
