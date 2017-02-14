@@ -211,7 +211,7 @@
 
         $(function(){
     $('#search_soc').autocomplete({
-        source:'/dongzip/school_list/'+{{ school.id }} + '/ajax_search/',
+        source:'/dongzip/school_list/'+{{ school.id }},
         focus: function( event, ui ) { val( ui.item.label );return false;}
     });
 });

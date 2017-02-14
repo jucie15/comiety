@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="{% static 'dongzip/css/bootstrap.min.css' %}">
         <link rel="stylesheet" href="https://npmcdn.com/flickity@2/dist/flickity.css">
         <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="{% static 'dongzip/js/jquery-3.1.1.js' %}"></script>
         <script src="{% static 'dongzip/js/bootstrap.min.js' %}"></script>
 
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
@@ -24,6 +24,7 @@
         {% block extra_style %}
         {% endblock %}
         </style>
+
         <!--href의 base url 설정(최상위 링크) href=''-->
         <base href="http://127.0.0.1:8000/dongzip/" />
 

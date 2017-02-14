@@ -180,8 +180,9 @@
             <div class="col-md-3 col-sm-4 col-xs-6">
               <div class="thumbnail">
                 <a href="{% url 'dongzip:school_detail' school.id %}" target="_self">
-                  <img src="../../static/dongzip/images/volunteer.png" alt="Volunteer">
-                  <div class="caption">
+                  {% with 'dongzip/images/univ_logo/'|add:school.name as image_static %}
+                        <img src="{% static image_static %}" alt= {{ school_name }}>
+                      {% endwith %}                  <div class="caption">
                     <p><strong>{{ school.name }}</strong></p>
                   </div>
                 </a>

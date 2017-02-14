@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import School, Society, Profile, Event
+from .models import School, Society, Profile, Event, Category
 from geodjango.models import SchoolLocation
 from .forms import *
 from django.contrib.auth.views import login as auth_login
@@ -13,16 +13,32 @@ from django.contrib.gis.measure import D
 import json
 import time
 
+def ajax_test(request, data_list):
+    # 자동 완성 기능
+    if request.is_ajax():
+        results = []
+        for data in data_list:
+            data_json = {}
+            data_json['label'] = data.name
+            results.append(data_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
+
 def index(request):
     # 인덱스 페이지
     school_cnt = School.objects.all().count()
     society_cnt = Society.objects.all().count()
     event_cnt = Event.objects.all().count()
+    category_list = Category.objects.all()
 
     context = {}
     context['school_cnt'] = school_cnt
     context['society_cnt'] = society_cnt
     context['event_cnt'] = event_cnt
+    context['category_list'] = category_list
 
     return render(request, 'dongzip/index.html', context)
 
@@ -36,7 +52,7 @@ def school_list(request):
     context['keyword'] = keyword
     context['school_list'] = school_list
 
-    return render(request, 'dongzip/school_list.html', context )
+    return render(request, 'dongzip/school_list.html', context)
 
 def school_detail(request, id):
     # 학교별 세부페이지
@@ -48,6 +64,7 @@ def school_detail(request, id):
     condition = (Q(description__icontains = keyword) | Q(name__icontains = keyword)) & Q(school = school)
 
     society_list = Society.objects.filter(condition)
+    #ajax_test(request, society_list)
 
     context = {}
     context['keyword'] = keyword
@@ -84,6 +101,7 @@ def society_search(request, name):
         keyword = request.GET.get('q', '')
         distance = request.GET.get('distance')
         school_name = request.GET.get('school', '')
+        category_name = '전체 검색'
 
         # 키워드 검색 쿼리문
         condition = Q(description__icontains = keyword) | Q(name__icontains = keyword) | Q(school__name__icontains = keyword)
@@ -95,13 +113,19 @@ def society_search(request, name):
 
         if name != 'all':
             # 카테고리 분류별 필터링을 원할 경우 조건 추가
-            condition = condition & Q(categorys__name = name)
+            condition = condition & Q(categorys__url_name = name)
 
+            category_name = Category.objects.get(url_name__icontains = name).name
+        print(condition)
         search_society_list = Society.objects.filter(condition)
+
+
+
 
         context = {}
         context['search_society_list'] = search_society_list
         context['keyword'] = keyword
+        context['category_name'] = category_name
 
         return render(request, 'dongzip/society_search.html', context)
     return render(request, 'dongzip/society_search.html')
@@ -123,11 +147,22 @@ def society_regist(request):
 def event_list(request):
     return render(request, 'dongzip/event_list.html')
 
+def ajax_search_event(request):
+    if request.is_ajax():
+        keyword = request.GET.get('term','')
+        event_list = Event.objects.all().filter(title__icontains = keyword)
+        results = []
+        for event in event_list:
+            event_json = {}
+            event_json['label'] = event.title
+            results.append(event_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
 
-'''
-    검색창 들어간곳 모두 자동 완성 기능 추가하기
 
-'''
 def ajax_search_sch(request):
     # 자동 완성 기능
     if request.is_ajax():

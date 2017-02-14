@@ -25,6 +25,20 @@ nav .navbar-nav li{
     align-items: center;
 }
 
+#join {
+    color: gray;
+}
+
+#join:hover {
+    color: black;
+}
+
+#buttonjoin {
+    border-radius: 5px;
+    background-color: transparent;
+    border: none;
+}
+
 footer{
     width: 100%;
 }

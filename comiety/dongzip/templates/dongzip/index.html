@@ -36,12 +36,23 @@
     }
 
     .badge{
-        width: 40px;
+        width: autoo;
         height: 40px;
         font-size: 30px;
         background-color: gray;
         color: rgb(51, 204, 204);
     }
+
+    .badge_a {
+        color: white;
+    }
+
+    .badge_a:hover {
+        color: white;
+        text-decoration: none;
+    }
+
+
 
     .show-event{
         height: 370px;
@@ -98,9 +109,9 @@
     {% block content %}
         <div class="page-Home">
                 <h1><strong>무엇을 좋아하시나요?</strong></h1>
-                <a href = "{% url 'dongzip:school_list' %}">
+                <a href = "{% url 'dongzip:school_list' %}" class="badge_a">
                 <p><strong><span class="badge" id="school_badge">{{school_cnt}}</span></strong> 학교</a>
-                <a href = "{% url 'dongzip:society_search' 'all' %}">
+                <a href = "{% url 'dongzip:society_search' 'all' %}" class="badge_a">
                 <span class="badge" id="society_badge">{{society_cnt}}</span> 동아리 </a>
                 <span class="badge" id="event_badge">{{event_cnt}}</span> 교류전이 오가는</strong></p>
                 <p><strong>교류의 장, 동집에 오신 것을 환영합니다!</strong></p>
@@ -162,129 +173,26 @@
             </div>
         </div>
 
+
         <div class="container-fluid">
             <div class="clubdic">
                 <h2><strong>동아리 탐구 사전</strong></h2>
-                <div class="col-md-3 col-sm-4 col-xs-6">
-                  <div class="thumbnail col1">
-                    <a href="{% url 'dongzip:society_search' 'sports' %}" target="_self">
-                      <img src="../../static/dongzip/images/sports.jpg" alt="Sports">
-                      <div class="caption">
-                        <p><strong>스포츠</strong></p>
-                      </div>
-                    </a>
+                {% load staticfiles %}
+                {% for category in category_list %}
+                  <div class="col-md-3 col-sm-4 col-xs-6">
+                    <div class="thumbnail col1">
+                      <a href="{% url 'dongzip:society_search' category.url_name %}" target="_self">
+                      {% with 'dongzip/images/'|add:category.url_name|add:'.jpg' as image_static %}
+                        <img src="{% static image_static %}" alt= {{ category.url_name }}>
+                      {% endwith %}
+
+                        <div class="caption">
+                          <p><strong>{{ category.name }}</strong></p>
+                        </div>
+                      </a>
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-6">
-                  <div class="thumbnail col2">
-                    <a href="{% url 'dongzip:society_search' 'study' %}" target="_self">
-                      <img src="../../static/dongzip/images/academics.jpg" alt="Academics">
-                      <div class="caption">
-                        <p><strong>학술</strong></p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-6">
-                  <div class="thumbnail col3">
-                    <a href="{% url 'dongzip:society_search' 'performingart' %}" target="_self">
-                      <img src="../../static/dongzip/images/show.jpg" alt="Show">
-                      <div class="caption">
-                        <p><strong>공연예술</strong></p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-6">
-                  <div class="thumbnail col4">
-                    <a href="{% url 'dongzip:society_search' 'service' %}" target="_self">
-                      <img src="../../static/dongzip/images/volunteer.png" alt="Volunteer">
-                      <div class="caption">
-                        <p><strong>봉사</strong></p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-6">
-                  <div class="thumbnail col1">
-                    <a href="societylist.html" target="_blank">
-                      <img src="../../static/dongzip/images/language2.png" alt="Language">
-                      <div class="caption">
-                        <p><strong>언어와 문화</strong></p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-6">
-                  <div class="thumbnail col2">
-                    <a href="societylist.html" target="_blank">
-                      <img src="../../static/dongzip/images/technology.png" alt="Technology">
-                      <div class="caption">
-                        <p><strong>기술</strong></p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-6">
-                  <div class="thumbnail col3">
-                    <a href="societylist.html" target="_blank">
-                      <img src="../../static/dongzip/images/photography.jpg" alt="Art">
-                      <div class="caption">
-                        <p><strong>창작예술</strong></p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-6">
-                  <div class="thumbnail col4">
-                    <a href="societylist.html" target="_blank">
-                      <img src="../../static/dongzip/images/movie.jpg" alt="Hobby">
-                      <div class="caption">
-                        <p><strong>취미와 교양</strong></p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-6">
-                  <div class="thumbnail col1">
-                    <a href="societylist.html" target="_blank">
-                      <img src="../../static/dongzip/images/travel.jpg" alt="Travel">
-                      <div class="caption">
-                        <p><strong>음식/여행</strong></p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-6">
-                  <div class="thumbnail col2">
-                    <a href="societylist.html" target="_blank">
-                      <img src="../../static/dongzip/images/lgbt.jpg" alt="LGBT">
-                      <div class="caption">
-                        <p><strong>LGBT</strong></p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-6">
-                  <div class="thumbnail col3">
-                    <a href="societylist.html" target="_blank">
-                      <img src="../../static/dongzip/images/religion.jpg" alt="Religion">
-                      <div class="caption">
-                        <p><strong>종교</strong></p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-6">
-                  <div class="thumbnail col4">
-                    <a href="societylist.html" target="_blank">
-                      <img src="../../static/dongzip/images/socmove.jpg" alt="SocialMovement">
-                      <div class="caption">
-                        <p><strong>사회운동</strong></p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </body>

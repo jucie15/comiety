@@ -1,209 +1,202 @@
 {% extends "dongzip/layout.html" %}
 
-    {% block extra_style %}
+{% block extra_links %}
 
-    body{
-        background-color: #f5f8fa;
-    }
+{% endblock %}
 
-    .bck {
-         text-align:center;
-         padding-top: 10px;
-         padding-bottom: 100px;
-         height: 100%;
-    }
+{% block extra_style %}
 
-    .info_block {
-        margin-left: auto;
-        margin-right: auto;
-        background-color: rgba(250,250,250,0);
-        height: 100%;
-    }
+.bck{
+    text-align:center;
+    padding-top: 10px;
+    padding-bottom: 100px;
+    height: 100%;
 
-    #profile_image{
-        width: 800px;
-        height: 200px;
-        padding: 10px;
-        border: 1px solid lightgray;
-        border-radius: 5px;
-        background-color: white;
-        margin-bottom: 20px;
-        font-size: 20px;
-        font-weight: bold;
+    margin-bottom: 50px;
+}
 
-        text-align: left;
-    }
+.info_block {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(250,250,250,0);
+    height: 100%;
+}
 
-    .profile_image1{
-        border-right: 1px solid lightgray;
-        width: 400px;
-    }
+.my_info table{
+    width: 600px;
+}
 
-    #profile_image img{
-        margin-right: 50px;
-        width: 180px;
-        height: 180px;
-    }
+.img-circle{
+    height: 150px;
+    width: 150px;
+}
 
-    .all_block {
-        border: 1px solid lightgray;
-        background-color: white;
-        margin-bottom: 20px;
-        border-radius: 5px;
-        padding: 5px;
-        width: 800px;
-    }
+.my_participation table{
+    width: 800px;
+}
 
-    #info{
-        height: 200px;
-    }
+table td{
+    padding: 10px;
+    text-align: center;
+}
 
-    table{
-        margin-left: auto;
-        margin-right: auto;
-    }
+.my_info, .my_society, .my_participation{
+    border: 1px solid lightgray;
+    width: 800px;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
-    #info td{
-        border: 1px solid lightgray;
-        padding: 10px;
-        border-radius: 5px;
+.my_society{
+    text-align: center;
+}
 
-    }
+.my_society_logo{
+    display: inline-block;
+}
 
-    #my_society{
-        text-align: center;
-    }
-
-    .my_society_logo{
-        display: inline-block;
-    }
-
-    .my_society_logo img{
-        width: 90px;
-        height: 90px;
-    }
-
-    #my_society_schedule table{
-        font-size: 17px;
-        margin-bottom: 10px;
-    }
+button {
+    border: none;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
 
 
-    .td2{
-        text-align: left;
-    }
+@media screen and (max-width: 480px) {
+    .info_block { width: 460px; }
+    table { width: 420px; font-size: 12px; }
+    button{ width: auto; padding: auto;}
+    .my_info, .my_society, .my_participation { width: 460px; }
+    .my_participation table { font-size: 11px; }
+}
 
-    #schedule{
-        width: 100%;
-    }
+@media screen and (min-width: 481px) and (max-width: 767px) {
+    .info_block { width: 700px; }
+    table { width: 650px; }
+    button{ width: auto; padding: auto;}
+    .my_info, .my_society, .my_society_schedule_manage, .my_participation{ width: 650px; font-size: 15px; }
+}
 
-   @media screen and (max-width: 480px) {
-        #profile_image, .all_block { width: 460px; }
-        .profile_image1 { width: 100%; border-right: 0px; padding-top: 15px; }
-        #info {font-size: 13px;}
-        #schedule td {font-size: 15px;}
-        #profile_image img { width: 150px; height: 150px;margin-right: 50px; }
-    }
-
-    @media screen and (min-width: 481px) and (max-width: 767px) {
-        #profile_image, .all_block { width: 600px; }
-        .profile_image1 { width: 100%; border-right: 0px; padding-top: 0px; }
-        #profile_image img {margin-right: 50px; }
-    }
-
-    @media screen and (min-width: 768px) {
-    }
+@media screen and (min-width: 768px) {
+}
 
 
+{% endblock %}
 
+{% block content %}
 
+{% load staticfiles %}
 
-    {% endblock %}
-
-    {% block content %}
-
-    {% load staticfiles %}
-        <div class="bck">
-
+    <div class="bck">
+        <div class="info_block" align="center">
             <h2> 내 프로필 </h2>
-            <br>
-
-            <div class="info_block" align="center">
-                <div id="profile_image">
-                    <div class="profile_image1 col-md-6">
-                        <img src="{% static 'dongzip/images/balloons.jpg' %}" alt="profile_image" class="img-circle">
-
-                        {{ user }}
-                    </div>
-                    <div class="profile_image2 col-md-6">
-
-                    </div>
-
-                </div>
-                <div class="all_block" id="info">
-                    <h4> 내 정보 </h4>
-                    <hr>
-
-                    <table>
-                        <tr>
-                            <td> 학교/학과: <br>
-                            {{ user.profile.school }} </td>
-                            <td> e-mail: {{ user.email }} </td>
-                            <td> TP: {{ user.profile.tel_number }} </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3"> 관심사: 운동 / 봉사 / 국제 / 교류 / 외교 / 법 </td>
-                        </tr>
-                    </table>
-
-                </div>
+            <br><br>
 
 
-                <div class="all_block" id="my_society">
-                    <h4> 내 동아리 </h4>
-                    <hr>
-                    {% for society in user.profile.society_set.all %}
-                        <div class="my_society_logo"><img src="{% static 'dongzip/images/frog2.jpg' %}" alt=""> <br> {{ society.name }}</div>
-                    {% endfor %}
-                </div>
+            <div class="my_info panel">
+                <h3>
+                <span class="glyphicon glyphicon-user"></span>
+                내 정보
+                </h3>
+                <hr>
 
-                <div class="all_block" id="my_society_schedule">
-                    <h4> 동아리 일정 </h4>
-                    <hr>
+                <br>
 
-                    <table class="table-hover" id="schedule">
-                        <tr>
-                            <td class="td1">[2월 2일(월)]</td>
-                            <td class="td2">피로그래밍 수업</td>
-                        </tr>
-                        <tr>
-                            <td class="td1">[2월 3일(화)]</td>
-                            <td class="td2">피로그래밍 팀플</td>
-                        </tr>
-                        <tr>
-                            <td class="td1">[2월 4일(수)]</td>
-                            <td class="td2">피로그래밍 수업</td>
-                        </tr>
-                        <tr>
-                            <td class="td1">[2월 5일(목)]</td>
-                            <td class="td2">피로그래밍 워크샵</td>
-                        </tr>
-                        <tr>
-                            <td class="td1">[2월 16일(금)]</td>
-                            <td class="td2">피로그래밍 스키</td>
-                        </tr>
-                    </table>
-
-                </div>
+                <table align="center">
+                    <tr>
+                        <td rowspan="5"> <img src="{% static 'dongzip/images/daeun.jpg' %}" alt="" class="img-circle"></td>
+                        <td> 아이디: </td>
+                        <td> {{ user.nickname }} </td>
+                    </tr>
+                    <tr>
+                        <td> 학교/학과: </td>
+                        <td> {{ user.profile.school }} </td>
+                    </tr>
+                    <tr>
+                        <td> e-mail: </td>
+                        <td> {{ user.email }} </td>
+                    </tr>
+                    <tr>
+                        <td> 연락처: </td>
+                        <td> {{ user.profile.tel_number }} </td>
+                    </tr>
+                    <tr>
+                        <td>관심사</td>
+                        <td> 운동 / 봉사 / 국제 / 교류 / 외교 / 법</td>
+                    </tr>
+                </table>
             </div>
 
+                <br>
+            <div class="my_society">
+                <h3>
+                <span class="glyphicon glyphicon-globe"></span>
+                내 동아리
+                </h3>
+                <hr>
+                {% for society in user.profile.society_set.all %}
+                    <div class="my_society_logo"><img src="{% static 'dongzip/images/{{ society }}.jpg' %}" alt=""> <br> {{ society.name }}</div>
+                {% endfor %}
+            </div>
 
+                <br>
 
+            </div>
+
+            <div class="my_participation panel">
+                <h3>
+                <span class="glyphicon glyphicon-calendar"></span>
+                동아리 일정
+                </h3>
+                <hr>
+                <br>
+
+                <table class="table-hover" id="society_schedule">
+                    <thead style="font-weight: bold">
+                        <td>날짜</td>
+                        <td>행사명</td>
+                        <td> 주최인/주최 동아리 </td>
+                        <td> 우리 동아리 행사 참가 </td>
+                    </thead>
+                    <tr>
+                        <td class="td1">[2월 2일(월)]</td>
+                        <td class="td2">피로그래밍 수업</td>
+                        <td> 주최인/주최 동아리 </td>
+                        <td> <button class="btn-success"> 참석 신청 </button></td>
+                    </tr>
+                    <tr>
+                        <td class="td1">[2월 3일(화)]</td>
+                        <td class="td2">피로그래밍 팀플</td>
+                        <td> 주최인/주최 동아리 </td>
+                        <td> <button class="btn-success"> 참석 신청 </button></td>
+                    </tr>
+                    <tr>
+                        <td class="td1">[2월 4일(수)]</td>
+                        <td class="td2">피로그래밍 수업</td>
+                        <td> 주최인/주최 동아리 </td>
+                        <td> <button class="btn-success"> 참석 신청 </button></td>
+                    </tr>
+                    <tr>
+                        <td class="td1">[2월 5일(목)]</td>
+                        <td class="td2">피로그래밍 워크샵</td>
+                        <td> 주최인/주최 동아리 </td>
+                        <td> <button class="btn-success"> 참석 신청 </button></td>
+                    </tr>
+                    <tr>
+                        <td class="td1">[2월 16일(금)]</td>
+                        <td class="td2">피로그래밍 스키</td>
+                        <td> 주최인/주최 동아리 </td>
+                        <td> <button class="btn-success"> 참석 신청 </button></td>
+                    </tr>
+                </table>
+                <br>
+
+            </div>
 
         </div>
 
+    </div>
 
-
-
-
-    {% endblock %}
+{% endblock %}

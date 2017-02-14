@@ -86,6 +86,15 @@
     <body>
         <img src="/static/dongzip/images/logocomietypng.png">
 
+
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" />
+</form>
+
         <table class="loginform">
             <form method="POST">
                 <tr>

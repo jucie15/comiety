@@ -12,7 +12,6 @@ class School(models.Model):
     member_number = models.IntegerField(default = 0, blank = False, null = False) # 멤버 수
     society_number = models.IntegerField(default = 0 , blank = False, null = False) # 동아리 수
     description = models.TextField(max_length = 512, blank = True, null = True) # 학교 소개
-    # point = models.PointField(srid = 4326, null = True, blank = True) # 학교 위치 좌표
 
     def __str__(self):
         return self.name
@@ -22,6 +21,9 @@ class School(models.Model):
         self.member_number = self.profile_set.all().count()
         self.save(update_fields=['member_number'])
 
+    def update_society_number(self):
+        self.society_number = self.society_set.all().count()
+        self.save(update_fields=['society_number'])
 
 class Profile(models.Model):
     # user = models.OneToOneField(User)
@@ -51,8 +53,6 @@ class Society(models.Model):
     school = models.ForeignKey(School) # School Table과 1:n 관계 형성
     name = models.CharField(max_length = 128, blank = False, null = False) # 동아리 이름
     main_tel_number = models.CharField(max_length = 32, blank = False, null = False) # 대표 전화번호
-    member_number = models.IntegerField(default = 0, blank = False, null = False) # 멤버 수
-    address = models.CharField(max_length = 256, blank = False, null = False) # 동아리 주소
     description = models.TextField(max_length = 512, blank = True, null = True) # 동아리 소개
     users = models.ManyToManyField(Profile) # USER TABLE과 다대다 관계 형성
     categorys = models.ManyToManyField('Category', blank = True)
@@ -62,6 +62,14 @@ class Society(models.Model):
     def __str__(self):
         return self.name
 
+    @staticmethod
+    def on_post_save(sender, **kwargs):
+        # profile에 의해 post_save가 호출 됐을 경우 실행
+        society = kwargs['instance']
+        if kwargs['created']:
+            society.school.update_society_number()
+
+post_save.connect(Society.on_post_save, sender = Society)
 
 class Event(models.Model):
     title = models.CharField(max_length = 128, blank = False, null = False) # 행사 명
@@ -81,7 +89,8 @@ class Event(models.Model):
         return self.title
 
 class Category(models.Model):
+    url_name = models.CharField(max_length = 32)
     name = models.CharField(max_length = 32)
 
     def __str__(self):
-        return self.name
+        return self.url_name

@@ -23,10 +23,11 @@ urlpatterns = [
     url(r'^school_list/ajax_search/$', views.ajax_search_sch, name = 'ajax_search_sch'),
     url(r'^school_list/(?P<id>\d+)/$', views.school_detail, name = 'school_detail'),
     url(r'^school_list/(?P<id>\d+)/ajax_search/$', views.ajax_search_soc, name = 'ajax_search_soc'),
-    url(r'^society_search/(?P<name>[a-z]+)/$', views.society_search, name = 'society_search'),
+    url(r'^society_search/(?P<name>[a-z_A-Z]+)/$', views.society_search, name = 'society_search'),
     url(r'^society_regist/$', views.society_regist, name = 'society_regist'),
     url(r'^society_detail/(?P<id>\d+)/$', views.society_detail, name = 'society_detail'),
     url(r'^event_list/$', views.event_list, name = 'event_list'),
+    url(r'^event_list/ajax_search/$', views.ajax_search_event, name = 'ajax_search_event'),
     url(r'^aboutus', views.aboutus, name = 'aboutus'),
     url(r'^ajax_counter/$', views.ajax_counter, name = 'ajax_counter'),
 
