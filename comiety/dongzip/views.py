@@ -106,8 +106,7 @@ def society_search(request, name):
     context['search_society_list'] = search_society_list
     context['keyword'] = keyword
     context['category_name'] = category_name
-
-    return render(request, 'dongzip/society_search.html', context)
+    context['school_name'] = school_name
 
 def society_regist(request):
     # 동아리 등록
