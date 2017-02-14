@@ -163,7 +163,9 @@
         <table class="school_info">
             <tr>
                 <td>
-                    <img src="{% static 'dongzip/images/frogphoto.jpg' %}" class="img-circle" id="school_photo" align="right">
+                    {% with 'dongzip/images/univ_logo/'|add:school.name as image_static %}
+                        <img src="{% static image_static %}" alt= {{ school_name }}>
+                      {% endwith %}
                 </td>
                 <td>
                     <div class="school_name">

@@ -97,38 +97,34 @@ def society_search(request, name):
         자동완성 기능 넣기
         혹시나 학교의 좌표 받아올때(get() 사용) 값이 없을 경우 예외 처리 혹시나
     '''
-    if request.method == 'GET':
-        keyword = request.GET.get('q', '')
-        distance = request.GET.get('distance')
-        school_name = request.GET.get('school', '')
-        category_name = '전체 검색'
+    keyword = request.GET.get('q', '')
+    distance = request.GET.get('distance')
+    school_name = request.GET.get('school', '')
+    category_name = '전체 검색'
 
-        # 키워드 검색 쿼리문
-        condition = Q(description__icontains = keyword) | Q(name__icontains = keyword) | Q(school__name__icontains = keyword)
+    # 키워드 검색 쿼리문
+    condition = Q(description__icontains = keyword) | Q(name__icontains = keyword) | Q(school__name__icontains = keyword)
 
-        if school_name != '':
-            # 학교 위치 기반 필터링을 원할 경우 조건 추가
-            school_pnt = SchoolLocation.objects.get(school__name = school_name).point # 지정 학교의 좌표
-            condition = condition & Q(school__schoollocation__point__distance_lte = (school_pnt, D(km = distance)))
+    if school_name != '':
+        # 학교 위치 기반 필터링을 원할 경우 조건 추가
+        school_pnt = SchoolLocation.objects.get(school__name = school_name).point # 지정 학교의 좌표
+        condition = condition & Q(school__schoollocation__point__distance_lte = (school_pnt, D(km = distance)))
 
-        if name != 'all':
-            # 카테고리 분류별 필터링을 원할 경우 조건 추가
-            condition = condition & Q(categorys__url_name = name)
+    if name != 'all':
+        # 카테고리 분류별 필터링을 원할 경우 조건 추가
+        condition = condition & Q(categorys__url_name = name)
 
-            category_name = Category.objects.get(url_name__icontains = name).name
-        print(condition)
-        search_society_list = Society.objects.filter(condition)
-
-
-
+        category_name = Category.objects.get(url_name__icontains = name).name
+    search_society_list = Society.objects.filter(condition)
 
         context = {}
         context['search_society_list'] = search_society_list
         context['keyword'] = keyword
         context['category_name'] = category_name
+        context['school_name'] = school_name
 
         return render(request, 'dongzip/society_search.html', context)
-    return render(request, 'dongzip/society_search.html')
+
 
 def society_regist(request):
     # 동아리 등록
