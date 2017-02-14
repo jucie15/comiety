@@ -53,7 +53,6 @@ class Society(models.Model):
     school = models.ForeignKey(School) # School Table과 1:n 관계 형성
     name = models.CharField(max_length = 128, blank = False, null = False) # 동아리 이름
     main_tel_number = models.CharField(max_length = 32, blank = False, null = False) # 대표 전화번호
-    member_number = models.IntegerField(default = 0, blank = False, null = False) # 멤버 수
     description = models.TextField(max_length = 512, blank = True, null = True) # 동아리 소개
     users = models.ManyToManyField(Profile) # USER TABLE과 다대다 관계 형성
     categorys = models.ManyToManyField('Category', blank = True)

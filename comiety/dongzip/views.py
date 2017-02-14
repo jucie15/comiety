@@ -86,6 +86,7 @@ def society_search(request, name):
         keyword = request.GET.get('q', '')
         distance = request.GET.get('distance')
         school_name = request.GET.get('school', '')
+        category_name = '전체 검색'
 
         # 키워드 검색 쿼리문
         condition = Q(description__icontains = keyword) | Q(name__icontains = keyword) | Q(school__name__icontains = keyword)
@@ -97,11 +98,13 @@ def society_search(request, name):
 
         if name != 'all':
             # 카테고리 분류별 필터링을 원할 경우 조건 추가
-            condition = condition & Q(categorys__name = name)
+            condition = condition & Q(categorys__url_name = name)
 
+            category_name = Category.objects.get(url_name__icontains = name).name
+        print(condition)
         search_society_list = Society.objects.filter(condition)
 
-        category_name = Category.objects.get(url_name__icontains = name).name
+
 
         context = {}
         context['search_society_list'] = search_society_list
