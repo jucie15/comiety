@@ -8,6 +8,7 @@ class  ProfileAdmin(admin.ModelAdmin):
 
 class SchoolAdmin(admin.ModelAdmin):
     model = School
+    search_fields = ('name', )
 
 class SocietyAdmin(admin.ModelAdmin):
     model = Society
