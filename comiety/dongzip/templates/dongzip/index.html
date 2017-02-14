@@ -36,12 +36,23 @@
     }
 
     .badge{
-        width: 40px;
+        width: autoo;
         height: 40px;
         font-size: 30px;
         background-color: gray;
         color: rgb(51, 204, 204);
     }
+
+    .badge_a {
+        color: white;
+    }
+
+    .badge_a:hover {
+        color: white;
+        text-decoration: none;
+    }
+
+
 
     .show-event{
         height: 370px;
@@ -98,9 +109,9 @@
     {% block content %}
         <div class="page-Home">
                 <h1><strong>무엇을 좋아하시나요?</strong></h1>
-                <a href = "{% url 'dongzip:school_list' %}">
+                <a href = "{% url 'dongzip:school_list' %}" class="badge_a">
                 <p><strong><span class="badge" id="school_badge">{{school_cnt}}</span></strong> 학교</a>
-                <a href = "{% url 'dongzip:society_search' 'all' %}">
+                <a href = "{% url 'dongzip:society_search' 'all' %}" class="badge_a">
                 <span class="badge" id="society_badge">{{society_cnt}}</span> 동아리 </a>
                 <span class="badge" id="event_badge">{{event_cnt}}</span> 교류전이 오가는</strong></p>
                 <p><strong>교류의 장, 동집에 오신 것을 환영합니다!</strong></p>
