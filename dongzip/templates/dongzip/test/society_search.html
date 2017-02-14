@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <h1>동아리, 학교 검색하기</h1>
+    <form action="" method="get">
+{% csrf_token %}
+
+<input type="text" id="name" name="q" placeholder="아이디" method="post" autofocus>
+<select name="distance" class=distanceselect>
+              <option value="5">5km</option>
+              <option value="10">10km</option>
+              <option value="15">15km</option>
+              <option value="20">20km</option>
+              <option value="100">100km</option>
+            </select>
+<select name="school" class=distanceselect>
+              <option value="">전체</option>
+              <option value="세종대">세종</option>
+              <option value="건국대">건국</option>
+              <option value="서울대">서울</option>
+            </select>
+<input type = "submit" value = "검색"/>
+</form>
+
+    <br/>
+    {% if schools %}
+    <h2>학교 검색결과</h2>
+    {% for school in schools %}
+    <p> {{ school.name }} </p>
+    {% endfor %}
+
+    {% elif search_term %}
+    <h2>학교 검색결과</h2>
+    <h3> Search Word ({{ search_term }}) Not Found !</h3>
+    {% endif %}
+
+    <br/>
+    {% if search_society_list %}
+    <h2>동아리 검색결과</h2>
+    {% for society in search_society_list %}
+    <p> {{ society.name }} </p>
+    {% endfor %}
+
+    {% elif search_term %}
+    <h2>동아리 검색결과</h2>
+    <h3> Search Word ({{ search_term }}) Not Found !</h3>
+    {% endif %}
+
+</body>
+</html>

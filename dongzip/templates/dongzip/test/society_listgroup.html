@@ -1,0 +1,407 @@
+<!-- {% load staticfiles %} -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            body {
+                margin:0;
+                min-width: 800px;
+                font-family: arial;
+            }
+
+            ul {
+                display: flex;
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: white;
+                top: 10px;
+                width: 100%;
+                justify-content: center;
+            }
+
+            li {
+                flex-shrink: 0;
+                border-right:1px solid white;
+            }
+
+            li:last-child {
+                border-right: none;
+            }
+
+            li a {
+                display: block;
+                color: black;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            li a:hover:not(.active) {
+                background-color: none;
+            }
+
+            .active {
+                background-color: none;
+            }
+
+            .join {
+                color: white;
+                background-color: rgb(51, 204, 204);
+                border-radius: 10px;
+            }
+
+            /*여기까지는 navigationbar입니다*/
+
+            .bckground {
+                margin-top: 10px;
+                height: 300px;
+                width: 100%;
+                background-image: url(../../static/images/bck.jpg);
+                background-size: cover;
+                color: white;
+                font-size: 1.3rem;
+                padding-top: 100px;
+                position: absolute;
+            }
+
+            .layout{
+                /*background-color: yellow;*/
+                height:200px;
+                display: flex;
+                justify-content: center;
+                position: relative;
+                top: 10px;
+            }
+
+            .layouti{
+                /*background-color: green;*/
+                /*border: 1px solid white;*/
+            }
+
+            .layouti:nth-child(1){
+                width: 10%;
+            }
+
+            .layouti:nth-child(2){
+                width: 800px;
+                flex-shrink: 0;
+            }
+
+            .layouti:nth-child(3){
+                width: 10%;
+            }
+
+            /*여기까지 전체 레이아웃입니다*/
+
+            /*Dropdown*/
+            #txtTextBox{
+                display:none;
+            }
+
+            #ddlDropDownList{
+                -webkit-appearance: none;
+                background-color: transparent;
+                border: none;
+                color: white;
+                font-size: 1rem;
+                width: 40px;
+                height: 25px;
+                text-align: center;
+                border-radius: 0;
+                border-bottom: 1px solid lightgray;
+            }
+
+            #ddlDropDownList2{
+                -webkit-appearance: none;
+                background-color: transparent;
+                border: none;
+                color: white;
+                font-size: 1rem;
+                width: 100px;
+                height: 25px;
+                text-align: center;
+                border-radius: 0;
+                border-bottom: 1px solid lightgray;
+            }
+            /*Dropdonw*/
+
+            #titl{
+                margin-left: 100px;
+                margin-top: 100px;
+                font-size: 2rem;
+                color: white;
+            }
+
+            #explain{
+                margin-left: 100px;
+                font-size: 1rem;
+                color: white;
+                width: 500px;
+            }
+
+            .search{
+                background-color: black;
+                margin-left: auto;
+                margin-right: auto;
+                height: 60px;
+                width: 800px;
+                color: white;
+                padding: 10px;
+                border-collapse: collapse;
+            }
+
+            .search td{
+                /*border: 1px solid white;*/
+                width: 200px;
+            }
+
+            #align{
+                text-align: right;
+            }
+
+            .result{
+                border-collapse:separate;
+                border-spacing:30px 20px;
+            }
+
+            .result td{
+                width: 225px;
+                height: 120px;
+                font-size: 1.2rem;
+                color: white;
+                padding: 15px;
+                vertical-align: bottom;
+                border: 1px solid lightgray;
+            }
+
+            .det{
+                color: lightgray;
+                font-size: 0.7rem;
+            }
+
+            /*사진 추가!!*/
+
+            #list1{
+                background-image: url(../../static/images/list1.jpg);
+                background-size: contain;
+            }
+
+            #list2{
+                background-image: url(../../static/images/list2.jpg);
+                background-size: contain;
+            }
+
+            #list3{
+                background-image: url(../../static/images/list3.jpg);
+                background-size: contain;
+            }
+
+            #list4{
+                background-image: url(../../static/images/list4.jpg);
+                background-size: contain;
+            }
+
+            #list5{
+                background-image: url(../../static/images/list5.jpg);
+                background-size: contain;
+            }
+
+            #list6{
+                background-image: url(../../static/images/list6.jpg);
+                background-size: contain;
+            }
+
+            #modegroup{
+                background-color: gray;
+                color: white;
+                padding: 14px 15px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                border: 1px solid gray;
+                box-shadow: inset 1px 1px 1px;
+            }
+
+            #modecalender{
+                background-color: black;
+                color: white;
+                padding: 14px 15px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                border: 1px solid gray;
+                border-left: none;
+            }
+
+        </style>
+        </head>
+
+
+    <body>
+
+        <ul>
+          <li style="float: left;"><a class="reg" href="societyregist.html">동아리 등록</a></li>
+          <li style="float: left;"><a href="index.html"><img src="추가필요" alt="logo"></a></li>
+          <li><a href="index.html">홈</a></li>
+          <li><a href="societylist.html">동아리</a></li>
+          <li><a href="schoollist.html">학교로 검색</a></li>
+          <li><a href="myprofile.html">내 페이지</a></li>
+          <li><a href="notification.html">알림</a></li>
+          <li><a href="login.html">로그인</a></li>
+          <li><a class="join" href="memberregist.html">가입하기</a></li>
+        </ul>
+
+        <!-- 여기까지는 navigationbar입니다-->
+
+        <div class="bckground">
+        </div>
+
+        <div class="layout">
+            <div class="layouti">
+                <div style="height:400px"> </div>
+                <!-- 1 -->
+            </div>
+            <div class="layouti">
+                <div id="titl" style="height:50px;"><strong>키워드 Keyword</strong></div>
+                <div id="explain" style="height:230px;">Find out what's happening in 기술 Meetup groups around the world and start meeting up with the ones near you.</div>
+
+                <table class="search">
+                    <td style="text-align: center;"><form action="searchresult.html" method="get"><input type="text" name="keyword" placeholder="전체 동아리" style="height:35px; width:200px;"></td>
+                    <td style="width: 45px">
+
+                    <!-- 드롭다운버튼 -->
+
+                        <select id="ddlDropDownList">
+                            <option value="1">5km</option>
+                            <option value="2">10km</option>
+                            <option value="3">20km</option>
+                            <option value="-1">Enter value</option>
+                        </select>
+                        <input id="txtTextBox" type="text" />
+
+                    <script>
+                        jQuery(".gfield_select").change(function() {
+                        var val = jQuery(this).val();
+                        var enter = jQuery(this).parent().find('option:selected').text();
+                        var x = jQuery(this).parent();
+                        if (enter ==="Enter a value" || enter === "Enter value"){
+                          var holder = x.find('.holder');
+                          holder.val('');
+                          holder.prop('disabled',false);
+                          holder.focus();
+                        } else {
+                          x.find('.holder').val(x.find('option:selected').text());
+                        }
+                });
+
+                    </script>
+                    <!-- 드롭다운 버-->
+                    </td>
+                    <td>
+                        of
+                    <!--  -->
+                        <select id="ddlDropDownList2">
+                            <option value="1">서울특별시</option>
+                            <option value="2">부산광역시</option>
+                            <option value="3">광주광역시</option>
+                            <option value="-1">Enter value</option>
+                        </select>
+                        <input id="txtTextBox" type="text" />
+
+                    <script>
+                        jQuery(".gfield_select").change(function() {
+                        var val = jQuery(this).val();
+                        var enter = jQuery(this).parent().find('option:selected').text();
+                        var x = jQuery(this).parent();
+                        if (enter ==="Enter a value" || enter === "Enter value"){
+                          var holder = x.find('.holder');
+                          holder.val('');
+                          holder.prop('disabled',false);
+                          holder.focus();
+                        } else {
+                          x.find('.holder').val(x.find('option:selected').text());
+                        }
+                });
+                    </script>
+                    <!--  -->
+
+                    </td>
+                    <td style="text-align:right;padding-right: 20px">
+                        <a class="mode" id="modegroup" href="#">그룹들</a>
+                        <a class="mode" id="modecalender" href="society_listcal.html">달 력 </a>
+                        </table>
+
+                    </td>
+                    </form>
+                </table>
+
+                <br>
+
+                <div id="align">
+                정렬기준
+                    <select id="ddlDropDownList2" style="color:black;">
+                            <option value="1">관련도순</option>
+                            <option value="2">최신순</option>
+                            <option value="3">거리순</option>
+                            <option value="-1">참가인원순</option>
+                        </select>
+                        <input id="txtTextBox" type="text" />
+
+                    <script>
+                        jQuery(".gfield_select").change(function() {
+                        var val = jQuery(this).val();
+                        var enter = jQuery(this).parent().find('option:selected').text();
+                        var x = jQuery(this).parent();
+                        if (enter ==="Enter a value" || enter === "Enter value"){
+                          var holder = x.find('.holder');
+                          holder.val('');
+                          holder.prop('disabled',false);
+                          holder.focus();
+                        } else {
+                          x.find('.holder').val(x.find('option:selected').text());
+                        }
+                });
+                    </script>
+
+                </div>
+
+                <br>
+
+                <!-- 내용 추가!!  -->
+                <table class="result">
+                    <tr>
+                        <td id="list1">1 <br><div class="det">We're 180players</div> </td>
+                        <td id="list2">2 <br><div class="det">We're 180players</div> </td>
+                        <td id="list3">3 <br><div class="det">We're 180players</div> </td>
+                    </tr>
+                    <tr>
+                        <td id="list4">4 <br><div class="det">We're 180players</div> </td>
+                        <td id="list5">5 <br><div class="det">We're 180players</div> </td>
+                        <td id="list6">6 <br><div class="det">We're 180players</div> </td>
+                    </tr>
+                    <tr>
+                        <td id="list7">7 <br><div class="det">We're 180players</div> </td>
+                        <td id="list8">8 <br><div class="det">We're 180players</div> </td>
+                        <td id="list9">9 <br><div class="det">We're 180players</div> </td>
+                    </tr>
+                    <tr>
+                        <td id="list10">10 <br><div class="det">We're 180players</div> </td>
+                        <td id="list11">11 <br><div class="det">We're 180players</div> </td>
+                        <td id="list12">12 <br><div class="det">We're 180players</div> </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="layouti">
+                <div style="height:400px"> </div>
+                <!-- 3 -->
+            </div>
+        </div>
+
+
+    </body>
+
+    </html>

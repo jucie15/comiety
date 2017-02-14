@@ -1,0 +1,232 @@
+{% extends "dongzip/layout.html" %}
+
+{% load staticfiles %}
+
+
+    {% block extra_style %}
+/*===============================up button(위로올라가기)======
+==========================*/
+
+    .top{
+        position: fixed;
+        bottom:20px;
+        right:30px;
+        background: url(https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/ChevronUpCircle-48.png) no-repeat;
+        width: 48px;
+        height:48px;
+    }
+
+    .page-Home{
+        position: relative;
+        z-index: 0;
+        background-image: url("{% static 'dongzip/images/balloons.jpg' %}");
+        background-repeat: repeat;
+        padding-top: 100px;
+        padding-bottom: 150px;
+        box-sizing: border-box;
+        color: white;
+        text-shadow: 0 1px 6px rgba(51, 51, 51, 0.2);
+        margin-top:20px;
+        margin: .67em 0;
+        font-family: sans-serif;
+        text-align: center;
+    }
+
+    .page-Home h1{
+        display: block;
+        text-align: left;
+        padding-left: 100px;
+        width: 500px;
+        font-size: 42px;
+        font-family: sans-serif;
+        font-weight: 700;
+        line-height: 54px;
+        -webkit-margin-before: 0.67em;
+        -webkit-margin-after: 0.67em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+    }
+
+    .page-Home p{
+        text-align: left;
+        padding-left: 100px;
+        width: 500px;
+        font-size: 20px;
+        font-family: sans-serif;
+    }
+
+    .search{
+        position: relative;
+        margin-top: -30px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 75px;
+        width: 700px;
+        background-color: black;
+        padding: 15px;
+
+    }
+
+    #insert_school{
+        text-align:center;
+    }
+
+    .keywordselect{
+        height:45px;
+        width:550px;
+
+    }
+
+    #submit{
+        height:45px;
+        width:80px;
+        border-radius:4px;
+
+    }
+
+    .locationselect, .distanceselect {
+        background-color: black;
+        color: white;
+        font-size: 18px;
+        margin-left: 20px;
+        border: 1px solid black;
+    }
+
+    .locationselect{
+        margin-left: 0px;
+    }
+
+    #modegroup{
+        margin-left: 150px;
+        background-color: gray;
+        color: white;
+        padding: 8px 8px;
+        text-align: center;
+        text-decoration: none;
+        border: 1px solid gray;
+        box-shadow: inset 1px 1px 1px;
+    }
+
+    #modecalender{
+        background-color: black;
+        color: white;
+        padding: 8px 8px;
+        text-align: center;
+        text-decoration: none;
+        border: 1px solid gray;
+        border-left: none;
+    }
+
+    #orderblock{
+        text-align: right;
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+
+    .thumbnail{
+        width: 295px;
+        height: 230px;
+        border: 0;
+        -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .thumbnail img{
+        width: 100%;
+        height: 180px!important;
+    }
+
+    .thumbnail .caption{
+        margin-top: -61px;
+        text-align: left;
+        color: white;
+        background-color: rgba(0,0,0,0.3)
+    }
+
+    {% endblock %}
+
+
+    {% block content %}
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript">
+</script> <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+
+<div class="top" />
+        {# <img src="test.png" alt="scroll" width="100" height="100"> #}
+        </div>
+
+        <div class="page-Home">
+                <h1><strong> 학교검색 </strong></h1>
+                <p>관심있는 학교이름을 검색해보세요.</p>
+        </div>
+        <div class="search">
+
+            <form action="" method="get">
+            <div id="insert_school">
+            <input type="text" size="100" name="keyword" value= '{{ keyword }}' placeholder="학교명" class="keywordselect" id="search_sch">
+
+
+            <input style="font-size:20px; margin-left:20px;" type="submit" value="검색" id="submit" class="keywordselect">
+            </form>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+
+            <h3 style="padding-left:30px; padding-top:25px;">
+                {% if keyword != '' %}
+                    {{ keyword }} 검색 결과입니다.
+                {% endif %}
+            </h3>
+          {% for school in school_list %}
+            <div class="col-md-3 col-sm-4 col-xs-6">
+              <div class="thumbnail">
+                <a href="{% url 'dongzip:school_detail' school.id %}" target="_self">
+                  <img src="../../static/dongzip/images/volunteer.png" alt="Volunteer">
+                  <div class="caption">
+                    <p><strong>{{ school.name }}</strong></p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+
+        </div>
+
+        <script type="text/javascript">
+
+
+      /*  코드 정리 및 autocomplete 구조 공부
+        에러 확인 후 수 */
+            $(function(){
+        $('#search_sch').autocomplete({
+            source:'/dongzip/school_list/ajax_search/',
+            focus: function( event, ui ) { val( ui.item.label );return false;}
+        });
+    });
+
+        $(document).ready(function(){
+            var $body = $(document.body), //자주 사용하기에 캐시되게 변수에 넣어준다
+                $top = '';
+
+            $top=$('<div>') //div 를 만들고
+                    .addClass('top') //top className을 주고
+                    .hide() //처음에는 숨겨둔다
+                    .click(function(){  // 클릭이 이벤트 할당
+                        $body.animate({ scrollTop: 0 }); //animation효과로 scollTop=0으로 이동
+                    })
+                    .appendTo($body); // body에 top을 넣는다
+            //윈도우의 스크롤위치로 위로가기 버튼을 보여줘야기에 핸들러 작성
+            $(window).scroll(function(){
+                var y = $(this).scrollTop();
+                if(y >= 0){
+                    $top.fadeIn();
+                }
+                else {
+                    $top.fadeOut();
+                }
+            });
+    });
+        </script>
+    {% endblock %}

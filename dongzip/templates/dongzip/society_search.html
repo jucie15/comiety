@@ -1,0 +1,190 @@
+{% extends "dongzip/layout.html" %}
+
+{% load staticfiles %}
+
+    {% block extra_style %}
+
+    .page-Home{
+        position: relative;
+        z-index: 0;
+        background-image: url("{% static 'dongzip/images/balloons.jpg' %}");
+        background-repeat: no-repeat;
+        padding-top: 100px;
+        padding-bottom: 150px;
+        box-sizing: border-box;
+        color: white;
+        text-shadow: 0 1px 6px rgba(51, 51, 51, 0.2);
+        margin-top:20px;
+        margin: .67em 0;
+        font-family: sans-serif;
+        text-align: center;
+    }
+
+    .page-Home h1{
+        display: block;
+        text-align: left;
+        padding-left: 100px;
+        width: 500px;
+        font-size: 42px;
+        font-family: sans-serif;
+        font-weight: 700;
+        line-height: 54px;
+        -webkit-margin-before: 0.67em;
+        -webkit-margin-after: 0.67em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+    }
+
+    .page-Home p{
+        text-align: left;
+        padding-left: 100px;
+        width: 500px;
+        font-size: 20px;
+        font-family: sans-serif;
+    }
+
+    .search{
+        position: relative;
+        margin-top: -30px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 60px;
+        width: 700px;
+        background-color: black;
+        padding: 15px;
+    }
+
+    .keywordselect{
+        height:35px;
+        width:200px;
+    }
+
+    .locationselect, .distanceselect {
+        background-color: black;
+        color: white;
+        font-size: 18px;
+        margin-left: 20px;
+        border: 1px solid black;
+    }
+
+    .locationselect{
+        margin-left: 0px;
+    }
+
+    #modegroup{
+        margin-left: 80px;
+        background-color: gray;
+        color: white;
+        padding: 8px 8px;
+        text-align: center;
+        text-decoration: none;
+        border: 1px solid gray;
+        box-shadow: inset 1px 1px 1px;
+    }
+
+    #modecalender{
+        background-color: black;
+        color: white;
+        padding: 8px 8px;
+        text-align: center;
+        text-decoration: none;
+        border: 1px solid gray;
+        border-left: none;
+    }
+
+    #orderblock{
+        text-align: right;
+        height:50px;
+        padding: 20px;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .thumbnail{
+        width: 295px;
+        height: 230px;
+        border: 0;
+        -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .thumbnail img{
+        width: 100%;
+        height: 180px!important;
+    }
+
+    .thumbnail .caption{
+        margin-top: -61px;
+        text-align: left;
+        color: white;
+        background-color: rgba(0,0,0,0.3)
+    }
+
+    {% endblock %}
+
+
+    {% block content %}
+        <div class="page-Home">
+                <h1><strong>{{ category_name }}</strong></h1>
+                <p>Find out what's happening in {{ category_name }} Meetup groups around the world and start meeting up with the ones near you.</p>
+        </div>
+        <div class="search">
+
+            <form action="" method="get">
+
+            <input type="text" name="q" placeholder= {{ category_name }} class="keywordselect">
+
+
+<select name="distance" class=distanceselect>
+              <option value="5">5km</option>
+              <option value="10">10km</option>
+              <option value="15">15km</option>
+              <option value="20">20km</option>
+              <option value="100">100km</option>
+            </select>
+<select name="school" class=distanceselect>
+              <option value="">전체</option>
+              <option value="세종대">세종</option>
+              <option value="건국대">건국</option>
+              <option value="서울대">서울</option>
+            </select>
+
+            <button type="button" class="btn btn-default" onClick="javascript:this.form.submit();">
+              <span class="glyphicon glyphicon-search"></span> 검색
+            </button>
+
+            <a id="modegroup" href="#">그룹들</a>
+            <a id="modecalender" href="society_listcal.html">달 력 </a>
+
+            </form>
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12" id="orderblock">
+            정렬기준:
+            <select name="order">
+              <option value="1">관련도순</option>
+              <option value="2">최신순</option>
+              <option value="3">거리순</option>
+              <option value="4">참가인원순</option>
+            </select>
+        </div>
+
+        <div class="container-fluid">
+
+          {% for society in search_society_list %}
+            <div class="col-md-3 col-sm-4 col-xs-6">
+              <div class="thumbnail">
+                <a href="{% url 'dongzip:society_detail' society.id %}" target="_blank">
+                  <img src="../../static/dongzip/images/volunteer.png" alt="Volunteer">
+                  <div class="caption">
+                    <p><strong>{{ society.name }}</strong></p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+
+        </div>
+
+    {% endblock %}
