@@ -128,7 +128,7 @@ def event_list(request):
     검색창 들어간곳 모두 자동 완성 기능 추가하기
 
 '''
-def ajax_search(request):
+def ajax_search_sch(request):
     # 자동 완성 기능
     if request.is_ajax():
         keyword = request.GET.get('term','')
@@ -138,6 +138,25 @@ def ajax_search(request):
             school_json = {}
             school_json['label'] = school.name
             results.append(school_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
+
+def ajax_search_soc(request, id):
+    # 자동 완성 기능
+    if request.is_ajax():
+        keyword = request.GET.get('term','')
+
+        school = School.objects.get(id=id)
+        condition = (Q(description__icontains = keyword) | Q(name__icontains = keyword)) & Q(school = school)
+        society_list = school.society_set.filter(condition)
+        results = []
+        for society in society_list:
+            society_json = {}
+            society_json['label'] = society.name
+            results.append(society_json)
         data = json.dumps(results)
     else:
         data = 'fail'
