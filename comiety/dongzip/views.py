@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import School, Society, Profile, Event
+from .models import School, Society, Profile, Event, Category
 from geodjango.models import SchoolLocation
 from .forms import *
 from django.contrib.auth.views import login as auth_login
@@ -18,11 +18,13 @@ def index(request):
     school_cnt = School.objects.all().count()
     society_cnt = Society.objects.all().count()
     event_cnt = Event.objects.all().count()
+    category_list = Category.objects.all()
 
     context = {}
     context['school_cnt'] = school_cnt
     context['society_cnt'] = society_cnt
     context['event_cnt'] = event_cnt
+    context['category_list'] = category_list
 
     return render(request, 'dongzip/index.html', context)
 
@@ -99,9 +101,12 @@ def society_search(request, name):
 
         search_society_list = Society.objects.filter(condition)
 
+        category_name = Category.objects.get(url_name__icontains = name).name
+
         context = {}
         context['search_society_list'] = search_society_list
         context['keyword'] = keyword
+        context['category_name'] = category_name
 
         return render(request, 'dongzip/society_search.html', context)
     return render(request, 'dongzip/society_search.html')

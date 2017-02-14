@@ -12,7 +12,6 @@ class School(models.Model):
     member_number = models.IntegerField(default = 0, blank = False, null = False) # 멤버 수
     society_number = models.IntegerField(default = 0 , blank = False, null = False) # 동아리 수
     description = models.TextField(max_length = 512, blank = True, null = True) # 학교 소개
-    # point = models.PointField(srid = 4326, null = True, blank = True) # 학교 위치 좌표
 
     def __str__(self):
         return self.name
@@ -81,7 +80,8 @@ class Event(models.Model):
         return self.title
 
 class Category(models.Model):
+    url_name = models.CharField(max_length = 32)
     name = models.CharField(max_length = 32)
 
     def __str__(self):
-        return self.name
+        return self.url_name
