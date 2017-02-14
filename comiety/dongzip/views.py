@@ -36,7 +36,7 @@ def school_list(request):
     context['keyword'] = keyword
     context['school_list'] = school_list
 
-    return render(request, 'dongzip/school_list.html', context )
+    return render(request, 'dongzip/school_list.html', context)
 
 def school_detail(request, id):
     # 학교별 세부페이지
