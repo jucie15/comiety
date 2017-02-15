@@ -213,7 +213,7 @@
 
         $(function(){
     $('#search_soc').autocomplete({
-        source:'/dongzip/school_list/'+{{ school.id }},
+        source:'/dongzip/school_list/'+{{ school.id }}+'/ajax_search/',
         focus: function( event, ui ) { val( ui.item.label );return false;}
     });
 });

@@ -142,11 +142,11 @@
 
             <form action="" method="get">
 
-            <input type="text" name="q" placeholder= "연관 검색어" class="keywordselect" value="{{ keyword }}">
+            <input type="text" name="q" placeholder= "연관 검색어" id="search_rel" class="keywordselect" value="{{ keyword }}">
 
             <input type="text" size="100" name="school" value= "{{ school_name }}" placeholder="학교명" class="keywordselect" id="search_sch" onfocus="if(this.value!='') this.value='';">
 
-            <select name="distance" class=distanceselect>
+            <select name="distance" class='distanceselect' id='distanceselect'>
               <option value="5">5km</option>
               <option value="10">10km</option>
               <option value="15">15km</option>
@@ -201,15 +201,22 @@
 
         <script type="text/javascript">
 
+        $(function search(){
+                $('#search_sch').autocomplete({
+                    source:'/dongzip/school_list/ajax_search/',
+                    focus: function( event, ui ) { val( ui.item.label );return false;}
+                });
+        });
 
-      /*  코드 정리 및 autocomplete 구조 공부
-        에러 확인 후 수 */
-            $(function(){
-        $('#search_sch').autocomplete({
-            source:'/dongzip/school_list/ajax_search/',
-            focus: function( event, ui ) { val( ui.item.label );return false;}
+        $(function(){
+        $('#search_rel').autocomplete({
+            source:'/dongzip/society_search/'+'{{ name }}'+'/ajax_search/',
+            focus: function( event, ui ) { val( ui.item.label ); return false;}
         });
     });
+
+
+
         </script>
 
     {% endblock %}

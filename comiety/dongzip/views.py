@@ -13,19 +13,6 @@ from django.contrib.gis.measure import D
 import json
 import time
 
-def ajax_test(request, data_list):
-    # 자동 완성 기능
-    if request.is_ajax():
-        results = []
-        for data in data_list:
-            data_json = {}
-            data_json['label'] = data.name
-            results.append(data_json)
-        data = json.dumps(results)
-    else:
-        data = 'fail'
-    mimetype = 'application/json'
-    return HttpResponse(data, mimetype)
 
 def index(request):
     # 인덱스 페이지
@@ -109,6 +96,7 @@ def society_search(request, name):
         # 학교 위치 기반 필터링을 원할 경우 조건 추가
         school_pnt = SchoolLocation.objects.get(school__name = school_name).point # 지정 학교의 좌표
         condition = condition & Q(school__schoollocation__point__distance_lte = (school_pnt, D(km = distance)))
+        school = School.objects.get(name=school_name)
 
     if name != 'all':
         # 카테고리 분류별 필터링을 원할 경우 조건 추가
@@ -116,14 +104,13 @@ def society_search(request, name):
 
         category_name = Category.objects.get(url_name__icontains = name).name
     search_society_list = Society.objects.filter(condition)
-
-        context = {}
-        context['search_society_list'] = search_society_list
-        context['keyword'] = keyword
-        context['category_name'] = category_name
-        context['school_name'] = school_name
-
-        return render(request, 'dongzip/society_search.html', context)
+    context = {}
+    context['search_society_list'] = search_society_list
+    context['keyword'] = keyword
+    context['category_name'] = category_name
+    context['school_name'] = school_name
+    context['name'] = name
+    return render(request, 'dongzip/society_search.html', context)
 
 
 def society_regist(request):
@@ -167,6 +154,7 @@ def ajax_search_sch(request):
         results = []
         for school in school_list:
             school_json = {}
+            school_json['id'] = school.id
             school_json['label'] = school.name
             results.append(school_json)
         data = json.dumps(results)
@@ -174,6 +162,30 @@ def ajax_search_sch(request):
         data = 'fail'
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
+
+
+def ajax_search_related(request, name):
+    # 자동 완성 기능
+    if request.is_ajax():
+        keyword = request.GET.get('term','')
+        condition = Q(name__icontains = keyword)
+
+        if name != 'all':
+            # 카테고리 분류별 필터링을 원할 경우 조건 추가
+            condition = condition & Q(categorys__url_name = name)
+            society_list = Society.objects.filter(condition)
+        results = []
+        for society in society_list:
+            society_json = {}
+            society_json['label'] = society.name
+
+            results.append(society_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
+
 
 def ajax_search_soc(request, id):
     # 자동 완성 기능
