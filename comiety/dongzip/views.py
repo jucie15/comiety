@@ -4,6 +4,7 @@ from .models import School, Society, Profile, Event, Category
 from geodjango.models import SchoolLocation
 from .forms import *
 from django.contrib.auth.views import login as auth_login
+from django.contrib.auth.decorators import login_required
 from allauth.socialaccount.models import SocialApp
 from allauth.socialaccount.templatetags.socialaccount import get_providers
 from django.conf import settings
@@ -13,19 +14,6 @@ from django.contrib.gis.measure import D
 import json
 import time
 
-def ajax_test(request, data_list):
-    # 자동 완성 기능
-    if request.is_ajax():
-        results = []
-        for data in data_list:
-            data_json = {}
-            data_json['label'] = data.name
-            results.append(data_json)
-        data = json.dumps(results)
-    else:
-        data = 'fail'
-    mimetype = 'application/json'
-    return HttpResponse(data, mimetype)
 
 def index(request):
     # 인덱스 페이지
@@ -139,6 +127,14 @@ def society_regist(request):
         form = SocietyForm()
     return render(request, 'dongzip/society_regist.html', {'form' : form})
 
+@login_required
+def favorite_society_add(request, id):
+    # 동아리 즐겨찾기 기능
+    user = request.user.profile
+    society = Society.objects.get(id=id)
+    user.favorite_society.add(society)
+    return redirect('dongzip:index')
+
 def event_list(request):
     return render(request, 'dongzip/event_list.html')
 
@@ -213,7 +209,8 @@ def ajax_counter(request):
 
 def aboutus(request):
     return render(request, 'dongzip/aboutus.html')
-# front test
 
+# front test
+@login_required
 def society_admin(request):
     return render(request, 'dongzip/society_admin.html')
