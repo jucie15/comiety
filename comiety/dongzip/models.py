@@ -40,7 +40,7 @@ class Profile(models.Model):
     nickname = models.CharField(max_length = 128, blank = False, null = False) # 닉네임
     #favorite = 태그로 ㄱ?
     tel_number = models.CharField(max_length = 32, blank = False, null = False, validators=[tel_number_validator]) # 전화번호
-    favorite_society = models.ManyToManyField('Society', blank = True, null = True) # 관심 동아리
+    favorite_society = models.ManyToManyField('Society') # 관심 동아리
     profile_image = models.ImageField(upload_to = 'uploaded/user_profile/', null = True, blank = True)
 
     def __str__(self):

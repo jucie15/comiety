@@ -141,6 +141,12 @@ def society_regist(request):
 
 
 @login_required
+def society_admin(request, id):
+    if request.user.profile.membership_set.get(society_id = id).power != 2:
+        return redirect(request.path)
+    return render(request, 'dongzip/society_admin.html')
+
+@login_required
 def favorite_society(request, id):
     # 동아리 즐겨찾기 기능
     if request.is_ajax():
@@ -166,8 +172,10 @@ def favorite_society(request, id):
         data = 'fail'
     return HttpResponse(data)
 
+
 def event_list(request):
     return render(request, 'dongzip/event_list.html')
+
 
 def ajax_search_event(request):
     if request.is_ajax():
@@ -196,29 +204,6 @@ def ajax_search_sch(request):
             school_json['id'] = school.id
             school_json['label'] = school.name
             results.append(school_json)
-        data = json.dumps(results)
-    else:
-        data = 'fail'
-    mimetype = 'application/json'
-    return HttpResponse(data, mimetype)
-
-
-def ajax_search_related(request, name):
-    # 자동 완성 기능
-    if request.is_ajax():
-        keyword = request.GET.get('term','')
-        condition = Q(name__icontains = keyword)
-
-        if name != 'all':
-            # 카테고리 분류별 필터링을 원할 경우 조건 추가
-            condition = condition & Q(categorys__url_name = name)
-            society_list = Society.objects.filter(condition)
-        results = []
-        for society in society_list:
-            society_json = {}
-            society_json['label'] = society.name
-
-            results.append(society_json)
         data = json.dumps(results)
     else:
         data = 'fail'
@@ -268,7 +253,6 @@ def ajax_counter(request):
     data = json.dumps(count_json)# json형식을 씌워 넘겨준다
     return HttpResponse(data)
 
-
 def ajax_search_related(request, name):
     # 자동 완성 기능
     if request.is_ajax():
@@ -294,7 +278,7 @@ def ajax_search_related(request, name):
 def aboutus(request):
     return render(request, 'dongzip/aboutus.html')
 
-# front test
-@login_required
-def society_admin(request):
-    return render(request, 'dongzip/society_admin.html')
+
+
+
+

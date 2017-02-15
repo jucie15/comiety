@@ -27,14 +27,11 @@ urlpatterns = [
     url(r'^society_search/(?P<name>[a-z_A-Z]+)/ajax_search/$', views.ajax_search_related, name = 'ajax_search_related'),
     url(r'^society_regist/$', views.society_regist, name = 'society_regist'),
     url(r'^society_detail/(?P<id>\d+)/$', views.society_detail, name = 'society_detail'),
+    url(r'^society_detail/(?P<id>\d+)/admin/$', views.society_admin, name = 'society_admin'),
     url(r'^favorite_society/(?P<id>\d+)/', views.favorite_society, name = 'favorite_society'),
     url(r'^event_list/$', views.event_list, name = 'event_list'),
     url(r'^event_list/ajax_search/$', views.ajax_search_event, name = 'ajax_search_event'),
     url(r'^society_search/(?P<name>[a-z_A-Z]+)/ajax_search/$', views.ajax_search_related, name = 'ajax_search_related'),
     url(r'^aboutus', views.aboutus, name = 'aboutus'),
     url(r'^ajax_counter/$', views.ajax_counter, name = 'ajax_counter'),
-
-
-    # front test
-    url(r'^society_admin/$', views.society_admin, name='society_admin'),
 ]
