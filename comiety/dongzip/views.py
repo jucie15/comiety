@@ -16,19 +16,23 @@ import time
 
 
 def index(request):
+
+    if request.user.is_anonymous() or Profile.objects.filter(user=request.user).exists():
+        school_cnt = School.objects.all().count()
+        society_cnt = Society.objects.all().count()
+        event_cnt = Event.objects.all().count()
+        category_list = Category.objects.all()
+
+        context = {}
+        context['school_cnt'] = school_cnt
+        context['society_cnt'] = society_cnt
+        context['event_cnt'] = event_cnt
+        context['category_list'] = category_list
+        return render(request, 'dongzip/index.html', context)
+
     # 인덱스 페이지
-    school_cnt = School.objects.all().count()
-    society_cnt = Society.objects.all().count()
-    event_cnt = Event.objects.all().count()
-    category_list = Category.objects.all()
-
-    context = {}
-    context['school_cnt'] = school_cnt
-    context['society_cnt'] = society_cnt
-    context['event_cnt'] = event_cnt
-    context['category_list'] = category_list
-
-    return render(request, 'dongzip/index.html', context)
+    else:
+        return redirect ('accounts:member_info_regist')
 
 
 def school_list(request):
@@ -97,6 +101,7 @@ def society_search(request, name):
         # 학교 위치 기반 필터링을 원할 경우 조건 추가
         school_pnt = SchoolLocation.objects.get(school__name = school_name).point # 지정 학교의 좌표
         condition = condition & Q(school__schoollocation__point__distance_lte = (school_pnt, D(km = distance)))
+        school = School.objects.get(name=school_name)
 
     if name != 'all':
         # 카테고리 분류별 필터링을 원할 경우 조건 추가
@@ -104,7 +109,6 @@ def society_search(request, name):
 
         category_name = Category.objects.get(url_name__icontains = name).name
     search_society_list = Society.objects.filter(condition)
-
     context = {}
     context['search_society_list'] = search_society_list
     context['keyword'] = keyword
@@ -189,6 +193,7 @@ def ajax_search_sch(request):
         results = []
         for school in school_list:
             school_json = {}
+            school_json['id'] = school.id
             school_json['label'] = school.name
             results.append(school_json)
         data = json.dumps(results)
@@ -196,6 +201,30 @@ def ajax_search_sch(request):
         data = 'fail'
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
+
+
+def ajax_search_related(request, name):
+    # 자동 완성 기능
+    if request.is_ajax():
+        keyword = request.GET.get('term','')
+        condition = Q(name__icontains = keyword)
+
+        if name != 'all':
+            # 카테고리 분류별 필터링을 원할 경우 조건 추가
+            condition = condition & Q(categorys__url_name = name)
+            society_list = Society.objects.filter(condition)
+        results = []
+        for society in society_list:
+            society_json = {}
+            society_json['label'] = society.name
+
+            results.append(society_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
+
 
 def ajax_search_soc(request, id):
     # 자동 완성 기능
