@@ -1,12 +1,16 @@
+import re
 from django.conf import settings
 from django.db import models
 # from django.contrib.gis.db import models
 from django.utils import timezone
 from django.db.models.signals import post_save
-# Create your models here.
+from django.forms import ValidationError
 
-# validator 전화번호, 좌표, nickname(중복방지),
-def
+# validator 전화번호
+def tel_number_validator(value):
+    if not re.match(r'^01\d{9}$', value):
+        raise ValidationError("""전화번호('-'없이, 11자)를 정확히 입력해 주세요""")
+
 
 class School(models.Model):
     name = models.CharField(max_length = 128, blank = False, null = False) # 학교 이름
@@ -27,6 +31,7 @@ class School(models.Model):
         self.society_number = self.society_set.all().count()
         self.save(update_fields=['society_number'])
 
+
 class Profile(models.Model):
     # user = models.OneToOneField(User)
     # user = models.OneToOneField('auth.User')
@@ -34,7 +39,7 @@ class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL)  # 'auth.User' 인증 라이브러리를 사용하기 위해 auth.user 사용
     nickname = models.CharField(max_length = 128, blank = False, null = False) # 닉네임
     #favorite = 태그로 ㄱ?
-    tel_number = models.CharField(max_length = 32, blank = False, null = False) # 전화번호
+    tel_number = models.CharField(max_length = 32, blank = False, null = False, validators=[tel_number_validator]) # 전화번호
     favorite_society = models.ManyToManyField('Society', blank = True, null = True) # 관심 동아리
     profile_image = models.ImageField(upload_to = 'uploaded/user_profile/', null = True, blank = True)
 
