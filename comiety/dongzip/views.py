@@ -13,6 +13,20 @@ from django.contrib.gis.measure import D
 import json
 import time
 
+def ajax_test(request, data_list):
+    # 자동 완성 기능
+    if request.is_ajax():
+        results = []
+        for data in data_list:
+            data_json = {}
+            data_json['label'] = data.name
+            results.append(data_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
+
 def index(request):
     # 인덱스 페이지
     school_cnt = School.objects.all().count()
@@ -50,6 +64,7 @@ def school_detail(request, id):
     condition = (Q(description__icontains = keyword) | Q(name__icontains = keyword)) & Q(school = school)
 
     society_list = Society.objects.filter(condition)
+    #ajax_test(request, society_list)
 
     context = {}
     context['keyword'] = keyword
@@ -102,11 +117,14 @@ def society_search(request, name):
         category_name = Category.objects.get(url_name__icontains = name).name
     search_society_list = Society.objects.filter(condition)
 
-    context = {}
-    context['search_society_list'] = search_society_list
-    context['keyword'] = keyword
-    context['category_name'] = category_name
-    context['school_name'] = school_name
+        context = {}
+        context['search_society_list'] = search_society_list
+        context['keyword'] = keyword
+        context['category_name'] = category_name
+        context['school_name'] = school_name
+
+        return render(request, 'dongzip/society_search.html', context)
+
 
     return render(request, 'dongzip/society_search.html', context)
 
@@ -127,12 +145,23 @@ def society_regist(request):
 def event_list(request):
     return render(request, 'dongzip/event_list.html')
 
+def ajax_search_event(request):
+    if request.is_ajax():
+        keyword = request.GET.get('term','')
+        event_list = Event.objects.all().filter(title__icontains = keyword)
+        results = []
+        for event in event_list:
+            event_json = {}
+            event_json['label'] = event.title
+            results.append(event_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
 
-'''
-    검색창 들어간곳 모두 자동 완성 기능 추가하기
 
-'''
-def ajax_search(request):
+def ajax_search_sch(request):
     # 자동 완성 기능
     if request.is_ajax():
         keyword = request.GET.get('term','')
@@ -142,6 +171,25 @@ def ajax_search(request):
             school_json = {}
             school_json['label'] = school.name
             results.append(school_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
+
+def ajax_search_soc(request, id):
+    # 자동 완성 기능
+    if request.is_ajax():
+        keyword = request.GET.get('term','')
+
+        school = School.objects.get(id=id)
+        condition = (Q(description__icontains = keyword) | Q(name__icontains = keyword)) & Q(school = school)
+        society_list = school.society_set.filter(condition)
+        results = []
+        for society in society_list:
+            society_json = {}
+            society_json['label'] = society.name
+            results.append(society_json)
         data = json.dumps(results)
     else:
         data = 'fail'
