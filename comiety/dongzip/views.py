@@ -54,10 +54,18 @@ def school_detail(request, id):
     society_list = Society.objects.filter(condition)
     #ajax_test(request, society_list)
 
+    society_number = Society.objects.filter(school=school).count()
+    school_point = SchoolLocation.objects.get(school__name = school)
+
+
     context = {}
     context['keyword'] = keyword
     context['society_list'] = society_list
     context['school'] = school # 수정 할지 확인하기
+    context['society_number'] = society_number
+    context['school_point'] = school_point
+    # context['school_lng'] =
+    # context['school_lat'] =
 
     return render(request,'dongzip/school_detail.html', context)
 
