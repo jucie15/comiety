@@ -5,6 +5,8 @@ from django.utils import timezone
 from django.db.models.signals import post_save
 # Create your models here.
 
+# validator 전화번호, 좌표, nickname(중복방지),
+def
 
 class School(models.Model):
     name = models.CharField(max_length = 128, blank = False, null = False) # 학교 이름
