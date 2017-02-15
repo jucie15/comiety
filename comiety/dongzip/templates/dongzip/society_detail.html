@@ -94,13 +94,13 @@
     }
 
     #soc_interest a{
-        color: gold;
         font-size: 18px;
         text-decoration: none;
     }
 
     #soc_interest a:hover{
-        color: darkgoldenrod;
+        font-weight: bold;
+        cursor: pointer;
     }
 
     #td1{
@@ -316,7 +316,15 @@
                 </div>
                 <table>
                     <tr id="soc_interest">
-                        <td colspan="2"><a href="#"><span class="glyphicon glyphicon-star"></span>즐겨찾기</a></td>
+                        <td colspan="2">
+                        {% with request.user.profile.favorite_society.all as fa_soc %}
+                            {% if society in fa_soc %}
+                                <a id = 'favorite' style='color:yellow'>
+                            {% else %}
+                               <a id = 'favorite' style='color:gray'>
+                            {% endif %}
+                        {% endwith %}
+                        <span class="glyphicon glyphicon-star"></span>즐겨찾기</a></td>
                     </tr>
                     <tr id="soc_left_tr1">
                         <td id="td1"><strong>그룹장:</strong></td>
@@ -421,4 +429,27 @@
         </div>
 
     </div>
+    <script type="text/javascript">
+
+// 즐겨찾기 추가(ajax 처리)
+$('#favorite').click(function(){
+    $.ajax({
+        url: "{% url 'dongzip:favorite_society' society.id %}" , // 요청 url
+        success: function(data){
+            //update index_dashboard
+            alert(data.message);
+            if(data.isFavorite == true)
+                $('#favorite').css('color','yellow');
+            else
+                $('#favorite').css('color','gray');
+        }, // 요청이 성공했을 경우
+        error: function(data){
+            console.log('error');
+        }, // 에러가 날 경우
+        dataType: "json",
+        timeout: 2500, // 응답 대기 제한 시간
+    });
+});
+</script>
+
 {% endblock %}

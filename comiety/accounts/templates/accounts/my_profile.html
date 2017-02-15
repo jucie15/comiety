@@ -149,7 +149,7 @@ button {
                 즐겨찾기
                 </h3>
                 <hr>
-                {% for society in user.profile.society_set.all %}
+                {% for society in user.profile.favorite_society.all %}
                     <div class="my_favorite_society_logo"><img src="{% static 'dongzip/images/{{ society }}.jpg' %}" alt=""> <br> {{ society.name }}</div>
                 {% endfor %}
             </div>

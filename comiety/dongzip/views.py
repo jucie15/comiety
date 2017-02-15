@@ -128,12 +128,30 @@ def society_regist(request):
     return render(request, 'dongzip/society_regist.html', {'form' : form})
 
 @login_required
-def favorite_society_add(request, id):
+def favorite_society(request, id):
     # 동아리 즐겨찾기 기능
-    user = request.user.profile
-    society = Society.objects.get(id=id)
-    user.favorite_society.add(society)
-    return redirect('dongzip:index')
+    if request.is_ajax():
+        user = request.user.profile # 요청 유저
+        society = Society.objects.get(id=id) # 즐겨찾을 동아리
+        if user.favorite_society.filter(id=id).exists():
+            # 이미 즐겨찾기 등록이 되있으면
+            # 즐겨찾기 삭제
+            user.favorite_society.remove(society)
+            message = '즐겨찾기 해제'
+            isFavorite = False
+        else:
+            # 즐겨찾기 추가
+            user.favorite_society.add(society)
+            message = '즐겨찾기 추가'
+            isFavorite = True
+
+        context = {}
+        context['message'] = message
+        context['isFavorite'] = isFavorite
+        data = json.dumps(context)
+    else:
+        data = 'fail'
+    return HttpResponse(data)
 
 def event_list(request):
     return render(request, 'dongzip/event_list.html')
