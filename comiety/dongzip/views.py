@@ -112,7 +112,7 @@ def society_search(request, name):
         context['category_name'] = category_name
         context['school_name'] = school_name
 
-        return render(request, 'dongzip/society_search.html', context)
+    return render(request, 'dongzip/society_search.html', context)
     # return render(request, 'dongzip/society_search.html')
 
 def society_regist(request):
@@ -163,10 +163,15 @@ def ajax_counter(request):
         society_cnt = Society.objects.all().count()
         event_cnt = Event.objects.all().count()
 
-        count_json = {} # 넘겨줄 데이터
+        global count_json
+        count_json ={}
+
         count_json['school_cnt'] = school_cnt
         count_json['society_cnt'] = society_cnt
         count_json['event_cnt'] = event_cnt
+
+    else:
+        count_json = {} # 넘겨줄 데이터
 
     data = json.dumps(count_json)# json형식을 씌워 넘겨준다
     return HttpResponse(data)
