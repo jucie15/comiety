@@ -40,7 +40,7 @@ table td{
     text-align: center;
 }
 
-.my_info, .my_society, .my_participation{
+.my_info, .my_society, .my_favorite_society, .my_participation{
     border: 1px solid lightgray;
     width: 800px;
     margin-bottom: 50px;
@@ -48,11 +48,11 @@ table td{
     margin-right: auto;
 }
 
-.my_society{
+.my_society, .my_favorite_society {
     text-align: center;
 }
 
-.my_society_logo{
+.my_society_logo, .my_favorite_society_logo {
     display: inline-block;
 }
 
@@ -66,17 +66,17 @@ button {
 
 @media screen and (max-width: 480px) {
     .info_block { width: 460px; }
-    table { width: 420px; font-size: 12px; }
+    table, #society_schedule, #myinfo { width: 420px; font-size: 11px; }
     button{ width: auto; padding: auto;}
-    .my_info, .my_society, .my_participation { width: 460px; }
+    .my_info, .my_society, .my_favorite_society, .my_participation { width: 460px; }
     .my_participation table { font-size: 11px; }
 }
 
 @media screen and (min-width: 481px) and (max-width: 767px) {
     .info_block { width: 700px; }
-    table { width: 650px; }
+    table, #society_schedule, #myinfo { width: 650px; }
     button{ width: auto; padding: auto;}
-    .my_info, .my_society, .my_society_schedule_manage, .my_participation{ width: 650px; font-size: 15px; }
+    .my_info, .my_society, .my_favorite_society, .my_participation { width: 650px; font-size: 15px; }
 }
 
 @media screen and (min-width: 768px) {
@@ -104,7 +104,7 @@ button {
 
                 <br>
 
-                <table align="center">
+                <table align="center" id="myinfo">
                     <tr>
                         <td rowspan="5"> <img src="{% static 'dongzip/images/daeun.jpg' %}" alt="" class="img-circle"></td>
                         <td> 아이디: </td>
@@ -130,7 +130,7 @@ button {
             </div>
 
                 <br>
-            <div class="my_society">
+            <div class="my_society panel">
                 <h3>
                 <span class="glyphicon glyphicon-globe"></span>
                 내 동아리
@@ -138,6 +138,19 @@ button {
                 <hr>
                 {% for society in user.profile.society_set.all %}
                     <div class="my_society_logo"><img src="{% static 'dongzip/images/{{ society }}.jpg' %}" alt=""> <br> {{ society.name }}</div>
+                {% endfor %}
+            </div>
+
+                <br>
+
+            <div class="my_favorite_society panel">
+                <h3>
+                <span class="glyphicon glyphicon-star"></span>
+                즐겨찾기
+                </h3>
+                <hr>
+                {% for society in user.profile.society_set.all %}
+                    <div class="my_favorite_society_logo"><img src="{% static 'dongzip/images/{{ society }}.jpg' %}" alt=""> <br> {{ society.name }}</div>
                 {% endfor %}
             </div>
 
