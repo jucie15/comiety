@@ -62,15 +62,33 @@ def member_info_regist(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():
-            member = form.save(commit = False)
-            member.user = request.user
-            member = form.save()
+            profile = form.save(commit = False)
+            profile.user = request.user
+            profile = form.save()
             # reverse('dongzip:society_list', args=[society.id]). => "/soceity/1/""
             # resolve_url('dongzip:society_list', society.id).    => "/soceity/1/"
             # redirect('dongzip:society_list', society.id)        => HttpResponse
             return redirect('dongzip:index')
     else:
         form = ProfileForm()
+    return render(request, 'accounts/member_info_regist.html', {'form':form})
+
+@login_required
+def member_info_regist_edit(request):
+    profile = get_object_or_404(Profile, user=request.user)
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            profile = form.save(commit = False)
+            profile.user = request.user
+            profile = form.save()
+            # reverse('dongzip:society_list', args=[society.id]). => "/soceity/1/""
+            # resolve_url('dongzip:society_list', society.id).    => "/soceity/1/"
+            # redirect('dongzip:society_list', society.id)        => HttpResponse
+            return redirect('dongzip:index')
+    else:
+        form = ProfileForm(instance=profile)
     return render(request, 'accounts/member_info_regist.html', {'form':form})
 
 

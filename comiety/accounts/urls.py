@@ -24,6 +24,7 @@ urlpatterns = [
     # url(r'^login/$', views.login, name = 'login'),
     url(r'^login/$', views.login, name = 'login'),
     url(r'^member_info_regist/$', views.member_info_regist, name = 'member_info_regist'),
+    url(r'^member_info_regist_edit/$', views.member_info_regist_edit, name = 'member_info_regist_edit'),
     url(r'^member_regist/$', views.member_regist, name = 'member_regist'),
     url(r'^my_profile/$', views.my_profile, name = 'my_profile'),
     # logout auth_view의 로그아웃 사용할지 아니면 올어스 로그아웃 사용할지
