@@ -4,6 +4,7 @@ from .models import School, Society, Profile, Event, Category
 from geodjango.models import SchoolLocation
 from .forms import *
 from django.contrib.auth.views import login as auth_login
+from django.contrib.auth.decorators import login_required
 from allauth.socialaccount.models import SocialApp
 from allauth.socialaccount.templatetags.socialaccount import get_providers
 from django.conf import settings
@@ -15,19 +16,23 @@ import time
 
 
 def index(request):
+
+    if request.user.is_anonymous() or Profile.objects.filter(user=request.user).exists():
+        school_cnt = School.objects.all().count()
+        society_cnt = Society.objects.all().count()
+        event_cnt = Event.objects.all().count()
+        category_list = Category.objects.all()
+
+        context = {}
+        context['school_cnt'] = school_cnt
+        context['society_cnt'] = society_cnt
+        context['event_cnt'] = event_cnt
+        context['category_list'] = category_list
+        return render(request, 'dongzip/index.html', context)
+
     # 인덱스 페이지
-    school_cnt = School.objects.all().count()
-    society_cnt = Society.objects.all().count()
-    event_cnt = Event.objects.all().count()
-    category_list = Category.objects.all()
-
-    context = {}
-    context['school_cnt'] = school_cnt
-    context['society_cnt'] = society_cnt
-    context['event_cnt'] = event_cnt
-    context['category_list'] = category_list
-
-    return render(request, 'dongzip/index.html', context)
+    else:
+        return redirect ('accounts:member_info_regist')
 
 
 def school_list(request):
@@ -127,6 +132,32 @@ def society_regist(request):
         form = SocietyForm()
     return render(request, 'dongzip/society_regist.html', {'form' : form})
 
+@login_required
+def favorite_society(request, id):
+    # 동아리 즐겨찾기 기능
+    if request.is_ajax():
+        user = request.user.profile # 요청 유저
+        society = Society.objects.get(id=id) # 즐겨찾을 동아리
+        if user.favorite_society.filter(id=id).exists():
+            # 이미 즐겨찾기 등록이 되있으면
+            # 즐겨찾기 삭제
+            user.favorite_society.remove(society)
+            message = '즐겨찾기 해제'
+            isFavorite = False
+        else:
+            # 즐겨찾기 추가
+            user.favorite_society.add(society)
+            message = '즐겨찾기 추가'
+            isFavorite = True
+
+        context = {}
+        context['message'] = message
+        context['isFavorite'] = isFavorite
+        data = json.dumps(context)
+    else:
+        data = 'fail'
+    return HttpResponse(data)
+
 def event_list(request):
     return render(request, 'dongzip/event_list.html')
 
@@ -216,17 +247,23 @@ def ajax_counter(request):
         society_cnt = Society.objects.all().count()
         event_cnt = Event.objects.all().count()
 
-        count_json = {} # 넘겨줄 데이터
+        global count_json
+        count_json ={}
+
         count_json['school_cnt'] = school_cnt
         count_json['society_cnt'] = society_cnt
         count_json['event_cnt'] = event_cnt
+
+    else:
+        count_json = {} # 넘겨줄 데이터
 
     data = json.dumps(count_json)# json형식을 씌워 넘겨준다
     return HttpResponse(data)
 
 def aboutus(request):
     return render(request, 'dongzip/aboutus.html')
-# front test
 
+# front test
+@login_required
 def society_admin(request):
     return render(request, 'dongzip/society_admin.html')

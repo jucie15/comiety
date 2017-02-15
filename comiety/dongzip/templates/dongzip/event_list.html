@@ -99,12 +99,13 @@
         height:50px;
         padding: 20px;
         font-size: 18px;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
 
     }
 
     #events_list {
         width: 900px;
+        margin-bottom: 150px;
     }
 
     #events_list td {
@@ -112,7 +113,19 @@
         padding-top: 3px;
         padding-bottom: 3px;
         text-align: center;
+        font-size: 20px;
     }
+
+    #events_list thead td {
+        padding: 10px;
+        padding-top: 10px;
+        padding-bottom: 30px;
+        text-align: center;
+        font-size: 30px;
+        width: 50px;
+    }
+
+
 
 
     {% endblock %}
@@ -165,13 +178,12 @@
         </div>
 
         <div class="container-fluid">
-
         <div class="col-md-12 col-sm-12 col-xs-12">
                     <h3 align="center">
                     <span class="glyphicon glyphicon-calendar"></span>
                     OOO 에 대한 행사 검색 결과입니다
                     </h3>
-                    <br>
+                    <br><br>
 
                     <table class="table-hover" id="events_list" align="center">
                         <thead style="font-weight: bold">
