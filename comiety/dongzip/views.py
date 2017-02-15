@@ -117,14 +117,11 @@ def society_search(request, name):
         category_name = Category.objects.get(url_name__icontains = name).name
     search_society_list = Society.objects.filter(condition)
 
-        context = {}
-        context['search_society_list'] = search_society_list
-        context['keyword'] = keyword
-        context['category_name'] = category_name
-        context['school_name'] = school_name
-
-        return render(request, 'dongzip/society_search.html', context)
-
+    context = {}
+    context['search_society_list'] = search_society_list
+    context['keyword'] = keyword
+    context['category_name'] = category_name
+    context['school_name'] = school_name
 
     return render(request, 'dongzip/society_search.html', context)
 

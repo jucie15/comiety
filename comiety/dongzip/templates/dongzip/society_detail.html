@@ -29,13 +29,14 @@
 
     .soc_title #soc_join{
         position: relative;
-        top: 250px;
+        top: 240px;
         left: 30px;
         width: 140px;
         height: 40px;
         text-align: center;
         font-size: 18px;
     }
+
 
     .soc_title h1{
         color: white;
@@ -57,7 +58,6 @@
         width: 24%;
         padding: 5px;
         border: 1px solid lightgray;
-        flex-shrink: 0;
     }
 
     .soc_left_logo{
@@ -87,6 +87,22 @@
         height: 50px;
     }
 
+    #soc_interest{
+        height: 30px;
+        width: 100%;
+        text-align: center;
+    }
+
+    #soc_interest a{
+        color: gold;
+        font-size: 18px;
+        text-decoration: none;
+    }
+
+    #soc_interest a:hover{
+        color: darkgoldenrod;
+    }
+
     #td1{
         width: 30%;
     }
@@ -107,7 +123,7 @@
         box-sizing: border-box;
         margin-top: 20px;
         background-color: white;
-        height: 500px;
+        height: 550px;
         width: 74%;
         margin-left: 2%;
         border: 1px solid lightgray;
@@ -228,7 +244,14 @@
         margin: 10px;
     }
 
+<!-- @media (max-width: 900px){
+    .container{ width: 100%}
+}
 
+@media (min-width: 900px) and (max-width: 1000px){
+    .soc_left_logo{ height: 30%}
+    #soc_left_tr3 { height: 150px}
+} -->
 
 
 {% endblock %}
@@ -249,20 +272,28 @@
                     <img src="{% static 'dongzip/images/frog4.jpg' %}" id="logo">
                 </div>
                 <table>
+                    <tr id="soc_interest">
+                        <td colspan="2"><a href="#"><span class="glyphicon glyphicon-star"></span>즐겨찾기</a></td>
+                    </tr>
                     <tr id="soc_left_tr1">
                         <td id="td1"><strong>그룹장:</strong></td>
                         <td><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">아무개</td>
                     </tr>
                     <tr id="soc_left_tr2">
                         <td id="td1"><strong>참여인원:</strong></td>
-                        <td> {{ society.users.count }}명</td>
+                        <td> {{society.users.count }}명</td>
                     </tr>
                     <tr id="soc_left_tr3" colspan="2">
                         <td id="td1"><strong>부원:</strong></td>
                         <td id="left_tr3_td2">
-                        {% for user in society.users.all %}
-                            <img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">{{ user }}
-                        {% endfor %}
+                            <img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">김00
+                            <img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">이00
+                            <img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">박00
+                            <img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">천00
+                            <img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">장00
+                            <img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">백00
+                            <img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">양00
+                            <img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">진00
                         </td>
                 </table>
             </div>
