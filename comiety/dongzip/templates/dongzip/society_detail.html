@@ -29,7 +29,7 @@
 
     .soc_title #soc_join{
         position: relative;
-        top: 240px;
+        top: 20px;
         left: 30px;
         width: 140px;
         height: 40px;
@@ -41,9 +41,9 @@
     .soc_title h1{
         color: white;
         font-size: 70px;
-        position: relative;
-        top: 160px;
-        left: 530px;
+        text-align: right;
+        margin-top: 170px;
+        margin-right: 5px;
     }
 
     .soc_main{
@@ -62,7 +62,7 @@
 
     .soc_left_logo{
         width: 100%;
-        height: 47%;
+        height: 220px;
     }
 
     .soc_left #logo{
@@ -94,13 +94,13 @@
     }
 
     #soc_interest a{
-        color: gold;
         font-size: 18px;
         text-decoration: none;
     }
 
     #soc_interest a:hover{
-        color: darkgoldenrod;
+        font-weight: bold;
+        cursor: pointer;
     }
 
     #td1{
@@ -110,7 +110,8 @@
     #left_tr3_td2{
         height: 150px;
         overflow-y: scroll;
-        display: block;
+        display: flex;
+        flex-wrap: wrap;
         padding-top: 10px;
     }
 
@@ -123,7 +124,7 @@
         box-sizing: border-box;
         margin-top: 20px;
         background-color: white;
-        height: 550px;
+        height: 530px;
         width: 74%;
         margin-left: 2%;
         border: 1px solid lightgray;
@@ -137,7 +138,7 @@
         list-style-type: none;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         overflow-x: auto;
         padding-bottom: 35px;
         padding-top: 25px;
@@ -157,7 +158,6 @@
     }
 
     .status{
-        padding: 0px 40px;
         display: flex;
         justify-content: center;
         border-top: 2px solid steelblue;
@@ -169,7 +169,7 @@
         font-weight: 600;
     }
 
-    .status h5:before{
+    .status:before{
         content: '';
         width: 25px;
         height: 25px;
@@ -244,14 +244,57 @@
         margin: 10px;
     }
 
-<!-- @media (max-width: 900px){
+@media (max-width: 1000px){
     .container{ width: 100%}
 }
 
-@media (min-width: 900px) and (max-width: 1000px){
-    .soc_left_logo{ height: 30%}
-    #soc_left_tr3 { height: 150px}
-} -->
+@media (min-width: 1000px) and (max-width: 1100px){
+    .soc_left #logo{ height: 170px}
+}
+
+@media (min-width: 800px) and (max-width: 900px) {
+    .soc_left #logo { height: 170px}
+    .soc_left_logo {height: 200px}
+    .soc_right {height: 500px}
+}
+
+@media (min-width: 700px) and (max-width: 800px) {
+    .soc_left_logo {height: 180px}
+    .soc_left #logo {height: 150px}
+    .soc_right {height: 480px}
+}
+
+@media (min-width: 600px) and (max-width: 700px) {
+    .soc_left_logo {height: 160px}
+    .soc_left #logo {height: 130px}
+    .soc_right {height: 460px}
+}
+
+@media (max-width: 600px) {
+    .soc_left_logo {height: 130px}
+    .soc_left #logo {height: 100px}
+    .soc_right {height: 430px}
+}
+
+@media (max-width: 939px) {
+    #td1 {font-size: 12px}
+}
+
+@media (max-width: 817px) {
+    #td1{ width: 40%}
+}
+
+@media (max-width: 635px){
+    #td1 {width: 25%}
+}
+@media (max-width: 560px) {
+    #userphoto { height: 20px; width: 20px}
+    #td1 {width: 30%}
+}
+
+
+
+
 
 
 {% endblock %}
@@ -273,7 +316,15 @@
                 </div>
                 <table>
                     <tr id="soc_interest">
-                        <td colspan="2"><a href="#"><span class="glyphicon glyphicon-star"></span>즐겨찾기</a></td>
+                        <td colspan="2">
+                        {% with request.user.profile.favorite_society.all as fa_soc %}
+                            {% if society in fa_soc %}
+                                <a id = 'favorite' style='color:yellow'>
+                            {% else %}
+                               <a id = 'favorite' style='color:gray'>
+                            {% endif %}
+                        {% endwith %}
+                        <span class="glyphicon glyphicon-star"></span>즐겨찾기</a></td>
                     </tr>
                     <tr id="soc_left_tr1">
                         <td id="td1"><strong>그룹장:</strong></td>
@@ -286,14 +337,14 @@
                     <tr id="soc_left_tr3" colspan="2">
                         <td id="td1"><strong>부원:</strong></td>
                         <td id="left_tr3_td2">
-                            <img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">김00
-                            <img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">이00
-                            <img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">박00
-                            <img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">천00
-                            <img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">장00
-                            <img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">백00
-                            <img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">양00
-                            <img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">진00
+                            <span><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">김00</span>
+                            <span><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">이00</span>
+                            <span><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">박00</span>
+                            <span><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">천00</span>
+                            <span><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">장00</span>
+                            <span><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">백00</span>
+                            <span><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">양00</span>
+                            <span><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">진00</span>
                         </td>
                 </table>
             </div>
@@ -378,4 +429,27 @@
         </div>
 
     </div>
+    <script type="text/javascript">
+
+// 즐겨찾기 추가(ajax 처리)
+$('#favorite').click(function(){
+    $.ajax({
+        url: "{% url 'dongzip:favorite_society' society.id %}" , // 요청 url
+        success: function(data){
+            //update index_dashboard
+            alert(data.message);
+            if(data.isFavorite == true)
+                $('#favorite').css('color','yellow');
+            else
+                $('#favorite').css('color','gray');
+        }, // 요청이 성공했을 경우
+        error: function(data){
+            console.log('error');
+        }, // 에러가 날 경우
+        dataType: "json",
+        timeout: 2500, // 응답 대기 제한 시간
+    });
+});
+</script>
+
 {% endblock %}
