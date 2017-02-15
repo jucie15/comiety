@@ -140,7 +140,7 @@
 
             <form action="" method="get">
 
-            <input type="text" name="q" placeholder="이벤트 검색" class="keywordselect">
+            <input id="search_event" type="text" name="keyword" value="{{keyword}}" placeholder="이벤트 검색" class="keywordselect">
 
 
 <select name="distance" class=distanceselect>
@@ -228,5 +228,15 @@
                 </div>
 
         </div>
+
+<script type="text/javascript">
+            $(function(){
+    $('#search_event').autocomplete({
+        source:'/dongzip/event_list/ajax_search/',
+        focus: function( event, ui ) { val( ui.item.label );return false;}
+    });
+});
+
+</script>
 
     {% endblock %}

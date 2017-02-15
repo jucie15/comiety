@@ -4,6 +4,7 @@ from .models import School, Society, Profile, Event, Category
 from geodjango.models import SchoolLocation
 from .forms import *
 from django.contrib.auth.views import login as auth_login
+from django.contrib.auth.decorators import login_required
 from allauth.socialaccount.models import SocialApp
 from allauth.socialaccount.templatetags.socialaccount import get_providers
 from django.conf import settings
@@ -12,6 +13,7 @@ from django.db.models import Q
 from django.contrib.gis.measure import D
 import json
 import time
+
 
 def index(request):
     # 인덱스 페이지
@@ -50,6 +52,7 @@ def school_detail(request, id):
     condition = (Q(description__icontains = keyword) | Q(name__icontains = keyword)) & Q(school = school)
 
     society_list = Society.objects.filter(condition)
+    #ajax_test(request, society_list)
 
     context = {}
     context['keyword'] = keyword
@@ -82,38 +85,33 @@ def society_search(request, name):
         자동완성 기능 넣기
         혹시나 학교의 좌표 받아올때(get() 사용) 값이 없을 경우 예외 처리 혹시나
     '''
-    if request.method == 'GET':
-        keyword = request.GET.get('q', '')
-        distance = request.GET.get('distance')
-        school_name = request.GET.get('school', '')
-        category_name = '전체 검색'
+    keyword = request.GET.get('q', '')
+    distance = request.GET.get('distance')
+    school_name = request.GET.get('school', '')
+    category_name = '전체 검색'
 
-        # 키워드 검색 쿼리문
-        condition = Q(description__icontains = keyword) | Q(name__icontains = keyword) | Q(school__name__icontains = keyword)
+    # 키워드 검색 쿼리문
+    condition = Q(description__icontains = keyword) | Q(name__icontains = keyword) | Q(school__name__icontains = keyword)
 
-        if school_name != '':
-            # 학교 위치 기반 필터링을 원할 경우 조건 추가
-            school_pnt = SchoolLocation.objects.get(school__name = school_name).point # 지정 학교의 좌표
-            condition = condition & Q(school__schoollocation__point__distance_lte = (school_pnt, D(km = distance)))
+    if school_name != '':
+        # 학교 위치 기반 필터링을 원할 경우 조건 추가
+        school_pnt = SchoolLocation.objects.get(school__name = school_name).point # 지정 학교의 좌표
+        condition = condition & Q(school__schoollocation__point__distance_lte = (school_pnt, D(km = distance)))
 
-        if name != 'all':
-            # 카테고리 분류별 필터링을 원할 경우 조건 추가
-            condition = condition & Q(categorys__url_name = name)
+    if name != 'all':
+        # 카테고리 분류별 필터링을 원할 경우 조건 추가
+        condition = condition & Q(categorys__url_name = name)
 
-            category_name = Category.objects.get(url_name__icontains = name).name
-        print(condition)
-        search_society_list = Society.objects.filter(condition)
+        category_name = Category.objects.get(url_name__icontains = name).name
+    search_society_list = Society.objects.filter(condition)
 
-
-
-        context = {}
-        context['search_society_list'] = search_society_list
-        context['keyword'] = keyword
-        context['category_name'] = category_name
-        context['school_name'] = school_name
+    context = {}
+    context['search_society_list'] = search_society_list
+    context['keyword'] = keyword
+    context['category_name'] = category_name
+    context['school_name'] = school_name
 
     return render(request, 'dongzip/society_search.html', context)
-    # return render(request, 'dongzip/society_search.html')
 
 def society_regist(request):
     # 동아리 등록
@@ -129,15 +127,34 @@ def society_regist(request):
         form = SocietyForm()
     return render(request, 'dongzip/society_regist.html', {'form' : form})
 
+@login_required
+def favorite_society_add(request, id):
+    # 동아리 즐겨찾기 기능
+    user = request.user.profile
+    society = Society.objects.get(id=id)
+    user.favorite_society.add(society)
+    return redirect('dongzip:index')
+
 def event_list(request):
     return render(request, 'dongzip/event_list.html')
 
+def ajax_search_event(request):
+    if request.is_ajax():
+        keyword = request.GET.get('term','')
+        event_list = Event.objects.all().filter(title__icontains = keyword)
+        results = []
+        for event in event_list:
+            event_json = {}
+            event_json['label'] = event.title
+            results.append(event_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
 
-'''
-    검색창 들어간곳 모두 자동 완성 기능 추가하기
 
-'''
-def ajax_search(request):
+def ajax_search_sch(request):
     # 자동 완성 기능
     if request.is_ajax():
         keyword = request.GET.get('term','')
@@ -147,6 +164,25 @@ def ajax_search(request):
             school_json = {}
             school_json['label'] = school.name
             results.append(school_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
+
+def ajax_search_soc(request, id):
+    # 자동 완성 기능
+    if request.is_ajax():
+        keyword = request.GET.get('term','')
+
+        school = School.objects.get(id=id)
+        condition = (Q(description__icontains = keyword) | Q(name__icontains = keyword)) & Q(school = school)
+        society_list = school.society_set.filter(condition)
+        results = []
+        for society in society_list:
+            society_json = {}
+            society_json['label'] = society.name
+            results.append(society_json)
         data = json.dumps(results)
     else:
         data = 'fail'
@@ -178,7 +214,8 @@ def ajax_counter(request):
 
 def aboutus(request):
     return render(request, 'dongzip/aboutus.html')
-# front test
 
+# front test
+@login_required
 def society_admin(request):
     return render(request, 'dongzip/society_admin.html')

@@ -231,11 +231,11 @@
       /*  코드 정리 및 autocomplete 구조 공부
         에러 확인 후 수 */
             $(function(){
-        $('#search_sch').autocomplete({
-            source:'/dongzip/school_list/ajax_search/',
-            focus: function( event, ui ) { val( ui.item.label );return false;}
-        });
-    });
+                $('#search_sch').autocomplete({
+                    source:'/dongzip/school_list/ajax_search/',
+                    focus: function( event, ui ) { val( ui.item.label );return false;}
+                });
+            });
 
         $(document).ready(function(){
             var $body = $(document.body), //자주 사용하기에 캐시되게 변수에 넣어준다

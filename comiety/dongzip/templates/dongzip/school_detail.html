@@ -153,9 +153,7 @@
 
 
 {% block content %}
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript">
-    </script> <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+
 
     <div class="top" />
         {# <img src="test.png" alt="scroll" width="100" height="100"> #}
@@ -165,7 +163,9 @@
         <table class="school_info">
             <tr>
                 <td>
-                    <img src="{% static 'dongzip/images/frogphoto.jpg' %}" class="img-circle" id="school_photo" align="right">
+                    {% with 'dongzip/images/univ_logo/'|add:school.name as image_static %}
+                        <img src="{% static image_static %}" alt= {{ school_name }}>
+                      {% endwith %}
                 </td>
                 <td>
                     <div class="school_name">
@@ -211,13 +211,9 @@
 
     <script type="text/javascript">
 
-<!--
-    코드 정리 및 autocomplete 구조 공부
-    에러 확인 후 수
--->
         $(function(){
     $('#search_soc').autocomplete({
-        source:'/dongzip/school_list/ajax_search/',
+        source:'/dongzip/school_list/'+{{ school.id }},
         focus: function( event, ui ) { val( ui.item.label );return false;}
     });
 });
