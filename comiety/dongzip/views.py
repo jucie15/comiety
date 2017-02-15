@@ -108,6 +108,8 @@ def society_search(request, name):
     context['category_name'] = category_name
     context['school_name'] = school_name
 
+    return render(request, 'dongzip/society_search.html', context)
+
 def society_regist(request):
     # 동아리 등록
     if request.method == 'POST':
