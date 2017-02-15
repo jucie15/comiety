@@ -28,19 +28,23 @@ def ajax_test(request, data_list):
     return HttpResponse(data, mimetype)
 
 def index(request):
+
+    if request.user.is_anonymous() or Profile.objects.filter(user=request.user).exists():
+        school_cnt = School.objects.all().count()
+        society_cnt = Society.objects.all().count()
+        event_cnt = Event.objects.all().count()
+        category_list = Category.objects.all()
+
+        context = {}
+        context['school_cnt'] = school_cnt
+        context['society_cnt'] = society_cnt
+        context['event_cnt'] = event_cnt
+        context['category_list'] = category_list
+        return render(request, 'dongzip/index.html', context)
+
     # 인덱스 페이지
-    school_cnt = School.objects.all().count()
-    society_cnt = Society.objects.all().count()
-    event_cnt = Event.objects.all().count()
-    category_list = Category.objects.all()
-
-    context = {}
-    context['school_cnt'] = school_cnt
-    context['society_cnt'] = society_cnt
-    context['event_cnt'] = event_cnt
-    context['category_list'] = category_list
-
-    return render(request, 'dongzip/index.html', context)
+    else:
+        return redirect ('accounts:member_info_regist')
 
 
 def school_list(request):
