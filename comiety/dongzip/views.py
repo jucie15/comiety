@@ -81,6 +81,15 @@ def society_detail(request, id):
             'society' : society,
         })
 
+def society_apply(request, id):
+    society = Society.objects.get(id=id)
+    user = request.user.profile
+
+    membership = Membership(society=society, user=user, power=-1)
+    membership.save()
+
+    return redirect('dongzip:society_detail', id)
+
 def society_search(request, name):
     # 동아리 검색
     # 동아리가 소속된 학교 위치 기반으로 필터링 후 키워드 검색
@@ -144,7 +153,15 @@ def society_regist(request):
 def society_admin(request, id):
     if request.user.profile.membership_set.get(society_id = id).power != 2:
         return redirect(request.path)
-    return render(request, 'dongzip/society_admin.html')
+    applicants = Profile.objects.filter(society__id=id,membership__power=-1)
+    members = Profile.objects.filter(society__id=id).exclude(membership__power=-1)
+    context={}
+    context['applicants'] = applicants
+    context['members'] = members
+
+    if request.method=='POST':
+        members = request.POST.get('members','')
+    return render(request, 'dongzip/society_admin.html',context)
 
 @login_required
 def favorite_society(request, id):
