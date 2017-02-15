@@ -328,7 +328,12 @@
                     </tr>
                     <tr id="soc_left_tr1">
                         <td id="td1"><strong>그룹장:</strong></td>
-                        <td><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">아무개</td>
+
+                        {% for user in society.membership_set.all %}
+                        {% if user.power == 2 %}
+                        <td><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">{{user.user}} </td>
+                        {% endif %}
+                        {% endfor %}
                     </tr>
                     <tr id="soc_left_tr2">
                         <td id="td1"><strong>참여인원:</strong></td>
@@ -337,14 +342,9 @@
                     <tr id="soc_left_tr3" colspan="2">
                         <td id="td1"><strong>부원:</strong></td>
                         <td id="left_tr3_td2">
-                            <span><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">김00</span>
-                            <span><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">이00</span>
-                            <span><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">박00</span>
-                            <span><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">천00</span>
-                            <span><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">장00</span>
-                            <span><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">백00</span>
-                            <span><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">양00</span>
-                            <span><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">진00</span>
+                        {% for user in society.users.all %}
+                            <span><img src={{ user.profile.image }} id="userphoto">{{ user }}</span>
+                        {% endfor %}
                         </td>
                 </table>
             </div>

@@ -54,7 +54,7 @@ class Society(models.Model):
     name = models.CharField(max_length = 128, blank = False, null = False) # 동아리 이름
     main_tel_number = models.CharField(max_length = 32, blank = False, null = False) # 대표 전화번호
     description = models.TextField(max_length = 512, blank = True, null = True) # 동아리 소개
-    users = models.ManyToManyField(Profile) # USER TABLE과 다대다 관계 형성
+    users = models.ManyToManyField(Profile, through = 'Membership') # USER TABLE과 다대다 관계 형성
     categorys = models.ManyToManyField('Category', blank = True)
     logo_image = models.ImageField(upload_to = 'uploaded/society_profile/', null = True, blank = True)
     background_image = models.ImageField(upload_to = 'uploaded/society_profile/', null = True, blank = True)
@@ -70,6 +70,16 @@ class Society(models.Model):
             society.school.update_society_number()
 
 post_save.connect(Society.on_post_save, sender = Society)
+
+class Membership(models.Model):
+    user = models.ForeignKey(Profile)
+    society = models.ForeignKey(Society)
+    power = models.IntegerField(default = 0)
+    joined_at = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return '{}.{}'.format(self.user, self.society)
+
 
 class Event(models.Model):
     title = models.CharField(max_length = 128, blank = False, null = False) # 행사 명

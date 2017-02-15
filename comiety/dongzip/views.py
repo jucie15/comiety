@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import School, Society, Profile, Event, Category
+from .models import School, Society, Profile, Event, Category, Membership
 from geodjango.models import SchoolLocation
 from .forms import *
 from django.contrib.auth.views import login as auth_login
@@ -110,22 +110,31 @@ def society_search(request, name):
     context['keyword'] = keyword
     context['category_name'] = category_name
     context['school_name'] = school_name
+    context['name'] = name
 
     return render(request, 'dongzip/society_search.html', context)
 
+
+@login_required
 def society_regist(request):
     # 동아리 등록
     if request.method == 'POST':
         form = SocietyForm(request.POST)
+        user = request.user.profile
         if form.is_valid():
-            society = form.save()
+            society = form.save(commit = False)
+            society.school = user.school
+            society.save()
+            membership = Membership(user=user, society=society, power=2)
+            membership.save()
             # reverse('dongzip:society_list', args=[society.id]). => "/soceity/1/""
             # resolve_url('dongzip:society_list', society.id).    => "/soceity/1/"
             # redirect('dongzip:society_list', society.id)        => HttpResponse
-            return redirect('dongzip:society_list', society.school_id)
+            return redirect('dongzip:society_detail', society.id)
     else:
         form = SocietyForm()
     return render(request, 'dongzip/society_regist.html', {'form' : form})
+
 
 @login_required
 def favorite_society(request, id):
@@ -229,6 +238,29 @@ def ajax_counter(request):
 
     data = json.dumps(count_json)# json형식을 씌워 넘겨준다
     return HttpResponse(data)
+
+
+def ajax_search_related(request, name):
+    # 자동 완성 기능
+    if request.is_ajax():
+        keyword = request.GET.get('term','')
+        condition = Q(name__icontains = keyword)
+
+        if name != 'all':
+            # 카테고리 분류별 필터링을 원할 경우 조건 추가
+            condition = condition & Q(categorys__url_name = name)
+            society_list = Society.objects.filter(condition)
+        results = []
+        for society in society_list:
+            society_json = {}
+            society_json['label'] = society.name
+
+            results.append(society_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
 
 def aboutus(request):
     return render(request, 'dongzip/aboutus.html')

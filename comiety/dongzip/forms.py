@@ -6,5 +6,5 @@ class SocietyForm(ModelForm):
         model = Society
         #fields = '__all__'
         fields = [
-            'school', 'name', 'main_tel_number','description', 'background_image', 'logo_image'
+            'name', 'main_tel_number','description', 'background_image', 'categorys', 'logo_image'
             ]
