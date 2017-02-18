@@ -29,12 +29,29 @@
     }
 
     table{
-        width: 800px;
+        width: 700px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     table td{
         padding: 10px;
         text-align: center;
+    }
+
+    .logo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .society_basic_info {
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+    }
+
+    .society_basic_info td{
+        text-align: left;
     }
 
     .my_society_managers table{
@@ -116,24 +133,57 @@
                         <tr>
                             <td> 동짱 </td>
                             <td>
-                                <select name="mbr_name_p" id="name_mbr_p">
-                                <option value="">양가은</option></select></td>
-                            <td> <button class="btn-info"> 변경 </button></td>
+                            <form action="{% url 'dongzip:society_admin_manager_edit' society_id %}" method='post'>
+                                    {% csrf_token %}
+                                <select name="manager_id" id="name_mbr_p">
+                                <option value="{{ manager.id }}">{{ manager }} </option>
+                                {% for staff in staff_list %}
+                                <option value="{{ staff.id }}">{{ staff }} </option>
+                                {% endfor %}
+
+                                </select></td>
+                            <td>
+                            {% if request.user.profile == manager %}
+                                <button type="submit" class="btn-info"> 변경 </button>
+                            {% endif %}
+                            </td>
+                            </form>
                         </tr>
                         <tr>
                             <td> 운영진 </td>
                             <td>
-                                <select name="mbr_name_v" id="name_mbr_v">
-                                <option value="">김예은</option></select></td>
+                            <form action="{% url 'dongzip:society_admin_manager_remove' society_id %}" method='post'>
+                                    {% csrf_token %}
+                                <select name="staff_id" id="name_mbr_v">
+                                {% for staff in staff_list %}
+                                <option value="{{ staff.id }}">{{ staff }}</option>
+                                {% endfor %}
+                                </select></td>
                             </td>
-                            <td> <button class="btn-danger"> 삭제 </button></td>
+                            <td>
+                            {% if request.user.profile == manager %}
+                                <button type="submit" class="btn-danger"> 삭제 </button></td>
+                            {% endif %}
+                            </form>
+
                         </tr>
                         <tr>
                             <td><strong>운영진 추가하기</strong></td>
-                            <td> <select name="manager_add" id="add_manager">
-                                <option value="">양가은</option>
-                            </select></td>
-                            <td> <button class="btn-success"> 추가 </button></td>
+                            <td>
+                                <form action="{% url 'dongzip:society_admin_manager_add' society_id %}" method='post'>
+                                    {% csrf_token %}
+                                    <select name="member_id" id="add_manager">
+                                    {% for member in member_list %}
+                                        <option value="{{ member.id }}">{{ member }}</option>
+                                    {% endfor %}
+                                    </select>
+                            </td>
+                                <td>
+                                {% if request.user.profile == manager %}
+                                    <button type="submit" class="btn-success"> 추가 </button></a></td>
+                                {% endif %}
+                            </form>
+
                         </tr>
                     </table>
 
@@ -142,14 +192,25 @@
                 <div class="my_society_info_edit well">
                     <h3>
                     <span class="glyphicon glyphicon-pencil"></span>
-                    동아리 정보 수정하기
+                    동아리 정보
                     </h3>
-
-                <table>
-                {{ form.as_table }}
+                    <table class="society_basic_info">
+                <tr><td>동아리 이름:</td> <td>{{ society.name }}</td></tr>
+                <tr><td>동아리 대표 전화:</td> <td>{{ society.main_tel_number }}</td></tr>
+                <tr><td>동아리 소개:</td> <td>{{ society.description }}</td></tr>
+                <tr><td>동아리 이미지:</td> <td><img src="{{ society.background_image.url }}" alt="" class="logo"></td></tr>
+                <tr><td>동아리 카테고리:</td>
+                <td>{% for category in society.categorys.all %}
+                {{ category }}
+                {% endfor %}</td></tr>
+                <tr><td>동아리 로고:</td> <td><img src="{{ society.logo_image.url }}" alt="" class="logo"></td></tr>
+                    </table>
                 <tr>
                     <td colspan="2" style="text-align:center;">
-                        <input class="btn btn-primary" id="club_submit_btn" type="submit"/>
+                        <br>
+                        <form action="{% url "dongzip:society_admin_info_edit" society.id %}">
+                            <input class="btn btn-primary" id="club_submit_btn" type="submit" value="정보 수정하기"/>
+                        </form>
                     </td>
                 </tr>
             </table>

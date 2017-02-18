@@ -48,10 +48,10 @@
         margin-top: -30px;
         margin-left: auto;
         margin-right: auto;
-        height: 60px;
+        height: 55px;
         width: 700px;
         background-color: black;
-        padding: 15px;
+        padding: 10px;
     }
 
     .keywordselect{
@@ -92,13 +92,25 @@
         border-left: none;
     }
 
-    #orderblock{
-        text-align: right;
-        height:50px;
-        padding: 20px;
-        font-size: 18px;
-        margin-bottom: 10px;
+    .keywords{
+        margin-top: -30px;
+        height: 80px;
+        background-color: rgba(0,0,153,0.1);
+        margin-bottom: 20px;
+        text-align: center;
+        line-height: 110px;
+        font-size: 15px;
+        word-spacing: 30px;
     }
+
+    .keywords a{
+        color: black;
+    }
+
+    .keywords a:hover {
+        text-decoration: none;
+    }
+
 
     .thumbnail{
         width: 295px;
@@ -168,15 +180,23 @@
             </form>
         </div>
 
-        <div class="col-md-12 col-sm-12 col-xs-12" id="orderblock">
-            정렬기준:
-            <select name="order">
-              <option value="1">관련도순</option>
-              <option value="2">최신순</option>
-              <option value="3">거리순</option>
-              <option value="4">참가인원순</option>
-            </select>
+        <div class="keywords">
+            <strong style="word-spacing: 2px;"><span class="glyphicon glyphicon-tags"></span> [키워드 선택]</strong>
+            <a href="{% url 'dongzip:society_search' 'all' %}" target="_self">전체</a>
+            <a href="{% url 'dongzip:society_search' 'sports' %}" target="_self">스포츠</a>
+            <a href="{% url 'dongzip:society_search' 'academics' %}" target="_self">학술</a>
+            <a href="{% url 'dongzip:society_search' 'volunteer' %}" target="_self">봉사</a>
+            <a href="{% url 'dongzip:society_search' 'performing_art' %}" target="_self">공연예술</a>
+            <a href="{% url 'dongzip:society_search' 'language_culture' %}" target="_self">언어와문화</a>
+            <a href="{% url 'dongzip:society_search' 'technology' %}" target="_self">기술</a>
+            <a href="{% url 'dongzip:society_search' 'photography' %}" target="_self">창작예술</a>
+            <a href="{% url 'dongzip:society_search' 'hobby' %}" target="_self">취미와교양</a>
+            <a href="{% url 'dongzip:society_search' 'food_travel' %}" target="_self">음식과여행</a>
+            <a href="{% url 'dongzip:society_search' 'LGBT' %}" target="_self">LGBT</a>
+            <a href="{% url 'dongzip:society_search' 'social_movement' %}" target="_self">사회운동</a>
+            <a href="{% url 'dongzip:society_search' 'religion' %}" target="_self">종교</a>
         </div>
+
 
         <div class="container-fluid">
 
