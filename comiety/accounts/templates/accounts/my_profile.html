@@ -107,7 +107,10 @@ button {
                 <table align="center" id="myinfo">
                     <tr>
                         <td rowspan="5">
+                            {% if user.profile.profile_image %}
                          <img src='{{ user.profile.profile_image.url }}' alt="" class="img-circle"></td>
+
+                            {% endif %}
                         <td> 아이디: </td>
                         <td> {{ user.nickname }} </td>
                     </tr>
