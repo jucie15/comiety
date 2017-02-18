@@ -61,7 +61,7 @@
                         </li>
                     {% else %}
                         <li>
-                            <a href="{% url 'accounts:my_profile' %}">{{ user }}'s 프로필</a>
+                            <a href="{% url 'accounts:my_profile' %}">{{ user.profile.nickname }}'s 프로필</a>
                         </li>
                         <li>
                             <a href="{% url 'accounts:logout' %}">로그아웃</a>
