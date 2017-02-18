@@ -52,7 +52,7 @@
 
             .socialaccount td{
                 width: 500px;
-                margin-bottom: 30px;
+                height: 30px;
                 padding: 10px;
                 background-color: white;
                 border-radius: 5px;
@@ -104,6 +104,7 @@
     </a>
 
     <div class="login_input" align="center">
+<<<<<<< HEAD
     <form action="" method="post">
         {% csrf_token %}
         <table>
@@ -111,6 +112,15 @@
         </table>
         <input type="submit" class="btn btn-info submit" />
     </form>
+=======
+        <form action="" method="post">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <input type="submit" class="btn btn-info submit" />
+        </form>
+>>>>>>> e229f03f5a90cdc29da29dde8ba26d8a0b30cdbe
     </div>
 
 
@@ -140,6 +150,10 @@
     <div class="to_memberregist">
         회원이 아니신가요? <a href="../../../accounts/member_regist">가입하기</a>
     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> e229f03f5a90cdc29da29dde8ba26d8a0b30cdbe
 
     </body>
 </html>

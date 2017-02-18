@@ -15,6 +15,28 @@
         margin-right: auto;
     }
 
+    .vertical_nav {
+        list-style-type: none;
+        margin: 0px;
+        padding: 0;
+        width: 200px;
+        background-color: #f1f1f1;
+    }
+
+    .vertical_nav li a {
+        display: block;
+        color: #000;
+        padding: 8px 16px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+
+    .vertical_nav li a:hover {
+        background-color: #555;
+        color: white;
+    }
+
     button, .btn-info{
         border: none;
         padding: 5px;
@@ -111,8 +133,20 @@
 
     {% block content %}
 
+    <h3 align="center"> </h3>
+        <br>
+        <div class="bck_1">
+            <ul class="vertical_nav bck_1">
+              <li><a href="">동아리 정보</a></li>
+              <li><a href="">페이지 관리자 정보</a></li>
+              <li><a href="">동아리부원 관리</a></li>
+              <li><a href="">주최행사 관리</a></li>
+              <li><a href="">참여 예정행사 관리</a></li>
+            </ul>
+        </div>
 
         <div class="bck">
+
             <div class="edit_block" align="center">
                 <h2>동아리 매니저 페이지 </h2>
                 <br><br>
@@ -220,24 +254,17 @@
                 <div class="my_society_user_edit well">
                     <h3>
                     <span class="glyphicon glyphicon-globe"></span>
-                    동아리 부원 관리하기
+                    동아리 부원 관리
                     </h3>
 
                     <table align="center">
                         <tr>
-                            <td>부원 승인하기</td>
-                            <td style="text-align: left;">
-                                <br>
-                                {% for applicant in applicants %}
-                                <input type="checkbox" name="users" value="{{ applicant}}"> {{ applicant}} <br>
-
-                                {% endfor %}
-
-                            </td>
-                            <td> <button class="btn-success"> 승인 </button>
-                                <button class="btn-danger"> 거절 </button>
-                             </td>
+                            <td>승인대기 목록</td>
                         </tr>
+                            {% for x in applicants %}
+                                <li>{{ x.nickname }}</li>
+                            {% endfor %}
+
                         <tr>
                             <td>부원 삭제하기</td>
                             <td style="text-align: left;">
@@ -251,10 +278,13 @@
                             </td>
                             <td>
                                 <input type="submit" class="btn-danger" value="삭제">
-
                             </td>
-                            </form>
                         </tr>
+
+                        <form action="">
+                            <input class="btn btn-primary" id="club_submit_btn" type="submit" value="부원 관리하기"/>
+                        </form>
+
                         <tr>
                             <td colspan="2"><input type="submit" value="저장하기" class="btn-info"></td>
                         </tr>

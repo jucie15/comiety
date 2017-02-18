@@ -1,0 +1,150 @@
+{% extends "dongzip/layout.html" %}
+
+    {% block extra_links %}
+
+    {% endblock %}
+
+    {% block extra_style %}
+
+    .big_block{
+        text-align: center;
+    }
+
+    .bck_1 {
+        width: 20%;
+        display: inline-block;
+        float: left;
+    }
+
+    .my_society_managers {
+        height: 100%;
+        text-align: center;
+        width: 70%;
+        display: inline-block;
+    }
+
+
+    .vertical_nav {
+        list-style-type: none;
+        text-align: right;
+        margin: 0px;
+        padding: 0;
+        width: 200px;
+        background-color: #f1f1f1;
+    }
+
+    .vertical_nav li a {
+        display: block;
+        color: #000;
+        padding: 8px 16px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+
+    .vertical_nav li a:hover {
+        background-color: #555;
+        color: white;
+    }
+
+    table td{
+        padding: 10px;
+        text-align: center;
+    }
+
+    #society_managers_table{
+        width: 500px;
+    }
+
+
+
+    {% endblock %}
+
+    {% block content %}
+
+    <div class="big_block">
+        <h3 align="center"> </h3>
+        <br>
+        <div class="bck_1">
+            <ul class="vertical_nav bck_1">
+              <li><a href="">동아리 정보</a></li>
+              <li><a href="">페이지 관리자 정보</a></li>
+              <li><a href="">동아리부원 관리</a></li>
+              <li><a href="">주최행사 관리</a></li>
+              <li><a href="">참여 예정행사 관리</a></li>
+            </ul>
+        </div>
+
+        <div class="my_society_managers well">
+            <h3>
+            <span class="glyphicon glyphicon-user"></span>
+            동아리 페이지 관리자 정보
+            </h3>
+            <h4>동아리 스텝 목록</h4>
+            <table class="table-hover" id="society_managers_table">
+                <thead style="font-weight: bold; font-size: 17px;">
+                    <td>지위</td>
+                    <td>이름</td>
+                     <td> 변경/삭제 </td>
+                </thead>
+                <tr>
+                    <td> 동짱 </td>
+                    <td>
+                    <form action="{% url 'dongzip:society_admin_manager_edit' society_id %}" method='post'>
+                            {% csrf_token %}
+                        <select name="manager_id" id="name_mbr_p">
+                        <option value="{{ manager.id }}">{{ manager }} </option>
+                        {% for staff in staff_list %}
+                        <option value="{{ staff.id }}">{{ staff }} </option>
+                        {% endfor %}
+
+                        </select></td>
+                    <td>
+                    {% if request.user.profile == manager %}
+                        <button type="submit" class="btn-info"> 변경 </button>
+                    {% endif %}
+                    </td>
+                    </form>
+                </tr>
+                <tr>
+                    <td> 운영진 </td>
+                    <td>
+                    <form action="{% url 'dongzip:society_admin_manager_remove' society_id %}" method='post'>
+                            {% csrf_token %}
+                        <select name="staff_id" id="name_mbr_v">
+                        {% for staff in staff_list %}
+                        <option value="{{ staff.id }}">{{ staff }}</option>
+                        {% endfor %}
+                        </select></td>
+                    </td>
+                    <td>
+                    {% if request.user.profile == manager %}
+                        <button type="submit" class="btn-danger"> 삭제 </button></td>
+                    {% endif %}
+                    </form>
+
+                </tr>
+                <tr>
+                    <td><strong>운영진 추가하기</strong></td>
+                    <td>
+                        <form action="{% url 'dongzip:society_admin_manager_add' society_id %}" method='post'>
+                            {% csrf_token %}
+                            <select name="member_id" id="add_manager">
+                            {% for member in member_list %}
+                                <option value="{{ member.id }}">{{ member }}</option>
+                            {% endfor %}
+                            </select>
+                    </td>
+                    <td>
+                    {% if request.user.profile == manager %}
+                        <button type="submit" class="btn-success"> 추가 </button></a>
+                    </td>
+                    {% endif %}
+                    </form>
+
+                </tr>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}
