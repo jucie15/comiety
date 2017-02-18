@@ -1,0 +1,165 @@
+{% extends "dongzip/layout.html" %}
+
+    {% block extra_links %}
+
+    {% endblock %}
+
+    {% block extra_style %}
+
+    .big_block{
+        text-align: center;
+    }
+
+    .bck_1 {
+        width: 20%;
+        display: inline-block;
+        float: left;
+    }
+
+    .edit_event {
+        height: 100%;
+        text-align: center;
+        width: 70%;
+        display: inline-block;
+    }
+
+    .vertical_nav {
+        list-style-type: none;
+        text-align: right;
+        margin: 0px;
+        padding: 0;
+        width: 200px;
+        background-color: #f1f1f1;
+    }
+
+    .vertical_nav li a {
+        display: block;
+        color: #000;
+        padding: 8px 16px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+
+    .vertical_nav li a:hover {
+        background-color: #555;
+        color: white;
+    }
+
+    table td{
+        padding: 10px;
+        text-align: center;
+    }
+
+    #event_edit, #editing_event {
+        width: 500px;
+    }
+
+
+
+    {% endblock %}
+
+    {% block content %}
+
+    <div class="big_block">
+        <h3 align="center"> </h3>
+        <br>
+        <div class="bck_1">
+            <ul class="vertical_nav bck_1">
+              <li><a href="">동아리 정보</a></li>
+              <li><a href="">페이지 관리자 정보</a></li>
+              <li><a href="">동아리부원 관리</a></li>
+              <li><a href="">주최행사 관리</a></li>
+              <li><a href="">참여 예정행사 관리</a></li>
+            </ul>
+        </div>
+
+        <div class="edit_event well">
+            <h4> 행사 수정하기 </h4>
+            <h5> 행사 목록</h5>
+            <table id="event_edit" align="center">
+                <thead style="font-weight: bold">
+                    <td></td>
+                    <td>날짜</td>
+                    <td>행사명</td>
+                    <td> 주최인/주최 동아리 </td>
+                    <td> 참석 승인 여부 </td>
+                </thead>
+                <tr>
+                    <td><input name="event_select" type="radio"></td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td><input name="event_select" type="radio"></td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td><input name="event_select" type="radio"></td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+            </table>
+
+            <br>
+
+            <table id="editing_event" align="center">
+                <thead style="font-weight: bold">
+                    <td>날짜</td>
+                    <td>행사명</td>
+                    <td> 주최인/주최 동아리 </td>
+                </thead>
+                <tr>
+                    <td><input type="date"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text" value="우리 동아리"></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><input type="submit" value="행사 수정하기" class="btn-primary">
+                </tr>
+            </table>
+
+        </div>
+
+
+        <div class="add_event well">
+            <h4> 행사 추가하기</h4>
+
+            <table class="table-bordered" align="center">
+                <tr>
+                    <td>날짜 선택</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>행사명</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>행사설명</td>
+                    <td><textarea name="" id="" cols="30" rows="10"></textarea></td>
+                </tr>
+                <tr>
+                    <td>신청 마감일</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>신청 인원 제한</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="행사 추가" class="btn-primary"></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}
+
+

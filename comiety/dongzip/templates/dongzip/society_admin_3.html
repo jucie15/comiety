@@ -1,0 +1,127 @@
+{% extends "dongzip/layout.html" %}
+
+    {% block extra_links %}
+
+    {% endblock %}
+
+    {% block extra_style %}
+
+    .big_block{
+        text-align: center;
+    }
+
+    .bck_1 {
+        width: 20%;
+        display: inline-block;
+        float: left;
+    }
+
+    .my_society_user_edit {
+        height: 100%;
+        text-align: center;
+        width: 70%;
+        display: inline-block;
+    }
+
+    .my_society_user_edit select{
+        width: 150px;
+    }
+
+    .vertical_nav {
+        list-style-type: none;
+        text-align: right;
+        margin: 0px;
+        padding: 0;
+        width: 200px;
+        background-color: #f1f1f1;
+    }
+
+    .vertical_nav li a {
+        display: block;
+        color: #000;
+        padding: 8px 16px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+
+    .vertical_nav li a:hover {
+        background-color: #555;
+        color: white;
+    }
+
+    table td{
+        padding: 10px;
+        text-align: center;
+    }
+
+    #society_user_table{
+        width: 500px;
+    }
+
+
+
+    {% endblock %}
+
+    {% block content %}
+
+    <div class="big_block">
+        <h3 align="center"> </h3>
+        <br>
+        <div class="bck_1">
+            <ul class="vertical_nav bck_1">
+              <li><a href="">동아리 정보</a></li>
+              <li><a href="">페이지 관리자 정보</a></li>
+              <li><a href="">동아리부원 관리</a></li>
+              <li><a href="">주최행사 관리</a></li>
+              <li><a href="">참여 예정행사 관리</a></li>
+            </ul>
+        </div>
+
+        <div class="my_society_user_edit well">
+            <h3>
+            <span class="glyphicon glyphicon-globe"></span>
+            동아리 부원 관리하기
+            </h3>
+
+            <table id="society_user_table" align="center">
+                <tr>
+                    <td>부원 승인하기</td>
+                    <td style="text-align: left;">
+                        <br>
+                        {% for applicant in applicants %}
+                        <input type="checkbox" name="users" value="{{ applicant}}"> {{ applicant}} <br>
+
+                        {% endfor %}
+
+                    </td>
+                    <td> <button class="btn-success"> 승인 </button>
+                        <button class="btn-danger"> 거절 </button>
+                     </td>
+                </tr>
+                <tr>
+                    <td>부원 삭제하기</td>
+                    <td style="text-align: left;">
+                    <form method="post">
+                    {% csrf_token %}
+                    <SELECT NAME="members" SIZE="4" MULTIPLE >
+                        {% for member in members %}
+                        <OPTION value='{{member}}'> {{member}}
+                        {% endfor %}
+                        </SELECT>
+                    </td>
+                    <td>
+                        <input type="submit" class="btn-danger" value="삭제">
+
+                    </td>
+                    </form>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="저장하기" class="btn-info"></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}
+
