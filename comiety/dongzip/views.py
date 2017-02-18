@@ -160,8 +160,10 @@ def society_regist(request):
 @login_required
 def society_admin(request, id):
 
-     # if request.user.profile.membership_set.get(society_id=id).power >= 1:
-    #     pass
+    # if request.user.profile.membership_set.get(society_id=id).power >= 1:
+    # pass
+    society = Society.objects.get(id=id)
+    form = SocietyForm(instance=society)
 
     applicants = Profile.objects.filter(society__id=id,membership__power=-1)
     members = Profile.objects.filter(society__id=id).exclude(membership__power=-1)
@@ -169,9 +171,21 @@ def society_admin(request, id):
     context['applicants'] = applicants
     context['members'] = members
 
-    if request.method=='POST':
-        members = request.POST.get('members','')
-    return render(request, 'dongzip/society_admin.html',context)
+    return render(request, 'dongzip/society_admin.html', { 'context':context, 'society':society })
+
+
+@login_required
+def society_admin_info_edit(request, id):
+    society = Society.objects.get(id=id)
+    if request.method=="POST":
+        form = SocietyForm(request.POST, request.FILES, instance=society)
+        if form.is_valid():
+            society = form.save()
+            return redirect("dongzip:society_admin", society.id)
+    else:
+        form = SocietyForm(instance=society)
+        return render(request, "dongzip/society_admin_info_edit.html", { 'form':form })
+
 
 @login_required
 def favorite_society(request, id):

@@ -144,14 +144,24 @@
                 <div class="my_society_info_edit well">
                     <h3>
                     <span class="glyphicon glyphicon-pencil"></span>
-                    동아리 정보 수정하기
+                    동아리 정보
                     </h3>
-
-                <table>
-                {{ form.as_table }}
+                    <ul>
+                <li>동아리 이름: {{ society.name }}</li>
+                <li>동아리 대표 전화: {{ society.main_tel_number }}</li>
+                <li>동아리 소개: {{ society.description }}</li>
+                <li>동아리 이미지: {{ society.background_image }}</li>
+                <li>동아리 카테고리:
+                {% for category in society.categorys.all %}
+                {{ category }}
+                {% endfor %}</li>
+                <li>동아리 로고: {{ society.logo_image }}</li>
+                    </ul>
                 <tr>
                     <td colspan="2" style="text-align:center;">
-                        <input class="btn btn-primary" id="club_submit_btn" type="submit"/>
+                        <form action="{% url "dongzip:society_admin_info_edit" society.id %}">
+                            <input class="btn btn-primary" id="club_submit_btn" type="submit" value="정보 수정하기"/>
+                        </form>
                     </td>
                 </tr>
             </table>

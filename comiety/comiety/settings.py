@@ -102,7 +102,7 @@ DATABASES = {
     'default': {
          'ENGINE': 'django.contrib.gis.db.backends.postgis',
          'NAME': 'gustos',
-         'USER': 'gustos',
+         'USER': 'mingijin',
     },
 }
 
