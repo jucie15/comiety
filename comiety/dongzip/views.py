@@ -140,6 +140,8 @@ def society_search(request, name):
 @login_required
 def society_regist(request):
     # 동아리 등록
+    if request.is_ajax():
+        render(request, 'dongzip/society_regist.html', {'form' : form})
     if request.method == 'POST':
         form = SocietyForm(request.POST)
         user = request.user.profile
@@ -167,7 +169,7 @@ def society_admin(request, id):
     staff_list = Profile.objects.filter(society__id = id, membership__power = 1)
     member_list = Profile.objects.filter(society__id = id, membership__power = 0)
     applicants = Profile.objects.filter(society__id=id, membership__power=-1)
-
+    society = Society.objects.get(id=id)
 
     context={}
     context['applicants'] = applicants
@@ -175,6 +177,7 @@ def society_admin(request, id):
     context['society_id'] = id
     context['manager'] = manager
     context['staff_list'] = staff_list
+    context['society'] = society
 
     return render(request, 'dongzip/society_admin.html', context)
 
@@ -234,6 +237,17 @@ def society_admin_manager_remove(request, id):
     return redirect('dongzip:society_admin', id)
 
 
+@login_required
+def society_admin_info_edit(request, id):
+    society = Society.objects.get(id=id)
+    if request.method=="POST":
+        form = SocietyForm(request.POST, request.FILES, instance=society)
+        if form.is_valid():
+            society = form.save()
+            return redirect("dongzip:society_admin", society.id)
+    else:
+        form = SocietyForm(instance=society)
+        return render(request, "dongzip/society_admin_info_edit.html", { 'form':form })
 
 
 @login_required

@@ -29,12 +29,29 @@
     }
 
     table{
-        width: 800px;
+        width: 700px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     table td{
         padding: 10px;
         text-align: center;
+    }
+
+    .logo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .society_basic_info {
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+    }
+
+    .society_basic_info td{
+        text-align: left;
     }
 
     .my_society_managers table{
@@ -175,14 +192,25 @@
                 <div class="my_society_info_edit well">
                     <h3>
                     <span class="glyphicon glyphicon-pencil"></span>
-                    동아리 정보 수정하기
+                    동아리 정보
                     </h3>
-
-                <table>
-                {{ form.as_table }}
+                    <table class="society_basic_info">
+                <tr><td>동아리 이름:</td> <td>{{ society.name }}</td></tr>
+                <tr><td>동아리 대표 전화:</td> <td>{{ society.main_tel_number }}</td></tr>
+                <tr><td>동아리 소개:</td> <td>{{ society.description }}</td></tr>
+                <tr><td>동아리 이미지:</td> <td><img src="{{ society.background_image.url }}" alt="" class="logo"></td></tr>
+                <tr><td>동아리 카테고리:</td>
+                <td>{% for category in society.categorys.all %}
+                {{ category }}
+                {% endfor %}</td></tr>
+                <tr><td>동아리 로고:</td> <td><img src="{{ society.logo_image.url }}" alt="" class="logo"></td></tr>
+                    </table>
                 <tr>
                     <td colspan="2" style="text-align:center;">
-                        <input class="btn btn-primary" id="club_submit_btn" type="submit"/>
+                        <br>
+                        <form action="{% url "dongzip:society_admin_info_edit" society.id %}">
+                            <input class="btn btn-primary" id="club_submit_btn" type="submit" value="정보 수정하기"/>
+                        </form>
                     </td>
                 </tr>
             </table>
