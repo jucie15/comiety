@@ -7,18 +7,9 @@
 
     <td style="text-align: left;">
 
+    {% for applicant in context.applicants %}
+        <input type="checkbox" name="users" value="{{value}}"> {{applicant.nickname}}<br>
+    {% endfor %}
     </td>
-
-    <td>
-    <form action="{% url "dongzip:society_admin_member_approve" society.id %}">
-        <input type="submit" value="승인"/>
-    </form>
-
-    <form action="{% url "dongzip:society_admin_membet_reject" society.id %}">
-        <input type="submit" value="거절"/>
-    </form>
-    </td>
-
-
 </body>
 </html>

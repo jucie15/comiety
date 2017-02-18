@@ -61,6 +61,13 @@
                 border: 0px;
             }
 
+            #submit_button {
+                width: 500px;
+                margin-bottom: 30px;
+                font-size: 15px;
+                font-weight:bold;
+            }
+
             #Facebook{
                 background-color: rgb(59, 89, 152);
                 text-align: center;
@@ -99,7 +106,7 @@
     <table>
         {{ form.as_table }}
     </table>
-    <input type="submit" class="btn btn-info" style="width: 500px; margin-bottom: 30px;" />
+    <input type="submit" class="btn btn-info" id="submit_button" />
 </form>
 </div>
 

@@ -44,8 +44,8 @@
             var myLatLng = {'lat' : lat, 'lng': lng };
 
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 5,
-                center: new google.maps.LatLng(35.95, 128.25),
+                zoom: 6,
+                center: myLatLng,
             });
 
             var marker = new google.maps.Marker({
@@ -88,16 +88,11 @@
         margin: .67em 0;
         font-family: sans-serif;
         text-align: center;
-    }
-
-    .page-Home table{
-        width: 100%;
-        height: 250px;
-        margin-right: auto;
-        margin-left: auto;
-        background-color: rgba(3, 100, 250, 0.05);
+        background-color: rgba(0, 0, 0, 0.05);
         color: black;
-        font-size: 50px;
+        font-size: 25px;
+        height: 100px;
+        line-height: 100px;
     }
 
     td{
@@ -105,8 +100,10 @@
     }
 
     .img-rounded {
-        width: 200px;
-        height: 200px;
+        margin-top: 5px;
+        width: 90px;
+        height: 90px;
+
     }
 
 
@@ -115,11 +112,11 @@
         margin-top: -10px;
         margin-left: auto;
         margin-right: auto;
-        height: 75px;
-        width: 700px;
-        background-color: rgb(3, 65, 200);
-        border-radius: 5px;
-        padding: 15px;
+        height: 50px;
+        width: 500px;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 2px;
+        padding: 5px;
         box-shadow: 3px 3px 3px grey;
 
     }
@@ -129,18 +126,18 @@
     }
 
     .keywordselect{
-        height:45px;
-        width:550px;
+        height:40px;
+        width:400px;
         border-radius: 5px;
         border: 1px solid lightgray;
     }
 
     #submit{
-        height:45px;
-        width:80px;
+        height:40px;
+        width:50px;
         border-radius:4px;
         border: none;
-        background-color: rgb(10, 61, 150);
+        background-color: rgba(0, 0, 0, 0.6);
         box-shadow: 1px 1px 1px lightgray;
     }
 
@@ -184,8 +181,8 @@
 
     .school_detail_info {
         display: inline-block;
-        background-color: rgba(10, 61, 150, 1);
-        border-radius: 7px;
+        background-color: rgba(0,0, 0, 0.5);
+        border-radius: 2px;
         padding: 10px;
         margin-bottom: 50px;
         color: white;
@@ -195,7 +192,7 @@
     #map {
         width: 100%;
         height: 200px;
-        background-color: blue;
+        background-color: rgba(0, 0, 0, 1);
     }
 
     .society_block{
@@ -205,7 +202,7 @@
     .list_block {
         text-align: center;
         border: 1px solid lightgray;
-        border-radius: 5px;
+        border-radius: 2px;
         padding-top: 10px;
     }
 
@@ -237,18 +234,19 @@
     }
 
     @media screen and (max-width: 480px) {
-        .society_logo {
-            height: 100px;
+        .search{
+            width: 400px;
+        }
+        .keywordselect{
+            width: 300px
         }
 
-        .society_caption {
-            font-size: 1rem;
-        }
+
     }
 
     @media screen and (min-width: 481px) and (max-width: 767px) {
-        .society_logo {
-            height: 150px;
+        .school_detail_info h5 {
+            font-size: 1.3rem;
         }
     }
 
@@ -267,20 +265,9 @@
     </div>
 
     <div class="page-Home">
-        <table class="school_info">
-            <tr>
-                <td style="padding-left:50px;">
                     {% with 'dongzip/images/univ_logo/'|add:school.name|add:'.jpg' as image_static %}
-                        <img src="{% static image_static %}" alt= "{{ school.name }}" class="img-rounded">
+                        <img src="{% static image_static %}" alt= "{{ school.name }}" class="img-rounded"> <strong>  {{ school }} </strong>
                     {% endwith %}
-                </td>
-                <td>
-                    <div class="school_name">
-                        <strong> {{ school }} </strong>
-                    </div>
-                </td>
-
-                <td style="width: 100px;"></td>
             </tr>
         </table>
     </div>
@@ -304,11 +291,7 @@
     </div>
 
     <div class="container-fluid info_container" align=center>
-        <div class="school_detail_info col-md-3 col-sm-3 col-xs-3" >
-            <h5> < {{ school }} 정보 > </h5>
-            <p>동아리 개수: {{ society_number }}</p>
-            <div id="map" data-lat="{{ school_point.lat }}" data-lng="{{ school_point.lng }}"></div>
-        </div>
+
         <div class="list_block col-md-9 col-sm-9 col-xs-9">
             {% for society in society_list %}
                 <div class="society_block">
@@ -324,7 +307,12 @@
             {% endfor %}
 
 
+         </div>
 
+         <div class="school_detail_info col-md-3 col-sm-3 col-xs-3" >
+            <h5> < {{ school }} 정보 > </h5>
+            <p>동아리 개수: {{ society_number }}</p>
+            <div id="map" data-lat="{{ school_point.lat }}" data-lng="{{ school_point.lng }}"></div>
         </div>
 
     </div>
