@@ -15,6 +15,7 @@ import json
 import time
 
 
+
 def index(request):
 
     if request.user.is_anonymous() or Profile.objects.filter(user=request.user).exists():
@@ -162,16 +163,78 @@ def society_admin(request, id):
 
      # if request.user.profile.membership_set.get(society_id=id).power >= 1:
     #     pass
+    manager = Profile.objects.get(society__id = id, membership__power = 2)
+    staff_list = Profile.objects.filter(society__id = id, membership__power = 1)
+    member_list = Profile.objects.filter(society__id = id, membership__power = 0)
+    applicants = Profile.objects.filter(society__id=id, membership__power=-1)
 
-    applicants = Profile.objects.filter(society__id=id,membership__power=-1)
-    members = Profile.objects.filter(society__id=id).exclude(membership__power=-1)
+
     context={}
     context['applicants'] = applicants
-    context['members'] = members
+    context['member_list'] = member_list
+    context['society_id'] = id
+    context['manager'] = manager
+    context['staff_list'] = staff_list
 
-    if request.method=='POST':
-        members = request.POST.get('members','')
-    return render(request, 'dongzip/society_admin.html',context)
+    return render(request, 'dongzip/society_admin.html', context)
+
+
+def society_admin_manager_edit(request, id):
+    if request.user.profile.membership_set.get(
+        society_id = id ).power != 2:
+    #권한 수정하려는 유저가 동쨩이아닐 경우
+        pass
+
+    if request.method == 'POST':
+        manager_id = Profile.objects.get(society__id = id, membership__power = 2).id # 현 동쨩 id
+        new_manager_id = request.POST.get('manager_id') # 새로운 동쨩 id
+        manager = Membership.objects.get(society_id = id, user_id = manager_id)
+        new_manager = Membership.objects.get(society_id = id, user_id = new_manager_id)
+
+        manager.power = 1
+        new_manager.power = 2
+
+        manager.save()
+        new_manager.save()
+
+    return redirect('dongzip:society_admin', id)
+
+
+def society_admin_manager_add(request, id):
+    if request.user.profile.membership_set.get(
+        society_id = id ).power < 1:
+    #권한 수정하려는 유저가 운영진이 아닐 경우
+        pass
+
+    if request.method == 'POST':
+        member_id = request.POST.get('member_id')
+        member = Membership.objects.get(society_id = id, user_id = member_id)
+
+        member.power = 1
+        member.save()
+
+    return redirect('dongzip:society_admin', id)
+
+
+
+def society_admin_manager_remove(request, id):
+    if request.user.profile.membership_set.get(
+        society_id = id ).power != 2:
+    #권한 수정하려는 유저가 관리자가 아닐 경
+        pass
+
+    if request.method == 'POST':
+        staff_id = request.POST.get('staff_id')
+        staff = Membership.objects.get(society_id = id, user_id = staff_id)
+
+
+        staff.power = 0
+        staff.save()
+
+    return redirect('dongzip:society_admin', id)
+
+
+
 
 @login_required
 def favorite_society(request, id):
