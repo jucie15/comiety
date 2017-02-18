@@ -147,35 +147,15 @@
                     동아리 정보 수정하기
                     </h3>
 
-                    <table align="center">
-                        <tr>
-                            <td>동아리 이름</td>
-                            <td> <input type="text" value="laba"></td>
-                        </tr>
-                        <tr>
-                            <td>동아리 연락처</td>
-                            <td><input type="text" value="12312312"></td>
-                        </tr>
-                        <tr>
-                            <td>동아리 주소</td>
-                            <td><input type="text" value="23434325"></td>
-                        </tr>
-                        <tr>
-                            <td>동아리 소개</td>
-                            <td><input type="text" value="농구 동아리입니다."></td>
-                        </tr>
-                        <tr>
-                            <td>동아리 로고</td>
-                            <td><input type="text" value="사진"></td>
-                        </tr>
-                        <tr>
-                            <td>페이지 배경사진</td>
-                            <td><input type="text" value="배경사진"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><input type="submit" value="저장하기" class="btn-info"></td>
-                        </tr>
-                    </table>
+                <table>
+                {{ form.as_table }}
+                <tr>
+                    <td colspan="2" style="text-align:center;">
+                        <input class="btn btn-primary" id="club_submit_btn" type="submit"/>
+                    </td>
+                </tr>
+            </table>
+
                 </div>
 
                 <div class="my_society_user_edit well">

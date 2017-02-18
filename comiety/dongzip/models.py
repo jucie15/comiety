@@ -38,7 +38,6 @@ class Profile(models.Model):
     school = models.ForeignKey(School) # School Table과 1:n 관계 형성
     user = models.OneToOneField(settings.AUTH_USER_MODEL)  # 'auth.User' 인증 라이브러리를 사용하기 위해 auth.user 사용
     nickname = models.CharField(max_length = 128, blank = False, null = False) # 닉네임
-    #favorite = 태그로 ㄱ?
     tel_number = models.CharField(max_length = 32, blank = False, null = False, validators=[tel_number_validator]) # 전화번호
     favorite_society = models.ManyToManyField('Society') # 관심 동아리
     profile_image = models.ImageField(upload_to = 'uploaded/user_profile/', null = True, blank = True)

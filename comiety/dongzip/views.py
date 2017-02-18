@@ -159,8 +159,10 @@ def society_regist(request):
 
 @login_required
 def society_admin(request, id):
-    if request.user.profile.membership_set.get(society_id = id).power != 2:
-        return redirect(request.path)
+
+     # if request.user.profile.membership_set.get(society_id=id).power >= 1:
+    #     pass
+
     applicants = Profile.objects.filter(society__id=id,membership__power=-1)
     members = Profile.objects.filter(society__id=id).exclude(membership__power=-1)
     context={}

@@ -342,8 +342,11 @@
                     <tr id="soc_left_tr3" colspan="2">
                         <td id="td1"><strong>부원:</strong></td>
                         <td id="left_tr3_td2">
-                        {% for user in society.users.all %}
-                            <span><img src={{ user.profile.image }} id="userphoto">{{ user }}</span>
+
+                        {% for user in society.membership_set.all %}
+                        {% if user.power != -1 %}
+                            <span><img src={{ user.profile.image }} id="userphoto">{{ user.user }}</span>
+                        {% endif %}
                         {% endfor %}
                         </td>
                 </table>
