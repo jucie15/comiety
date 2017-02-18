@@ -104,6 +104,7 @@ DATABASES = {
          'HOST': 'localhost',
          'NAME': 'gustos',
          'USER': 'gustos',
+	 'PASSWORD': 'mydbpassword',
     },
 }
 

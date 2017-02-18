@@ -55,13 +55,19 @@
         font-family: sans-serif;
     }
 
-    .search{
-        position: relative;
-        margin-top: -30px;
+    .container{
+        width: 90%;
         margin-left: auto;
         margin-right: auto;
-        height: 75px;
-        width: 700px;
+    }
+
+    .search{
+        position: relative;
+        margin-top: -35px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 65px;
+        width: 85%;
         background-color: black;
         padding: 15px;
 
@@ -72,14 +78,15 @@
     }
 
     .keywordselect{
-        height:45px;
-        width:550px;
-
+        height:40px;
+        width:83%;
+        position: relative;
+        top: -5px;
     }
 
     #submit{
         height:45px;
-        width:80px;
+        width: 12%;
         border-radius:4px;
 
     }
@@ -118,7 +125,9 @@
     }
 
     .big_block {
-        width: 100%;
+        width: 89%;
+        margin-right: auto;
+        margin-left: auto;
     }
 
     .list_block {
@@ -127,10 +136,9 @@
     }
 
     .school_block {
-        display: inline-block;
-        margin-left: 5%;
-        margin-right: 5%;
-        width: 22%;
+        display: block;
+        margin-left: 5px;
+        margin-right: 5px;
         height: auto;
         margin-bottom: 30px;
     }
@@ -168,7 +176,17 @@
         }
     }
 
-    @media screen and (min-width: 768px) {
+
+    @media screen and (max-width: 714px) {
+        .search {
+            width: 509.417px;
+        }
+        .keywordselect{
+            width: 397.96px;
+        }
+        #submit{
+            width: 57.53px;
+        }
     }
 
     {% endblock %}
@@ -187,42 +205,44 @@
                 <h1><strong> 학교검색 </strong></h1>
                 <p>관심있는 학교이름을 검색해보세요.</p>
         </div>
-        <div class="search">
 
-            <form action="" method="get">
-            <div id="insert_school">
-            <input type="text" size="100" name="keyword" value= '{{ keyword }}' placeholder="학교명" class="keywordselect" id="search_sch">
+        <div class="container">
+            <div class="search">
+                <form action="" method="get">
+                <div id="insert_school">
+                <input type="text" size="100" name="keyword" value= '{{ keyword }}' placeholder="학교명" class="keywordselect" id="search_sch">
 
-
-            <input style="font-size:20px; margin-left:20px;" type="submit" value="검색" id="submit" class="keywordselect">
-            </form>
+                <input style="font-size:20px; margin-left:20px;" type="submit" value="검색" id="submit" class="keywordselect">
+                </form>
+                </div>
             </div>
-        </div>
 
-        <div class="big_block">
+            <div class="big_block">
 
-            <h3 style="padding-left:30px; padding-top:25px;">
-                {% if keyword != '' %}
-                    {{ keyword }} 검색 결과입니다.
-                {% endif %}
-            </h3>
+                <h3 style="padding-left:30px; padding-top:25px;">
+                    {% if keyword != '' %}
+                        {{ keyword }} 검색 결과입니다.
+                    {% endif %}
+                </h3>
 
-            <div class="list_block">
-                {% for school in school_list %}
-                    <div class="school_block">
-                        <a href="{% url 'dongzip:school_detail' school.id %}" target="_self">
-                        {% with 'dongzip/images/univ_logo/'|add:school.name|add:'.jpg' as image_static %}
-                            <img src="{% static image_static %}" alt= "{{ school.name }}"" class="school_logo">
-                        {% endwith %}
-                        <div class="school_caption">
-                            <p><strong>{{ school.name }}</strong></p>
+                <div class="list_block">
+                    {% for school in school_list %}
+                    <div class="col-md-4 col-sm-4 col-xs-6">
+                        <div class="school_block">
+                            <a href="{% url 'dongzip:school_detail' school.id %}" target="_self">
+                            {% with 'dongzip/images/univ_logo/'|add:school.name|add:'.jpg' as image_static %}
+                                <img src="{% static image_static %}" alt= "{{ school.name }}"" class="school_logo">
+                            {% endwith %}
+                            <div class="school_caption">
+                                <p><strong>{{ school.name }}</strong></p>
+                            </div>
+                            </a>
                         </div>
-                        </a>
                     </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
+
             </div>
-
-
         </div>
 
         <script type="text/javascript">
