@@ -15,6 +15,28 @@
         margin-right: auto;
     }
 
+    .vertical_nav {
+        list-style-type: none;
+        margin: 0px;
+        padding: 0;
+        width: 200px;
+        background-color: #f1f1f1;
+    }
+
+    .vertical_nav li a {
+        display: block;
+        color: #000;
+        padding: 8px 16px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+
+    .vertical_nav li a:hover {
+        background-color: #555;
+        color: white;
+    }
+
     button, .btn-info{
         border: none;
         padding: 5px;
@@ -111,8 +133,20 @@
 
     {% block content %}
 
+    <h3 align="center"> </h3>
+        <br>
+        <div class="bck_1">
+            <ul class="vertical_nav bck_1">
+              <li><a href="">동아리 정보</a></li>
+              <li><a href="">페이지 관리자 정보</a></li>
+              <li><a href="">동아리부원 관리</a></li>
+              <li><a href="">주최행사 관리</a></li>
+              <li><a href="">참여 예정행사 관리</a></li>
+            </ul>
+        </div>
 
         <div class="bck">
+
             <div class="edit_block" align="center">
                 <h2>동아리 매니저 페이지 </h2>
                 <br><br>

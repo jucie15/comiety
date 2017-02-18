@@ -179,7 +179,7 @@ def society_admin(request, id):
     context['staff_list'] = staff_list
     context['society'] = society
 
-    return render(request, 'dongzip/society_admin.html', context)
+    return render(request, 'dongzip/society_admin_6.html', context)
 
 
 def society_admin_manager_edit(request, id):
