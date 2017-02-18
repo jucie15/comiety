@@ -1,234 +1,13 @@
-{% extends "dongzip/layout.html" %}
+{% extends "dongzip/society_admin_layout.html" %}
 
-    {% block extra_links %}
+{% block content_2 %}
 
-    {% endblock %}
-
-    {% block extra_style %}
-
-    .bck{
-        padding: 50px;
-        height: 100%;
-        margin-bottom: 50px;
-        text-align: center;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .vertical_nav {
-        list-style-type: none;
-        margin: 0px;
-        padding: 0;
-        width: 200px;
-        background-color: #f1f1f1;
-    }
-
-    .vertical_nav li a {
-        display: block;
-        color: #000;
-        padding: 8px 16px;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-
-    .vertical_nav li a:hover {
-        background-color: #555;
-        color: white;
-    }
-
-    button, .btn-info{
-        border: none;
-        padding: 5px;
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-
-    .btn-primary{
-        border: none;
-        padding: 5px;
-        width: 200px;
-    }
-
-    table{
-        width: 700px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    table td{
-        padding: 10px;
-        text-align: center;
-    }
-
-    .logo {
-        width: 100px;
-        height: 100px;
-    }
-
-    .society_basic_info {
-        margin-left: auto;
-        margin-right: auto;
-        width: 80%;
-    }
-
-    .society_basic_info td{
-        text-align: left;
-    }
-
-    .my_society_managers table{
-        width: 600px;
-    }
-
-    #society_managers_table{
-        width: 400px;
-    }
-
-    .my_society_user_edit table{
-        width: 400px;
-    }
-    .my_society_user_edit select{
-        width: 150px;
-    }
-
-    .add_event table{
-        width: 500px;
-    }
-
-    #event_edit{
-        border: none;
-    }
-
-    .my_society_managers, .my_society_info_edit, .my_society_user_edit, .my_society_schedule_manage, .my_society_participation{
-        border: 1px solid lightgray;
-        width: 800px;
-        margin-bottom: 50px;
-    }
-
-    @media screen and (max-width: 480px) {
-        .edit_block { width: 460px; }
-        table { width: 420px; font-size: 12px; }
-        button{ width: auto; padding: auto;}
-        .my_society_managers, .my_society_info_edit, .my_society_user_edit, .my_society_schedule_manage, .my_society_participation { width: 460px; }
-        .my_society_participation table { font-size: 11px; }
-        .my_society_managers table, .my_society_schedule_manage table { width: 420px;}
-        #editing_event { width: 40px; }
-    }
-
-    @media screen and (min-width: 481px) and (max-width: 767px) {
-        .edit_block { width: 700px; }
-        table { width: 650px; }
-        button{ width: auto; padding: auto;}
-        .my_society_managers, .my_society_info_edit, .my_society_user_edit, .my_society_schedule_manage, .my_society_participation{ width: 650px; font-size: 15px; }
-        .my_society_managers table, .my_society_schedule_manage table { width: 650px;}
-        #editing_event { width: 650px; }
-
-    }
-
-    @media screen and (min-width: 768px) {
-    }
-
-
-    {% endblock %}
-
-    {% block content %}
-
-    <h3 align="center"> </h3>
-        <br>
-        <div class="bck_1">
-            <ul class="vertical_nav bck_1">
-              <li><a href="">동아리 정보</a></li>
-              <li><a href="">페이지 관리자 정보</a></li>
-              <li><a href="">동아리부원 관리</a></li>
-              <li><a href="">주최행사 관리</a></li>
-              <li><a href="">참여 예정행사 관리</a></li>
-            </ul>
-        </div>
-
-        <div class="bck">
-
-            <div class="edit_block" align="center">
-                <h2>동아리 매니저 페이지 </h2>
-                <br><br>
-
-                <div class="my_society_managers well">
-                    <h3>
-                    <span class="glyphicon glyphicon-user"></span>
-                    동아리 페이지 관리자 정보
-                    </h3>
-
-                    <h4>동아리 스텝 목록</h4>
-                    <table class="table-hover" id="society_managers_table">
-                        <thead style="font-weight: bold; font-size: 17px;">
-                            <td>지위</td>
-                            <td>이름</td>
-                             <td> 변경/삭제 </td>
-                        </thead>
-                        <tr>
-                            <td> 동짱 </td>
-                            <td>
-                            <form action="{% url 'dongzip:society_admin_manager_edit' society_id %}" method='post'>
-                                    {% csrf_token %}
-                                <select name="manager_id" id="name_mbr_p">
-                                <option value="{{ manager.id }}">{{ manager }} </option>
-                                {% for staff in staff_list %}
-                                <option value="{{ staff.id }}">{{ staff }} </option>
-                                {% endfor %}
-
-                                </select></td>
-                            <td>
-                            {% if request.user.profile == manager %}
-                                <button type="submit" class="btn-info"> 변경 </button>
-                            {% endif %}
-                            </td>
-                            </form>
-                        </tr>
-                        <tr>
-                            <td> 운영진 </td>
-                            <td>
-                            <form action="{% url 'dongzip:society_admin_manager_remove' society_id %}" method='post'>
-                                    {% csrf_token %}
-                                <select name="staff_id" id="name_mbr_v">
-                                {% for staff in staff_list %}
-                                <option value="{{ staff.id }}">{{ staff }}</option>
-                                {% endfor %}
-                                </select></td>
-                            </td>
-                            <td>
-                            {% if request.user.profile == manager %}
-                                <button type="submit" class="btn-danger"> 삭제 </button></td>
-                            {% endif %}
-                            </form>
-
-                        </tr>
-                        <tr>
-                            <td><strong>운영진 추가하기</strong></td>
-                            <td>
-                                <form action="{% url 'dongzip:society_admin_manager_add' society_id %}" method='post'>
-                                    {% csrf_token %}
-                                    <select name="member_id" id="add_manager">
-                                    {% for member in member_list %}
-                                        <option value="{{ member.id }}">{{ member }}</option>
-                                    {% endfor %}
-                                    </select>
-                            </td>
-                                <td>
-                                {% if request.user.profile == manager %}
-                                    <button type="submit" class="btn-success"> 추가 </button></a></td>
-                                {% endif %}
-                            </form>
-
-                        </tr>
-                    </table>
-
-                </div>
-
-                <div class="my_society_info_edit well">
-                    <h3>
-                    <span class="glyphicon glyphicon-pencil"></span>
-                    동아리 정보
-                    </h3>
-                    <table class="society_basic_info">
+        <div class="my_society_info_edit well">
+            <h3>
+            <span class="glyphicon glyphicon-pencil"></span>
+            동아리 정보
+            </h3>
+            <table class="society_basic_info" align="center">
                 <tr><td>동아리 이름:</td> <td>{{ society.name }}</td></tr>
                 <tr><td>동아리 대표 전화:</td> <td>{{ society.main_tel_number }}</td></tr>
                 <tr><td>동아리 소개:</td> <td>{{ society.description }}</td></tr>
@@ -238,7 +17,6 @@
                 {{ category }}
                 {% endfor %}</td></tr>
                 <tr><td>동아리 로고:</td> <td><img src="{{ society.logo_image.url }}" alt="" class="logo"></td></tr>
-                    </table>
                 <tr>
                     <td colspan="2" style="text-align:center;">
                         <br>
@@ -248,248 +26,307 @@
                     </td>
                 </tr>
             </table>
+        </div>
 
-                </div>
-
-                <div class="my_society_user_edit well">
-                    <h3>
-                    <span class="glyphicon glyphicon-globe"></span>
-                    동아리 부원 관리
-                    </h3>
-
-                    <table align="center">
-                        <tr>
-                            <td>승인대기 목록</td>
-                        </tr>
-                            {% for x in applicants %}
-                                <li>{{ x.nickname }}</li>
-                            {% endfor %}
-
-                        <tr>
-                            <td>부원 삭제하기</td>
-                            <td style="text-align: left;">
-                            <form method="post">
+        <div class="my_society_managers well">
+            <h3>
+            <span class="glyphicon glyphicon-user"></span>
+            동아리 페이지 관리자 정보
+            </h3>
+            <h4>동아리 스텝 목록</h4>
+            <table class="table-hover" id="society_managers_table" align="center">
+                <thead style="font-weight: bold; font-size: 17px;">
+                    <td>지위</td>
+                    <td>이름</td>
+                     <td> 변경/삭제 </td>
+                </thead>
+                <tr>
+                    <td> 동짱 </td>
+                    <td>
+                    <form action="{% url 'dongzip:society_admin_manager_edit' society_id %}" method='post'>
                             {% csrf_token %}
-                            <SELECT NAME="members" SIZE="4" MULTIPLE >
-                                {% for member in members %}
-                                <OPTION value='{{member}}'> {{member}}
-                                {% endfor %}
-                                </SELECT>
-                            </td>
-                            <td>
-                                <input type="submit" class="btn-danger" value="삭제">
-                            </td>
-                        </tr>
+                        <select name="manager_id" id="name_mbr_p">
+                        <option value="{{ manager.id }}">{{ manager }} </option>
+                        {% for staff in staff_list %}
+                        <option value="{{ staff.id }}">{{ staff }} </option>
+                        {% endfor %}
 
-                        <form action="">
-                            <input class="btn btn-primary" id="club_submit_btn" type="submit" value="부원 관리하기"/>
+                        </select></td>
+                    <td>
+                    {% if request.user.profile == manager %}
+                        <button type="submit" class="btn-info"> 변경 </button>
+                    {% endif %}
+                    </td>
+                    </form>
+                </tr>
+                <tr>
+                    <td> 운영진 </td>
+                    <td>
+                    <form action="{% url 'dongzip:society_admin_manager_remove' society_id %}" method='post'>
+                            {% csrf_token %}
+                        <select name="staff_id" id="name_mbr_v">
+                        {% for staff in staff_list %}
+                        <option value="{{ staff.id }}">{{ staff }}</option>
+                        {% endfor %}
+                        </select></td>
+                    </td>
+                    <td>
+                    {% if request.user.profile == manager %}
+                        <button type="submit" class="btn-danger"> 삭제 </button></td>
+                    {% endif %}
+                    </form>
+
+                </tr>
+                <tr>
+                    <td><strong>운영진 추가하기</strong></td>
+                    <td>
+                        <form action="{% url 'dongzip:society_admin_manager_add' society_id %}" method='post'>
+                            {% csrf_token %}
+                            <select name="member_id" id="add_manager">
+                            {% for member in member_list %}
+                                <option value="{{ member.id }}">{{ member }}</option>
+                            {% endfor %}
+                            </select>
+                    </td>
+                    <td>
+                    {% if request.user.profile == manager %}
+                        <button type="submit" class="btn-success"> 추가 </button></a>
                         </form>
+                    </td>
+                    {% endif %}
+                </tr>
+            </table>
 
-                        <tr>
-                            <td colspan="2"><input type="submit" value="저장하기" class="btn-info"></td>
-                        </tr>
-                    </table>
-
-                </div>
-
-                <div class="my_society_schedule_manage panel">
-                    <h3>
-                    <span class="glyphicon glyphicon-list-alt"></span>
-                    동아리 주최 행사 관리하기</h3>
-                    <br>
-
-                    <div class="my_society_event_list">
-                        <h4> 행사 신청 목록 </h4>
-
-                        <table class="table-hover" id="society_schedule">
-                            <thead style="font-weight: bold">
-                                <td>날짜</td>
-                                <td>행사명</td>
-                                <td> 신청인/신청 동아리 </td>
-                                <td> 참석 승인 여부 </td>
-                            </thead>
-
-                            <tr>
-                                <td class="td1">[2월 2일(월)]</td>
-                                <td class="td2">피로그래밍 수업</td>
-                                <td>참석 동아리명</td>
-                                <td> <button class="btn-success"> 참석 승인 </button></td>
-                            </tr>
-                            <tr>
-                                <td class="td1">[2월 3일(화)]</td>
-                                <td class="td2">피로그래밍 팀플</td>
-                                <td>참석 동아리명</td>
-                                <td> <button class="btn-success"> 참석 승인 </button></td>
-                            </tr>
-                            <tr>
-                                <td class="td1">[2월 4일(수)]</td>
-                                <td class="td2">피로그래밍 수업</td>
-                                <td>참석 동아리명</td>
-                                <td> <button class="btn-success">
-                                참석 승인 </button></td>
-                            </tr>
-                            <tr>
-                                <td class="td1">[2월 5일(목)]</td>
-                                <td class="td2">피로그래밍 워크샵</td>
-                                <td>참석 동아리명</td>
-                                <td> <button class="btn-success"> 참석 승인 </button></td>
-                            </tr>
-                            <tr>
-                                <td class="td1">[2월 16일(금)]</td>
-                                <td class="td2">피로그래밍 스키</td>
-                                <td>참석 동아리명</td>
-                                <td> <button class="btn-success"> 참석 승인 </button></td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <br>
-
-                    <div class="edit_event">
-                        <h4> 행사 수정하기 </h4>
-                        <h5> 행사 목록</h5>
-                        <table id="event_edit" align="center">
-                            <thead style="font-weight: bold">
-                                <td></td>
-                                <td>날짜</td>
-                                <td>행사명</td>
-                                <td> 주최인/주최 동아리 </td>
-                                <td> 참석 승인 여부 </td>
-                            </thead>
-                            <tr>
-                                <td><input name="event_select" type="radio"></td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                            </tr>
-                            <tr>
-                                <td><input name="event_select" type="radio"></td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                            </tr>
-                            <tr>
-                                <td><input name="event_select" type="radio"></td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                            </tr>
-                        </table>
-
-                        <br>
-
-                        <table id="editing_event">
-                            <thead style="font-weight: bold">
-                                <td>날짜</td>
-                                <td>행사명</td>
-                                <td> 주최인/주최 동아리 </td>
-                            </thead>
-                            <tr>
-                                <td><input type="date"></td>
-                                <td><input type="text"></td>
-                                <td><input type="text" value="우리 동아리"></td>
-                            </tr>
-                            <tr>
-                                <td colspan="3"><input type="submit" value="행사 수정하기" class="btn-primary">
-                            </tr>
-                        </table>
-
-                    </div>
-
-                    <br><br><br>
-
-                    <div class="add_event">
-                        <h4> 행사 추가하기</h4>
-
-                        <table class="table-bordered" align="center">
-                            <tr>
-                                <td>날짜 선택</td>
-                                <td><input type="text"></td>
-                            </tr>
-                            <tr>
-                                <td>행사명</td>
-                                <td><input type="text"></td>
-                            </tr>
-                            <tr>
-                                <td>행사설명</td>
-                                <td><textarea name="" id="" cols="30" rows="10"></textarea></td>
-                            </tr>
-                            <tr>
-                                <td>신청 마감일</td>
-                                <td><input type="text"></td>
-                            </tr>
-                            <tr>
-                                <td>신청 인원 제한</td>
-                                <td><input type="text"></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><input type="submit" value="행사 추가" class="btn-primary"></td>
-                            </tr>
-                        </table>
-
-                    </div>
-
-
-
-                    <br>
-
-                </div>
-
-                <div class="my_society_participation panel">
-                    <h3>
-                    <span class="glyphicon glyphicon-calendar"></span>
-                    우리 동아리가 참여하기로 한 행사 관리
-                    </h3>
-                    <br>
-
-                    <table class="table-hover" id="society_schedule">
-                        <thead style="font-weight: bold">
-                            <td>날짜</td>
-                            <td>행사명</td>
-                            <td> 주최인/주최 동아리 </td>
-                            <td> 참석 승인 여부 </td>
-                        </thead>
-                        <tr>
-                            <td class="td1">[2월 2일(월)]</td>
-                            <td class="td2">피로그래밍 수업</td>
-                            <td> 주최인/주최 동아리 </td>
-                            <td> <button class="btn-danger"> 참석 취소 신청 </button></td>
-                        </tr>
-                        <tr>
-                            <td class="td1">[2월 3일(화)]</td>
-                            <td class="td2">피로그래밍 팀플</td>
-                            <td> 주최인/주최 동아리 </td>
-                            <td> <button class="btn-danger"> 참석 취소 신청 </button>
-                        </tr>
-                        <tr>
-                            <td class="td1">[2월 4일(수)]</td>
-                            <td class="td2">피로그래밍 수업</td>
-                            <td> 주최인/주최 동아리 </td>
-                            <td> <button class="btn-danger"> 참석 취소 신청 </button>
-                        </tr>
-                        <tr>
-                            <td class="td1">[2월 5일(목)]</td>
-                            <td class="td2">피로그래밍 워크샵</td>
-                            <td> 주최인/주최 동아리 </td>
-                            <td> <button class="btn-danger"> 참석 취소 신청 </button>
-                        </tr>
-                        <tr>
-                            <td class="td1">[2월 16일(금)]</td>
-                            <td class="td2">피로그래밍 스키</td>
-                            <td> 주최인/주최 동아리 </td>
-                            <td> <button class="btn-danger"> 참석 취소 신청 </button>
-                        </tr>
-                    </table>
-                    <br>
-
-                </div>
-
-
-            </div>
 
         </div>
 
-    {% endblock %}
+        <div class="my_society_user_edit well">
+            <h3>
+            <span class="glyphicon glyphicon-globe"></span>
+            동아리 부원 관리
+            </h3>
+
+            <table align="center" id="society_user_table">
+                <tr>
+                    <td>승인대기 목록</td>
+                </tr>
+                    {% for x in applicants %}
+                        <li>{{ x.nickname }}</li>
+                    {% endfor %}
+
+                <tr>
+                    <td>부원 삭제하기</td>
+                    <td style="text-align: left;">
+                    <form method="post">
+                    {% csrf_token %}
+                    <SELECT NAME="members" SIZE="4" MULTIPLE >
+                        {% for member in members %}
+                        <OPTION value='{{member}}'> {{member}}
+                        {% endfor %}
+                        </SELECT>
+                    </td>
+                    <td>
+                        <input type="submit" class="btn-danger" value="삭제">
+                    </td>
+                </tr>
+
+                <form action="">
+                    <input class="btn btn-primary" id="club_submit_btn" type="submit" value="부원 관리하기"/>
+                </form>
+
+                <tr>
+                    <td colspan="2"><input type="submit" value="저장하기" class="btn-info"></td>
+                </tr>
+            </table>
+        </div>
+
+
+        <!-- <div class="my_society_schedule_manage well">
+        <h3>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        동아리 주최 행사 관리하기</h3>
+        <br>
+
+        <div class="my_society_event_list">
+            <h4> 행사 신청 목록 </h4>
+
+            <table class="table-hover" id="society_schedule" align="center">
+                <thead style="font-weight: bold">
+                    <td>날짜</td>
+                    <td>행사명</td>
+                    <td> 신청인/신청 동아리 </td>
+                    <td> 참석 승인 여부 </td>
+                </thead>
+
+                <tr>
+                    <td class="td1">[2월 2일(월)]</td>
+                    <td class="td2">피로그래밍 수업</td>
+                    <td>참석 동아리명</td>
+                    <td> <button class="btn-success"> 참석 승인 </button></td>
+                </tr>
+                <tr>
+                    <td class="td1">[2월 3일(화)]</td>
+                    <td class="td2">피로그래밍 팀플</td>
+                    <td>참석 동아리명</td>
+                    <td> <button class="btn-success"> 참석 승인 </button></td>
+                </tr>
+                <tr>
+                    <td class="td1">[2월 4일(수)]</td>
+                    <td class="td2">피로그래밍 수업</td>
+                    <td>참석 동아리명</td>
+                    <td> <button class="btn-success">
+                    참석 승인 </button></td>
+                </tr>
+                <tr>
+                    <td class="td1">[2월 5일(목)]</td>
+                    <td class="td2">피로그래밍 워크샵</td>
+                    <td>참석 동아리명</td>
+                    <td> <button class="btn-success"> 참석 승인 </button></td>
+                </tr>
+                <tr>
+                    <td class="td1">[2월 16일(금)]</td>
+                    <td class="td2">피로그래밍 스키</td>
+                    <td>참석 동아리명</td>
+                    <td> <button class="btn-success"> 참석 승인 </button></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="edit_event well">
+            <h4> 행사 수정하기 </h4>
+            <h5> 행사 목록</h5>
+            <table id="event_edit" align="center">
+                <thead style="font-weight: bold">
+                    <td></td>
+                    <td>날짜</td>
+                    <td>행사명</td>
+                    <td> 주최인/주최 동아리 </td>
+                    <td> 참석 승인 여부 </td>
+                </thead>
+                <tr>
+                    <td><input name="event_select" type="radio"></td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td><input name="event_select" type="radio"></td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td><input name="event_select" type="radio"></td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+            </table>
+
+            <br>
+
+            <table id="editing_event" align="center">
+                <thead style="font-weight: bold">
+                    <td>날짜</td>
+                    <td>행사명</td>
+                    <td> 주최인/주최 동아리 </td>
+                </thead>
+                <tr>
+                    <td><input type="date"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text" value="우리 동아리"></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><input type="submit" value="행사 수정하기" class="btn-primary">
+                </tr>
+            </table>
+
+        </div>
+
+
+        <div class="add_event well">
+            <h4> 행사 추가하기</h4>
+
+            <table class="table-bordered" align="center">
+                <tr>
+                    <td>날짜 선택</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>행사명</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>행사설명</td>
+                    <td><textarea name="" id="" cols="30" rows="10"></textarea></td>
+                </tr>
+                <tr>
+                    <td>신청 마감일</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>신청 인원 제한</td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="행사 추가" class="btn-primary"></td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="my_society_participation well">
+            <h3>
+            <span class="glyphicon glyphicon-calendar"></span>
+            우리 동아리가 참여하기로 한 행사 관리
+            </h3>
+            <br>
+
+            <table class="table-hover" id="society_schedule" align="center">
+                <thead style="font-weight: bold">
+                    <td>날짜</td>
+                    <td>행사명</td>
+                    <td> 주최인/주최 동아리 </td>
+                    <td> 참석 승인 여부 </td>
+                </thead>
+                <tr>
+                    <td class="td1">[2월 2일(월)]</td>
+                    <td class="td2">피로그래밍 수업</td>
+                    <td> 주최인/주최 동아리 </td>
+                    <td> <button class="btn-danger"> 참석 취소 신청 </button></td>
+                </tr>
+                <tr>
+                    <td class="td1">[2월 3일(화)]</td>
+                    <td class="td2">피로그래밍 팀플</td>
+                    <td> 주최인/주최 동아리 </td>
+                    <td> <button class="btn-danger"> 참석 취소 신청 </button>
+                </tr>
+                <tr>
+                    <td class="td1">[2월 4일(수)]</td>
+                    <td class="td2">피로그래밍 수업</td>
+                    <td> 주최인/주최 동아리 </td>
+                    <td> <button class="btn-danger"> 참석 취소 신청 </button>
+                </tr>
+                <tr>
+                    <td class="td1">[2월 5일(목)]</td>
+                    <td class="td2">피로그래밍 워크샵</td>
+                    <td> 주최인/주최 동아리 </td>
+                    <td> <button class="btn-danger"> 참석 취소 신청 </button>
+                </tr>
+                <tr>
+                    <td class="td1">[2월 16일(금)]</td>
+                    <td class="td2">피로그래밍 스키</td>
+                    <td> 주최인/주최 동아리 </td>
+                    <td> <button class="btn-danger"> 참석 취소 신청 </button>
+                </tr>
+            </table>
+            <br>
+
+        </div> -->
+
+
+{% endblock %}
+

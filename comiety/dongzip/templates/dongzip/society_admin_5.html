@@ -1,78 +1,14 @@
-{% extends "dongzip/layout.html" %}
+{% extends "dongzip/society_admin_layout.html" %}
 
-    {% block extra_links %}
-
-    {% endblock %}
-
-    {% block extra_style %}
-
-    .big_block{
-        text-align: center;
-    }
+    {% block extra_style_2 %}
 
     .bck_1 {
-        width: 20%;
-        display: inline-block;
-        float: left;
+        height: 1000px;
     }
-
-    .edit_event {
-        height: 100%;
-        text-align: center;
-        width: 70%;
-        display: inline-block;
-    }
-
-    .vertical_nav {
-        list-style-type: none;
-        text-align: right;
-        margin: 0px;
-        padding: 0;
-        width: 200px;
-        background-color: #f1f1f1;
-    }
-
-    .vertical_nav li a {
-        display: block;
-        color: #000;
-        padding: 8px 16px;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-
-    .vertical_nav li a:hover {
-        background-color: #555;
-        color: white;
-    }
-
-    table td{
-        padding: 10px;
-        text-align: center;
-    }
-
-    #event_edit, #editing_event {
-        width: 500px;
-    }
-
-
 
     {% endblock %}
 
-    {% block content %}
-
-    <div class="big_block">
-        <h3 align="center"> </h3>
-        <br>
-        <div class="bck_1">
-            <ul class="vertical_nav bck_1">
-              <li><a href="">동아리 정보</a></li>
-              <li><a href="">페이지 관리자 정보</a></li>
-              <li><a href="">동아리부원 관리</a></li>
-              <li><a href="">주최행사 관리</a></li>
-              <li><a href="">참여 예정행사 관리</a></li>
-            </ul>
-        </div>
+{% block content_2 %}
 
         <div class="edit_event well">
             <h4> 행사 수정하기 </h4>

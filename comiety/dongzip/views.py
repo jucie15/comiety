@@ -255,16 +255,29 @@ def society_admin_member_edit(request,id):
 
 
 @login_required
-def society_admin_info(request,id):
-    pass
+def society_admin_info(request, id):
+    society = get_object_or_404(Society, id=id)
+
+    return render(request, 'dongzip/society_admin_1.html', {
+            'society' : society,
+        })
 
 @login_required
-def society_admin_member_info(request,id):
-    pass
+def society_admin_member_info(request, id):
+    society = get_object_or_404(Society, id=id)
+
+    return render(request, 'dongzip/society_admin_member_info.html', {
+            'society' : society,
+        })
+
 
 @login_required
-def society_admin_manager_info(request,id):
-    pass
+def society_admin_manager_info(request, id):
+    society = get_object_or_404(Society, id=id)
+
+    return render(request, 'dongzip/society_admin_manager_info.html', {
+            'society' : society,
+        })
 
 @login_required
 def favorite_society(request, id):
