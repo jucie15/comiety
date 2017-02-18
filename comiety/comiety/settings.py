@@ -101,8 +101,10 @@ WSGI_APPLICATION = 'comiety.wsgi.application'
 DATABASES = {
     'default': {
          'ENGINE': 'django.contrib.gis.db.backends.postgis',
+         'HOST': 'localhost',
          'NAME': 'gustos',
-         'USER': 'NamheeKim',
+         'USER': 'gustos',
+         'PASSWORD': 'mydbpassword',
     },
 }
 
