@@ -17,7 +17,6 @@ import time
 
 
 def index(request):
-
     if request.user.is_anonymous() or Profile.objects.filter(user=request.user).exists():
         school_cnt = School.objects.all().count()
         society_cnt = Society.objects.all().count()
