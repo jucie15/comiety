@@ -44,5 +44,6 @@ urlpatterns = [
     url(r'^ajax_counter/$', views.ajax_counter, name = 'ajax_counter'),
 
 
-    url(r'^society_detail/(?P<id>\d+)/admin/edit$', views.society_admin_info_edit, name = 'society_admin_info_edit'),
+    url(r'^society_detail/(?P<id>\d+)/admin/info_edit$', views.society_admin_info_edit, name = 'society_admin_info_edit'),
+    url(r'^society_detail/(?P<id>\d+)/admin/member_edit$', views.society_admin_member_edit, name = 'society_admin_member_edit'),
 ]

@@ -92,7 +92,6 @@ def society_detail(request, id):
 def society_apply(request, id):
     society = get_object_or_404(Society, id=id)
     user = request.user.profile
-
     membership = Membership(society=society, user=user, power=-1)
     membership.save()
 
@@ -169,6 +168,7 @@ def society_admin(request, id):
     member_list = Profile.objects.filter(society__id = id, membership__power = 0)
     applicants = Profile.objects.filter(society__id=id, membership__power=-1)
     society = get_object_or_404(Society, id=id)
+    applicants = Profile.objects.filter(society__id=id,membership__power=-1)
 
     context={}
     context['applicants'] = applicants
@@ -247,6 +247,14 @@ def society_admin_info_edit(request, id):
     else:
         form = SocietyForm(instance=society)
         return render(request, "dongzip/society_admin_info_edit.html", { 'form':form })
+
+# 미완성 아직 수정 필요! 템플릿도 수정 필요!
+@login_required
+def society_admin_member_edit(request,id):
+    member_list = Profile.objects.filter(society__id = id, membership__power = 0)
+    applicants = Profile.objects.filter(society__id=id, membership__power=-1)
+    return render(request, "dongzip/society_admin_member_edit.html", {
+        'member_list':member_list, 'applicants':applicants })
 
 
 @login_required
