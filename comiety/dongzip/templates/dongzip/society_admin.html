@@ -91,13 +91,53 @@
                     <td>
                     {% if request.user.profile == manager %}
                         <button type="submit" class="btn-success"> 추가 </button></a>
+                        </form>
                     </td>
                     {% endif %}
-                    </form>
-
                 </tr>
             </table>
 
+
+        </div>
+
+        <div class="my_society_user_edit well">
+            <h3>
+            <span class="glyphicon glyphicon-globe"></span>
+            동아리 부원 관리
+            </h3>
+
+            <table align="center">
+                <tr>
+                    <td>승인대기 목록</td>
+                </tr>
+                    {% for x in applicants %}
+                        <li>{{ x.nickname }}</li>
+                    {% endfor %}
+
+                <tr>
+                    <td>부원 삭제하기</td>
+                    <td style="text-align: left;">
+                    <form method="post">
+                    {% csrf_token %}
+                    <SELECT NAME="members" SIZE="4" MULTIPLE >
+                        {% for member in members %}
+                        <OPTION value='{{member}}'> {{member}}
+                        {% endfor %}
+                        </SELECT>
+                    </td>
+                    <td>
+                        <input type="submit" class="btn-danger" value="삭제">
+                    </td>
+                </tr>
+
+                <form action="">
+                    <input class="btn btn-primary" id="club_submit_btn" type="submit" value="부원 관리하기"/>
+                </form>
+
+                <tr>
+                    <td colspan="2"><input type="submit" value="저장하기" class="btn-info"></td>
+                </tr>
+            </table>
         </div>
 
         <div class="my_society_user_edit well">
