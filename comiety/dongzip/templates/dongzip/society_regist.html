@@ -10,13 +10,17 @@
         text-align: center;
     }
 
-    .container-fluid .register_society{
-        background-image:url("{% static 'dongzip/images/societyregistbck.jpg' %}");
+    .container-regist{
+        text-align: center;
     }
 
     .register_society{
+        margin-left: 25%;
+        width: 50%;
         padding: 20px;
         margin-bottom: 100px;
+        border: dashed;
+        border-color: lightgray;
     }
 
     table{
@@ -35,7 +39,7 @@
     }
 
     .register_society select, .register_society input, .register_society textarea{
-        width: 400px;
+        width: 100%;
         background-color: ghostwhite;
         border-style: solid;
         border: 1px solid lightgray;
@@ -51,9 +55,9 @@
 {% block content %}
 
 
-<div class="container-fluid">
+<div class="container-regist">
 
-    <div class="register_society">
+    <div class="register_society" align="center">
             <h1> 동아리 등록 </h1>
        <form action="" method="post">
             {% csrf_token %}
