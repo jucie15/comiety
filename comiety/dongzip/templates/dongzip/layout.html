@@ -86,20 +86,19 @@
                     <h4>Menu —</h4>
                     <div class="col-md-6 col-sm-6 col-xs-6">
                         <ul class="pages">
-                            <li><a href="societylist.html">동아리</a></li>
-                            <li><a href="societyregist.html">동아리 등록</a></li>
-                            <li><a href="schoollist.html">학교로 검색</a></li>
-                            <li><a href="myprofile.html">내 페이지</a></li>
-                            <li><a href="notification.html">알림</a></li>
-                            <li><a href="login.html">로그인</a></li>
+                            <li><a href="{% url 'dongzip:society_search' 'all' %}">동아리</a></li>
+                            <li><a href="{% url 'dongzip:society_regist' %}">동아리 등록</a></li>
+                            <li><a href="{% url 'dongzip:school_list' %}">학교로 검색</a></li>
+                            <li><a href="#">알림</a></li>
+                            <li><a href="{% url 'accounts:login' %}?next={{  request.path }}">로그인</a></li>
                         </ul>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6">
                         <ul class="list">
-                            <li><a href="aboutus.html">About Us</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
-                            <li><a href="terms.html">Terms & Condition</a></li>
-                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="{% url 'dongzip:aboutus' %}">About Us</a></li>
+                            <li><a href="#">Contacts</a></li>
+                            <li><a href="#">Terms & Condition</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
                         </ul>
                     </div>
                 </div>
