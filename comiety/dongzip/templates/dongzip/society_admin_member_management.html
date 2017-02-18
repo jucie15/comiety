@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+    <td style="text-align: left;">
+
+    {% for applicant in context.applicants %}
+        <input type="checkbox" name="users" value="{{value}}"> {{applicant.nickname}}<br>
+    {% endfor %}
+    </td>
+</body>
+</html>

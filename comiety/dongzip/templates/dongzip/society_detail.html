@@ -312,11 +312,14 @@
 
             <div class="soc_left" align="center">
                 <div class="soc_left_logo">
-                    <img src="{% static 'dongzip/images/frog4.jpg' %}" id="logo">
+                    <img src="{% static 'dongzip/images/event4.jpg' %}" id="logo">
                 </div>
                 <table>
                     <tr id="soc_interest">
                         <td colspan="2">
+                        {% if request.user.is_anonymous %}
+                            <a id = 'anonymous_favorite' href="{% url 'accounts:login' %}" style='color:gray'>
+                        {% endif %}
                         {% with request.user.profile.favorite_society.all as fa_soc %}
                             {% if society in fa_soc %}
                                 <a id = 'favorite' style='color:yellow'>
@@ -331,7 +334,7 @@
 
                         {% for user in society.membership_set.all %}
                         {% if user.power == 2 %}
-                        <td><img src="{% static 'dongzip/images/kermit1.jpg' %}" id="userphoto">{{user.user}} </td>
+                            <td><img src="{{ user.profile_image.url }}" id="userphoto">{{ user.user }}</td>
                         {% endif %}
                         {% endfor %}
                     </tr>
@@ -345,7 +348,7 @@
 
                         {% for user in society.membership_set.all %}
                         {% if user.power != -1 %}
-                            <span><img src={{ user.profile.image }} id="userphoto">{{ user.user }}</span>
+                            <span><img src="{{ user.profile_image.url }}" id="userphoto">{{ user.user }}</span>
                         {% endif %}
                         {% endfor %}
                         </td>
@@ -446,8 +449,8 @@ $('#favorite').click(function(){
             else
                 $('#favorite').css('color','gray');
         }, // 요청이 성공했을 경우
-        error: function(data){
-            console.log('error');
+        error: function(data, text_status, error){
+            location.href = "{% url "accounts:login" %}";
         }, // 에러가 날 경우
         dataType: "json",
         timeout: 2500, // 응답 대기 제한 시간

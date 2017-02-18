@@ -28,17 +28,22 @@ urlpatterns = [
     url(r'^society_regist/$', views.society_regist, name = 'society_regist'),
     url(r'^society_detail/(?P<id>\d+)/$', views.society_detail, name = 'society_detail'),
     url(r'^society_apply/(?P<id>\d+)/$', views.society_apply, name = 'society_apply'),
+
     url(r'^society_detail/(?P<id>\d+)/admin/$', views.society_admin, name = 'society_admin'),
     url(r'^society_detail/(?P<id>\d+)/admin/manager_edit/$', views.society_admin_manager_edit, name = 'society_admin_manager_edit'),
     url(r'^society_detail/(?P<id>\d+)/admin/manager_add/$', views.society_admin_manager_add, name = 'society_admin_manager_add'),
     url(r'^society_detail/(?P<id>\d+)/admin/manager_remove/$', views.society_admin_manager_remove, name = 'society_admin_manager_remove'),
     url(r'^favorite_society/(?P<id>\d+)/', views.favorite_society, name = 'favorite_society'),
+
     url(r'^event_list/$', views.event_list, name = 'event_list'),
+    url(r'^event_detail/$', views.event_detail, name = 'event_detail'),
     url(r'^event_list/ajax_search/$', views.ajax_search_event, name = 'ajax_search_event'),
+
     url(r'^society_search/(?P<name>[a-z_A-Z]+)/ajax_search/$', views.ajax_search_related, name = 'ajax_search_related'),
     url(r'^aboutus', views.aboutus, name = 'aboutus'),
     url(r'^ajax_counter/$', views.ajax_counter, name = 'ajax_counter'),
 
 
-    url(r'^society_detail/(?P<id>\d+)/admin/edit$', views.society_admin_info_edit, name = 'society_admin_info_edit'),
+    url(r'^society_detail/(?P<id>\d+)/admin/info_edit$', views.society_admin_info_edit, name = 'society_admin_info_edit'),
+    url(r'^society_detail/(?P<id>\d+)/admin/member_edit$', views.society_admin_member_edit, name = 'society_admin_member_edit'),
 ]

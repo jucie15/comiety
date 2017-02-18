@@ -254,24 +254,17 @@
                 <div class="my_society_user_edit well">
                     <h3>
                     <span class="glyphicon glyphicon-globe"></span>
-                    동아리 부원 관리하기
+                    동아리 부원 관리
                     </h3>
 
                     <table align="center">
                         <tr>
-                            <td>부원 승인하기</td>
-                            <td style="text-align: left;">
-                                <br>
-                                {% for applicant in applicants %}
-                                <input type="checkbox" name="users" value="{{ applicant}}"> {{ applicant}} <br>
-
-                                {% endfor %}
-
-                            </td>
-                            <td> <button class="btn-success"> 승인 </button>
-                                <button class="btn-danger"> 거절 </button>
-                             </td>
+                            <td>승인대기 목록</td>
                         </tr>
+                            {% for x in applicants %}
+                                <li>{{ x.nickname }}</li>
+                            {% endfor %}
+
                         <tr>
                             <td>부원 삭제하기</td>
                             <td style="text-align: left;">
@@ -285,10 +278,13 @@
                             </td>
                             <td>
                                 <input type="submit" class="btn-danger" value="삭제">
-
                             </td>
-                            </form>
                         </tr>
+
+                        <form action="">
+                            <input class="btn btn-primary" id="club_submit_btn" type="submit" value="부원 관리하기"/>
+                        </form>
+
                         <tr>
                             <td colspan="2"><input type="submit" value="저장하기" class="btn-info"></td>
                         </tr>
