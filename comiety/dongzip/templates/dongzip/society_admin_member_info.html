@@ -16,11 +16,15 @@
         float: left;
     }
 
-    .my_society_info_edit {
+    .my_society_user_edit {
         height: 100%;
         text-align: center;
         width: 70%;
         display: inline-block;
+    }
+
+    .my_society_user_edit select{
+        width: 150px;
     }
 
     .vertical_nav {
@@ -51,15 +55,9 @@
         text-align: center;
     }
 
-    .society_basic_info{
+    #society_user_table{
         width: 500px;
     }
-
-    .logo {
-        width: 100px;
-        height: 100px;
-    }
-
 
 
 
@@ -80,30 +78,49 @@
             </ul>
         </div>
 
-        <div class="my_society_info_edit well">
+        <div class="my_society_user_edit well">
             <h3>
-            <span class="glyphicon glyphicon-pencil"></span>
-            동아리 정보
+            <span class="glyphicon glyphicon-globe"></span>
+            동아리 부원 관리하기
             </h3>
-            <table class="society_basic_info">
-                <tr><td>동아리 이름:</td> <td>{{ society.name }}</td></tr>
-                <tr><td>동아리 대표 전화:</td> <td>{{ society.main_tel_number }}</td></tr>
-                <tr><td>동아리 소개:</td> <td>{{ society.description }}</td></tr>
-                <tr><td>동아리 이미지:</td> <td><img src="{{ society.background_image.url }}" alt="" class="logo"></td></tr>
-                <tr><td>동아리 카테고리:</td>
-                <td>{% for category in society.categorys.all %}
-                {{ category }}
-                {% endfor %}</td></tr>
-                <tr><td>동아리 로고:</td> <td><img src="{{ society.logo_image.url }}" alt="" class="logo"></td></tr>
+
+            <table id="society_user_table" align="center">
                 <tr>
-                    <td colspan="2" style="text-align:center;">
+                    <td>부원 승인하기</td>
+                    <td style="text-align: left;">
                         <br>
-                        <form action="{% url "dongzip:society_admin_info_edit" society.id %}">
-                            <input class="btn btn-primary" id="club_submit_btn" type="submit" value="정보 수정하기"/>
-                        </form>
+                        {% for applicant in applicants %}
+                        <input type="checkbox" name="users" value="{{ applicant}}"> {{ applicant}} <br>
+
+                        {% endfor %}
+
                     </td>
+                    <td> <button class="btn-success"> 승인 </button>
+                        <button class="btn-danger"> 거절 </button>
+                     </td>
+                </tr>
+                <tr>
+                    <td>부원 삭제하기</td>
+                    <td style="text-align: left;">
+                    <form method="post">
+                    {% csrf_token %}
+                    <SELECT NAME="members" SIZE="4" MULTIPLE >
+                        {% for member in members %}
+                        <OPTION value='{{member}}'> {{member}}
+                        {% endfor %}
+                        </SELECT>
+                    </td>
+                    <td>
+                        <input type="submit" class="btn-danger" value="삭제">
+
+                    </td>
+                    </form>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="저장하기" class="btn-info"></td>
                 </tr>
             </table>
+
         </div>
     </div>
 {% endblock %}

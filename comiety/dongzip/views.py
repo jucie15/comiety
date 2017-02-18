@@ -181,8 +181,6 @@ def society_admin(request, id):
 
 
 def society_admin_manager_edit(request, id):
-
-
     if request.user.profile.membership_set.get( society_id = id ).power != 2:
         #권한 수정하려는 유저가 동쨩이아닐 경우
         pass
@@ -255,6 +253,18 @@ def society_admin_member_edit(request,id):
     return render(request, "dongzip/society_admin_member_edit.html", {
         'member_list':member_list, 'applicants':applicants })
 
+
+@login_required
+def society_admin_info(request,id):
+    pass
+
+@login_required
+def society_admin_member_info(request,id):
+    pass
+
+@login_required
+def society_admin_manager_info(request,id):
+    pass
 
 @login_required
 def favorite_society(request, id):
