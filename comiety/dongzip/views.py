@@ -139,6 +139,8 @@ def society_search(request, name):
 @login_required
 def society_regist(request):
     # 동아리 등록
+    if request.is_ajax():
+        render(request, 'dongzip/society_regist.html', {'form' : form})
     if request.method == 'POST':
         form = SocietyForm(request.POST)
         user = request.user.profile
