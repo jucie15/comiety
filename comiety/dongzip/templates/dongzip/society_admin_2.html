@@ -108,30 +108,32 @@
 
                     <h4>동아리 스텝 목록</h4>
                     <table class="table-hover" id="society_managers_table">
-                        <thead style="font-weight: bold; font-size: 17px;">
+                        <thead style="font-weight: bold">
+                            <td>매니저 이름</td>
                             <td>지위</td>
-                            <td>이름</td>
-                             <td> 변경/삭제 </td>
+                             <td colspan="2"> 변경/삭제 </td>
                         </thead>
                         <tr>
-                            <td> 동짱 </td>
-                            <td>
-                                <select name="mbr_name_p" id="name_mbr_p">
-                                <option value="">양가은</option></select></td>
+                            <td> 양가은 </td>
+                            <td> 매니저 </td>
                             <td> <button class="btn-info"> 변경 </button></td>
                         </tr>
                         <tr>
-                            <td> 운영진 </td>
-                            <td>
-                                <select name="mbr_name_v" id="name_mbr_v">
-                                <option value="">김예은</option></select></td>
-                            </td>
+                            <td> 김예은 </td>
+                            <td> 부매니저 </td>
+                            <td> <button class="btn-info"> 변경 </button></td>
                             <td> <button class="btn-danger"> 삭제 </button></td>
                         </tr>
+                    </table>
+
+                    <table>
                         <tr>
-                            <td><strong>운영진 추가하기</strong></td>
+                            <td>스탭 추가하기</td>
                             <td> <select name="manager_add" id="add_manager">
                                 <option value="">양가은</option>
+                            </select></td>
+                            <td> <select name="roles" id="role">
+                                <option value="">부매니저</option>
                             </select></td>
                             <td> <button class="btn-success"> 추가 </button></td>
                         </tr>
