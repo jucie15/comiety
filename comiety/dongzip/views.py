@@ -92,7 +92,6 @@ def society_detail(request, id):
 def society_apply(request, id):
     society = Society.objects.get(id=id)
     user = request.user.profile
-
     membership = Membership(society=society, user=user, power=-1)
     membership.save()
 
@@ -167,11 +166,12 @@ def society_admin(request, id):
 
     applicants = Profile.objects.filter(society__id=id,membership__power=-1)
     members = Profile.objects.filter(society__id=id).exclude(membership__power=-1)
+
     context={}
     context['applicants'] = applicants
     context['members'] = members
 
-    return render(request, 'dongzip/society_admin.html', { 'context':context, 'society':society })
+    return render(request, 'dongzip/society_admin.html',context)
 
 
 @login_required
