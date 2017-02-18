@@ -106,7 +106,8 @@ button {
 
                 <table align="center" id="myinfo">
                     <tr>
-                        <td rowspan="5"> <img src="{% static 'dongzip/images/daeun.jpg' %}" alt="" class="img-circle"></td>
+                        <td rowspan="5">
+                         <img src='{{ user.profile.profile_image.url }}' alt="" class="img-circle"></td>
                         <td> 아이디: </td>
                         <td> {{ user.nickname }} </td>
                     </tr>
@@ -137,7 +138,9 @@ button {
                 </h3>
                 <hr>
                 {% for society in user.profile.society_set.all %}
-                    <div class="my_society_logo"><img src="{% static 'dongzip/images/{{ society }}.jpg' %}" alt=""> <br> {{ society.name }}</div>
+                <a href = "{% url 'dongzip:society_detail' society.id %}">
+                    <div class="my_society_logo"><img src="{% static 'dongzip/images/academics.jpg' %}" alt="" style="width:150px;"> <br> {{ society.name }}</div>
+                    </a>
                 {% endfor %}
             </div>
                 <br>
@@ -149,7 +152,8 @@ button {
                 </h3>
                 <hr>
                 {% for society in user.profile.favorite_society.all %}
-                    <div class="my_favorite_society_logo"><img src="{% static 'dongzip/images/{{ society }}.jpg' %}" alt=""> <br> {{ society.name }}</div>
+                <a href = "{% url 'dongzip:society_detail' society.id %}">
+                    <div class="my_favorite_society_logo"><img src="{% static 'dongzip/images/hobby.jpg' %}" alt="" style="width: 150px;"> <br> {{ society.name }}</div></a>
                 {% endfor %}
             </div>
 

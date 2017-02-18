@@ -58,10 +58,18 @@ def school_detail(request, id):
     society_list = Society.objects.filter(condition)
     #ajax_test(request, society_list)
 
+    society_number = Society.objects.filter(school=school).count()
+    school_point = SchoolLocation.objects.get(school__name = school)
+
+
     context = {}
     context['keyword'] = keyword
     context['society_list'] = society_list
     context['school'] = school # 수정 할지 확인하기
+    context['society_number'] = society_number
+    context['school_point'] = school_point
+    # context['school_lng'] =
+    # context['school_lat'] =
 
     return render(request,'dongzip/school_detail.html', context)
 
@@ -80,6 +88,15 @@ def society_detail(request, id):
     return render(request, 'dongzip/society_detail.html', {
             'society' : society,
         })
+
+def society_apply(request, id):
+    society = Society.objects.get(id=id)
+    user = request.user.profile
+
+    membership = Membership(society=society, user=user, power=-1)
+    membership.save()
+
+    return redirect('dongzip:society_detail', id)
 
 def society_search(request, name):
     # 동아리 검색
@@ -146,7 +163,15 @@ def society_admin(request, id):
      # if request.user.profile.membership_set.get(society_id=id).power >= 1:
     #     pass
 
-    return render(request, 'dongzip/society_admin.html')
+    applicants = Profile.objects.filter(society__id=id,membership__power=-1)
+    members = Profile.objects.filter(society__id=id).exclude(membership__power=-1)
+    context={}
+    context['applicants'] = applicants
+    context['members'] = members
+
+    if request.method=='POST':
+        members = request.POST.get('members','')
+    return render(request, 'dongzip/society_admin.html',context)
 
 @login_required
 def favorite_society(request, id):

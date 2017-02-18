@@ -81,7 +81,7 @@
         <div class="container">
             <h1>정보 입력하기</h1>
             <h1> {{ user.username }}님의 상세정보를 입력해주세요</h1>
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <table>
                     {{ form }}

@@ -5,6 +5,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        {% load staticfiles %}
+
+        <link rel="stylesheet" href="{% static 'dongzip/css/bootstrap.min.css' %}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         <style>
             body{
@@ -84,43 +89,27 @@
     </head>
 
     <body>
+    <a href = "{% url 'dongzip:index' %}">
         <img src="/static/dongzip/images/logocomietypng.png">
+    </a>
 
-
+<div align="center">
 <form action="" method="post">
     {% csrf_token %}
     <table>
         {{ form.as_table }}
     </table>
-    <input type="submit" />
+    <input type="submit" class="btn btn-info" style="width: 500px; margin-bottom: 30px;" />
 </form>
+</div>
 
-        <table class="loginform">
-            <form method="POST">
-                <tr>
-                    <td>
-                        <input type="text" name="id" placeholder="아이디">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="password" name="password" placeholder="비밀번호">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="submit" id="submitbig">
-                        <input type="submit" value="로그인" class="submit">
-                    </td>
-                </tr>
-            </form>
-        </table>
 
         <table>
             {% load socialaccount %}
             {% block content %}
                 {% for provider in providers %}
                     <tr>
-                        <td id="{{ provider.name }}" >
+                        <td id="{{ provider.name }}"  >
                             {% if provider.social_app %}
                                 <a href="{% provider_login_url provider.id %}">
                                     {{ provider.name }}
