@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from allauth.socialaccount.models import SocialApp
 from allauth.socialaccount.templatetags.socialaccount import get_providers
 from django.conf import settings
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.db.models import Q
 from django.contrib.gis.measure import D
 import json
@@ -49,7 +49,7 @@ def school_list(request):
 
 def school_detail(request, id):
     # 학교별 세부페이지
-    school = School.objects.get(id=id)
+    school = get_object_or_404(School, id=id)
 
     keyword = request.GET.get('keyword','')
 
@@ -57,10 +57,9 @@ def school_detail(request, id):
     condition = (Q(description__icontains = keyword) | Q(name__icontains = keyword)) & Q(school = school)
 
     society_list = Society.objects.filter(condition)
-    #ajax_test(request, society_list)
 
     society_number = Society.objects.filter(school=school).count()
-    school_point = SchoolLocation.objects.get(school__name = school)
+    school_point = get_object_or_404(SchoolLocation, school__name = school)
 
 
     context = {}
@@ -84,14 +83,14 @@ url에서 society_detail뺼지
 '''
 def society_detail(request, id):
     # 동아리 별 세부페이지
-    society = Society.objects.get(id = id)
+    society = get_object_or_404(Society, id=id)
 
     return render(request, 'dongzip/society_detail.html', {
             'society' : society,
         })
 
 def society_apply(request, id):
-    society = Society.objects.get(id=id)
+    society = get_object_or_404(Society, id=id)
     user = request.user.profile
 
     membership = Membership(society=society, user=user, power=-1)
@@ -117,15 +116,15 @@ def society_search(request, name):
 
     if school_name != '':
         # 학교 위치 기반 필터링을 원할 경우 조건 추가
-        school_pnt = SchoolLocation.objects.get(school__name = school_name).point # 지정 학교의 좌표
+        school_pnt = get_object_or_404(SchoolLocation, school__name=school_name).point
         condition = condition & Q(school__schoollocation__point__distance_lte = (school_pnt, D(km = distance)))
-        school = School.objects.get(name=school_name)
+        school = get_object_or_404(School, name=school_name)
 
     if name != 'all':
         # 카테고리 분류별 필터링을 원할 경우 조건 추가
         condition = condition & Q(categorys__url_name = name)
+        category_name = get_object_or_404(Category, url_name__icontains=name).name
 
-        category_name = Category.objects.get(url_name__icontains = name).name
     search_society_list = Society.objects.filter(condition)
     context = {}
     context['search_society_list'] = search_society_list
@@ -165,11 +164,11 @@ def society_admin(request, id):
 
      # if request.user.profile.membership_set.get(society_id=id).power >= 1:
     #     pass
-    manager = Profile.objects.get(society__id = id, membership__power = 2)
+    manager = get_object_or_404(Profile, society__id = id, membership__power = 2)
     staff_list = Profile.objects.filter(society__id = id, membership__power = 1)
     member_list = Profile.objects.filter(society__id = id, membership__power = 0)
     applicants = Profile.objects.filter(society__id=id, membership__power=-1)
-    society = Society.objects.get(id=id)
+    society = get_object_or_404(Society, id=id)
 
     context={}
     context['applicants'] = applicants
@@ -183,16 +182,18 @@ def society_admin(request, id):
 
 
 def society_admin_manager_edit(request, id):
-    if request.user.profile.membership_set.get(
-        society_id = id ).power != 2:
-    #권한 수정하려는 유저가 동쨩이아닐 경우
+
+
+    if request.user.profile.membership_set.get( society_id = id ).power != 2:
+        #권한 수정하려는 유저가 동쨩이아닐 경우
         pass
 
     if request.method == 'POST':
-        manager_id = Profile.objects.get(society__id = id, membership__power = 2).id # 현 동쨩 id
+        manager_id = get_object_or_404(Profile,society__id = id, membership__power = 2).id
         new_manager_id = request.POST.get('manager_id') # 새로운 동쨩 id
-        manager = Membership.objects.get(society_id = id, user_id = manager_id)
-        new_manager = Membership.objects.get(society_id = id, user_id = new_manager_id)
+        manager = get_object_or_404(Membership, society_id = id, user_id = manager_id)
+        new_manager = get_object_or_404(Membership, society_id = id, user_id = new_manager_id)
+
 
         manager.power = 1
         new_manager.power = 2
@@ -204,14 +205,13 @@ def society_admin_manager_edit(request, id):
 
 
 def society_admin_manager_add(request, id):
-    if request.user.profile.membership_set.get(
-        society_id = id ).power < 1:
+    if request.user.profile.membership_set.get( society_id = id ).power < 1:
     #권한 수정하려는 유저가 운영진이 아닐 경우
         pass
 
     if request.method == 'POST':
         member_id = request.POST.get('member_id')
-        member = Membership.objects.get(society_id = id, user_id = member_id)
+        member = get_object_or_404(Membership, society_id = id, user_id = member_id)
 
         member.power = 1
         member.save()
@@ -221,15 +221,13 @@ def society_admin_manager_add(request, id):
 
 
 def society_admin_manager_remove(request, id):
-    if request.user.profile.membership_set.get(
-        society_id = id ).power != 2:
-    #권한 수정하려는 유저가 관리자가 아닐 경
+    if request.user.profile.membership_set.get( society_id = id ).power != 2:
+    #권한 수정하려는 유저가 관리자가 아닐 경우
         pass
 
     if request.method == 'POST':
         staff_id = request.POST.get('staff_id')
-        staff = Membership.objects.get(society_id = id, user_id = staff_id)
-
+        staff = get_object_or_404(Membership, society_id = id, user_id = staff_id)
 
         staff.power = 0
         staff.save()
@@ -239,7 +237,8 @@ def society_admin_manager_remove(request, id):
 
 @login_required
 def society_admin_info_edit(request, id):
-    society = Society.objects.get(id=id)
+    society = get_object_or_404(Society)
+
     if request.method=="POST":
         form = SocietyForm(request.POST, request.FILES, instance=society)
         if form.is_valid():
@@ -255,7 +254,8 @@ def favorite_society(request, id):
     # 동아리 즐겨찾기 기능
     if request.is_ajax():
         user = request.user.profile # 요청 유저
-        society = Society.objects.get(id=id) # 즐겨찾을 동아리
+
+        society = get_object_or_404(Society, id=id) # 즐겨찾을 동아리
         if user.favorite_society.filter(id=id).exists():
             # 이미 즐겨찾기 등록이 되있으면
             # 즐겨찾기 삭제
@@ -273,12 +273,15 @@ def favorite_society(request, id):
         context['isFavorite'] = isFavorite
         data = json.dumps(context)
     else:
-        data = 'fail'
+        data = json.dumps({'status':'fail'})
     return HttpResponse(data)
 
 
 def event_list(request):
     return render(request, 'dongzip/event_list.html')
+
+def event_detail(request):
+    return render(request, 'dongzip/event_detail.html')
 
 
 def ajax_search_event(request):
@@ -320,7 +323,7 @@ def ajax_search_soc(request, id):
     if request.is_ajax():
         keyword = request.GET.get('term','')
 
-        school = School.objects.get(id=id)
+        school = get_object_or_404(School, id=id)
         condition = (Q(description__icontains = keyword) | Q(name__icontains = keyword)) & Q(school = school)
         society_list = school.society_set.filter(condition)
         results = []
