@@ -233,7 +233,7 @@ def society_admin_manager_remove(request, id):
 
 
 @login_required
-def society_admin_info_edit(request, id):
+def society_admin_info(request, id):
     society = get_object_or_404(Society, id=id)
 
     if request.method=="POST":
@@ -243,7 +243,8 @@ def society_admin_info_edit(request, id):
             return redirect("dongzip:society_admin", society.id)
     else:
         form = SocietyForm(instance=society)
-        return render(request, "dongzip/society_admin_info_edit.html", { 'form':form })
+        return render(request, "dongzip/society_admin_1.html", { 'form':form, 'society':society })
+
 
 # 미완성 아직 수정 필요! 템플릿도 수정 필요!
 @login_required
@@ -253,14 +254,6 @@ def society_admin_member_edit(request,id):
     return render(request, "dongzip/society_admin_member_edit.html", {
         'member_list':member_list, 'applicants':applicants })
 
-
-@login_required
-def society_admin_info(request, id):
-    society = get_object_or_404(Society, id=id)
-
-    return render(request, 'dongzip/society_admin_1.html', {
-            'society' : society,
-        })
 
 @login_required
 def society_admin_member_info(request, id):
