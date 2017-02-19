@@ -32,7 +32,6 @@ urlpatterns = [
     url(r'^society_detail/(?P<id>\d+)/admin/$', views.society_admin, name = 'society_admin'),
     url(r'^society_detail/(?P<id>\d+)/admin/manager_edit/$', views.society_admin_manager_edit, name = 'society_admin_manager_edit'),
     url(r'^society_detail/(?P<id>\d+)/admin/manager_add/$', views.society_admin_manager_add, name = 'society_admin_manager_add'),
-    url(r'^society_detail/(?P<id>\d+)/admin/info_edit$', views.society_admin_info_edit, name = 'society_admin_info_edit'),
     url(r'^society_detail/(?P<id>\d+)/admin/member_edit$', views.society_admin_member_edit, name = 'society_admin_member_edit'),
     url(r'^society_detail/(?P<id>\d+)/admin/manager_remove/$', views.society_admin_manager_remove, name = 'society_admin_manager_remove'),
     url(r'^society_detail/(?P<id>\d+)/admin/info/$', views.society_admin_info, name = 'society_admin_info'),
@@ -47,6 +46,4 @@ urlpatterns = [
     url(r'^society_search/(?P<name>[a-z_A-Z]+)/ajax_search/$', views.ajax_search_related, name = 'ajax_search_related'),
     url(r'^aboutus', views.aboutus, name = 'aboutus'),
     url(r'^ajax_counter/$', views.ajax_counter, name = 'ajax_counter'),
-
-
     ]
