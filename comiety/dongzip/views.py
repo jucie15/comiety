@@ -234,7 +234,7 @@ def society_admin_manager_remove(request, id):
 
 @login_required
 def society_admin_info_edit(request, id):
-    society = get_object_or_404(Society)
+    society = get_object_or_404(Society, id=id)
 
     if request.method=="POST":
         form = SocietyForm(request.POST, request.FILES, instance=society)
