@@ -1,8 +1,5 @@
--r reqs/prod.txt
-
 django==1.10.5
-Django-allauth
 pillow
+djano-allauth
 Requests
 Beautifulsoup4
-psycopg2
