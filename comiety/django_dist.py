@@ -123,7 +123,8 @@ class Installer(object):
                     sudo -u postgres dropuser --if-exists {db_user}
                     sudo -u postgres createdb {db_name} && \
                     sudo -u postgres createuser {db_user} && \
-                    echo "ALTER ROLE {db_user} WITH PASSWORD '{db_password}';" | sudo -u postgres psql
+                    echo "ALTER ROLE {db_user} WITH PASSWORD '{db_password}';" | sudo -u postgres psql && \
+                    echo "ALTER ROLE {db_user} superuser"
                 ''')
             else:
                 self.command_run('''
@@ -131,7 +132,8 @@ class Installer(object):
                     sudo -u postgres dropuser --if-exists --host={db_host} {db_user}
                     sudo -u postgres createdb --host={db_host} {db_name} && \
                     sudo -u postgres createuser --host={db_host} {db_user} && \
-                    echo "ALTER ROLE {db_user} WITH PASSWORD '{db_password}';" | sudo -u postgres psql --host={db_host}
+                    echo "ALTER ROLE {db_user} WITH PASSWORD '{db_password}';" | sudo -u postgres psql --host={db_host} && \
+                    echo "ALTER ROLE {db_user} superuser"
                 ''')
 
     def install_python_packages(self):
