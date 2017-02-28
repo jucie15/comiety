@@ -78,7 +78,7 @@ class Installer(object):
     def run(self):
         self.init_apt()
         self.install_system_packages()
-        self.init_db()
+        #self.init_db()
         self.install_python_packages()
         self.make_logs_directory()
         self.init_django_project()
