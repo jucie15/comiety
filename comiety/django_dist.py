@@ -108,33 +108,31 @@ class Installer(object):
                 libpcre3 libpcre3-dev
         ''')
 
-    def init_db(self):
-        'Django 프로젝트 데이터베이스/계정 생성 및 암호 설정'
+    # def init_db(self):
+    #     'Django 프로젝트 데이터베이스/계정 생성 및 암호 설정'
 
-        if self.kwargs['is_postgresql']:
-            for key in ('db_host', 'db_name', 'db_user', 'db_password'):
-                if not self.kwargs[key]:
-                    raise RuntimeError('{} 설정을 해주세요.'.format(key))
+    #     if self.kwargs['is_postgresql']:
+    #         for key in ('db_host', 'db_name', 'db_user', 'db_password'):
+    #             if not self.kwargs[key]:
+    #                 raise RuntimeError('{} 설정을 해주세요.'.format(key))
 
-            if self.kwargs['db_host'] == '127.0.0.1':
-                # peer
-                self.command_run('''
-                    sudo -u postgres dropdb --if-exists {db_name}
-                    sudo -u postgres dropuser --if-exists {db_user}
-                    sudo -u postgres createdb {db_name} && \
-                    sudo -u postgres createuser {db_user} && \
-                    echo "ALTER ROLE {db_user} WITH PASSWORD '{db_password}';" | sudo -u postgres psql && \
-                    echo "ALTER ROLE {db_user} superuser"
-                ''')
-            else:
-                self.command_run('''
-                    sudo -u postgres dropdb --if-exists --host={db_host} {db_name}
-                    sudo -u postgres dropuser --if-exists --host={db_host} {db_user}
-                    sudo -u postgres createdb --host={db_host} {db_name} && \
-                    sudo -u postgres createuser --host={db_host} {db_user} && \
-                    echo "ALTER ROLE {db_user} WITH PASSWORD '{db_password}';" | sudo -u postgres psql --host={db_host} && \
-                    echo "ALTER ROLE {db_user} superuser"
-                ''')
+    #         if self.kwargs['db_host'] == '127.0.0.1':
+    #             # peer
+    #             self.command_run('''
+    #                 sudo -u postgres dropdb --if-exists {db_name}
+    #                 sudo -u postgres dropuser --if-exists {db_user}
+    #                 sudo -u postgres createdb {db_name} && \
+    #                 sudo -u postgres createuser {db_user} && \
+    #                 echo "ALTER ROLE {db_user} WITH PASSWORD '{db_password}';" | sudo -u postgres psql
+    #             ''')
+    #         else:
+    #             self.command_run('''
+    #                 sudo -u postgres dropdb --if-exists --host={db_host} {db_name}
+    #                 sudo -u postgres dropuser --if-exists --host={db_host} {db_user}
+    #                 sudo -u postgres createdb --host={db_host} {db_name} && \
+    #                 sudo -u postgres createuser --host={db_host} {db_user} && \
+    #                 echo "ALTER ROLE {db_user} WITH PASSWORD '{db_password}';" | sudo -u postgres psql --host={db_host}
+    #             ''')
 
     def install_python_packages(self):
         'Django 프로젝트, 파이썬 팩키지 설치'
