@@ -1,5 +1,5 @@
 django==1.10.5
 pillow
-djano-allauth
+django-allauth
 Requests
 Beautifulsoup4
