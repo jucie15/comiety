@@ -111,10 +111,8 @@ class Installer(object):
     def init_db(self):
         'Django 프로젝트 데이터베이스/계정 생성 및 암호 설정'
 
-        print(self.kwargs)
         if self.kwargs['is_postgresql']:
             for key in ('db_host', 'db_name', 'db_user', 'db_password'):
-                print(self.kwargs[key])
                 if not self.kwargs[key]:
                     raise RuntimeError('{} 설정을 해주세요.'.format(key))
 
