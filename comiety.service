@@ -1,0 +1,14 @@
+
+# 위치 : /etc/systemd/system/myproj.service
+[Unit]
+Description=myproj uWSGI
+After=network.target
+
+[Service]
+Restart=always
+RestartSec=3
+Type=idle
+ExecStart=/bin/sh /home/ubuntu/myproj/prod_run.sh
+
+[Install]
+WantedBy=multi-user.target
