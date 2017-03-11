@@ -169,7 +169,8 @@ class Installer(object):
 
     def service_start(self):
         self.command_run('''
-            sudo service {project_name} start && \
+            sudo systemctl enable {project_name} start && \
+            sudo systemctl start {project_name} && /
             sudo service nginx restart
         ''')
 

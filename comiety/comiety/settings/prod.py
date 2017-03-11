@@ -1,7 +1,7 @@
 import os
 from .common import *
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -12,9 +12,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DATABASES = {
     'default': {
          'ENGINE': 'django.contrib.gis.db.backends.postgis',
-         'NAME': 'gustos',
-         'USER': 'gustos',
+         'NAME': 'comiety',
+         'USER': 'comiety',
          'HOST': 'localhost',
-         'PASSWORD': 'gustospw',
+         'PASSWORD': 'ehdwlq123',
     },
 }
