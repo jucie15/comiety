@@ -83,7 +83,7 @@ class Installer(object):
         self.make_logs_directory()
         self.init_django_project()
         self.init_nginx()
-        self.init_uwsgi()
+        #self.init_uwsgi()
         self.service_start()
 
     def init_apt(self):
