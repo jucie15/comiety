@@ -3,9 +3,9 @@
 PG_VERSION='9.6'
 POSTGIS_VERSION='2.3'
 
-APP_DB_USER='gustos'  # FIXME: DB유저명. 수정해주세요.
-APP_DB_NAME='gustos'  # FIXME: DB명. 수정해주세요.
-APP_DB_PASS='mydbpassword'  # FIXME: DB암호. 수정해주세요.
+APP_DB_USER='comiety'  # FIXME: DB유저명. 수정해주세요.
+APP_DB_NAME='comiety'  # FIXME: DB명. 수정해주세요.
+APP_DB_PASS='ehdwlq123'  # FIXME: DB암호. 수정해주세요.
 
 # postgresql 9.6
 add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
