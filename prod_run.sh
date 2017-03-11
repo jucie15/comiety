@@ -1,7 +1,7 @@
 # 위치 : /home/ubuntu/myproj/prod_run.sh
 
 export BIN_PATH=/home/ubuntu/venv/bin
-export DJANGO_HOME=/home/ubuntu/comiety
+export DJANGO_HOME=/home/ubuntu/gitComiety/comiety
 export DJANGO_SETTINGS_MODULE=comiety.settings.prod
 
 $BIN_PATH/uwsgi --master \
