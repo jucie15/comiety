@@ -180,6 +180,7 @@ STATICFILES_FINDERS = (
 )
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'dongzip', 'static'),
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 MEDIA_URL = '/media/'
