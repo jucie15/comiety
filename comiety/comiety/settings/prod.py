@@ -12,9 +12,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DATABASES = {
     'default': {
          'ENGINE': 'django.contrib.gis.db.backends.postgis',
-         'NAME': 'comiety',
-         'USER': 'comiety',
+         'NAME': 'gustos',
+         'USER': 'gustos',
          'HOST': 'localhost',
-         'PASSWORD': 'ehdwlq123',
+         'PASSWORD': 'gustospw',
     },
 }

@@ -266,11 +266,22 @@ def society_admin_member_info(request, id):
 
 @login_required
 def society_admin_manager_info(request, id):
+    manager = get_object_or_404(Profile, society__id = id, membership__power = 2)
+    staff_list = Profile.objects.filter(society__id = id, membership__power = 1)
+    member_list = Profile.objects.filter(society__id = id, membership__power = 0)
+    applicants = Profile.objects.filter(society__id=id, membership__power=-1)
     society = get_object_or_404(Society, id=id)
+    applicants = Profile.objects.filter(society__id=id,membership__power=-1)
 
-    return render(request, 'dongzip/society_admin_manager_info.html', {
-            'society' : society,
-        })
+    context={}
+    context['applicants'] = applicants
+    context['member_list'] = member_list
+    context['society_id'] = id
+    context['manager'] = manager
+    context['staff_list'] = staff_list
+    context['society'] = society
+
+    return render(request, 'dongzip/society_admin_manager_info.html', context)
 
 @login_required
 def favorite_society(request, id):

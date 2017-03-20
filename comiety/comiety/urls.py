@@ -17,8 +17,11 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
+from dongzip import views as dongzip_views
+
 
 urlpatterns = [
+    url(r'^$', dongzip_views.index, name = 'index'),
     url(r'^admin/', admin.site.urls),
     url(r'^dongzip/', include('dongzip.urls', namespace = 'dongzip'), name='dongzip'),
     url(r'^accounts/', include('accounts.urls',namespace='accounts')),
