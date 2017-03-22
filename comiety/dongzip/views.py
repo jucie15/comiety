@@ -420,6 +420,10 @@ def aboutus(request):
     return render(request, 'dongzip/aboutus.html')
 
 
+def privacy_policy(request):
+    return render(request, 'dongzip/privacy_policy.html')
+
+
 
 
 

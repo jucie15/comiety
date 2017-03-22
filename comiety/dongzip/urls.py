@@ -46,4 +46,6 @@ urlpatterns = [
     url(r'^society_search/(?P<name>[a-z_A-Z]+)/ajax_search/$', views.ajax_search_related, name = 'ajax_search_related'),
     url(r'^aboutus', views.aboutus, name = 'aboutus'),
     url(r'^ajax_counter/$', views.ajax_counter, name = 'ajax_counter'),
+    url(r'^privacy_policy/$', views.privacy_policy, name = 'privacy_policy'),
+
     ]
