@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib import messages
 
+
 def login(request):
     providers = []
     for provider in get_providers():
@@ -31,6 +32,7 @@ def member_regist(request):
             # messages.info(request, "Thanks for registering. You are now logged in.")
             user = authenticate(username=form.cleaned_data['username'],
                                 password=form.cleaned_data['password1'],)
+
             user.backend = "django.contrib.auth.backends.ModelBackend"
             auth_login(request, user)
             return redirect('accounts:member_info_regist')
@@ -94,6 +96,6 @@ def member_info_regist_edit(request):
 
 @login_required
 def my_profile(request):
-        return render(request, 'accounts/my_profile.html')
+    return render(request, 'accounts/my_profile.html')
 
 

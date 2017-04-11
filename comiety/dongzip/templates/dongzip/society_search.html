@@ -9,6 +9,7 @@
         z-index: 0;
         background-image: url("{% static 'dongzip/images/balloons.jpg' %}");
         background-repeat: no-repeat;
+        background-size: 100%;
         padding-top: 100px;
         padding-bottom: 150px;
         box-sizing: border-box;
@@ -221,7 +222,7 @@
             <div class="col-md-3 col-sm-4 col-xs-6">
               <div class="thumbnail">
                 <a href="{% url 'dongzip:society_detail' society.id %}" target="_blank">
-                  <img src="../../static/dongzip/images/volunteer.jpg" alt="Volunteer">
+                  <img src="{{ society.logo_image.url }}" alt="Volunteer">
                   <div class="caption">
                     <p><strong>{{ society.name }}</strong></p>
                   </div>

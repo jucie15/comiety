@@ -38,62 +38,38 @@
                 <thead style="font-weight: bold; font-size: 17px;">
                     <td>지위</td>
                     <td>이름</td>
-                     <td> 변경/삭제 </td>
                 </thead>
                 <tr>
-                    <td> 동짱 </td>
+                    <td><strong> 동짱 </strong></td>
                     <td>
-                    <form action="{% url 'dongzip:society_admin_manager_edit' society_id %}" method='post'>
-                            {% csrf_token %}
-                        <select name="manager_id" id="name_mbr_p">
-                        <option value="{{ manager.id }}">{{ manager }} </option>
-                        {% for staff in staff_list %}
-                        <option value="{{ staff.id }}">{{ staff }} </option>
-                        {% endfor %}
-
-                        </select></td>
-                    <td>
-                    {% if request.user.profile == manager %}
-                        <button type="submit" class="btn-info"> 변경 </button>
-                    {% endif %}
+                        <label for = "{{ manager.id }}">{{ manager }} </label>
                     </td>
-                    </form>
                 </tr>
                 <tr>
-                    <td> 운영진 </td>
+                    <td><strong> 운영진 </strong></td>
                     <td>
-                    <form action="{% url 'dongzip:society_admin_manager_remove' society_id %}" method='post'>
-                            {% csrf_token %}
-                        <select name="staff_id" id="name_mbr_v">
+                        <select name="staff_id" size ="3" id="name_mbr_v">
                         {% for staff in staff_list %}
                         <option value="{{ staff.id }}">{{ staff }}</option>
                         {% endfor %}
                         </select></td>
                     </td>
-                    <td>
-                    {% if request.user.profile == manager %}
-                        <button type="submit" class="btn-danger"> 삭제 </button></td>
-                    {% endif %}
-                    </form>
-
                 </tr>
                 <tr>
-                    <td><strong>운영진 추가하기</strong></td>
+                    <td><strong>일반 회원</strong></td>
                     <td>
-                        <form action="{% url 'dongzip:society_admin_manager_add' society_id %}" method='post'>
-                            {% csrf_token %}
-                            <select name="member_id" id="add_manager">
+                            <select name="member_id" size = "3" id="add_manager">
                             {% for member in member_list %}
                                 <option value="{{ member.id }}">{{ member }}</option>
                             {% endfor %}
                             </select>
                     </td>
-                    <td>
-                    {% if request.user.profile == manager %}
-                        <button type="submit" class="btn-success"> 추가 </button></a>
-                        </form>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <a href = "{% url 'dongzip:society_admin_manager_info' society.id %}">
+                            <input type="button" value = "권한 수정" class="btn-info"></a>
                     </td>
-                    {% endif %}
                 </tr>
             </table>
 

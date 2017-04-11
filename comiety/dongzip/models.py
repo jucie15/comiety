@@ -11,7 +11,6 @@ def tel_number_validator(value):
     if not re.match(r'^01\d{9}$', value):
         raise ValidationError("""전화번호('-'없이, 11자)를 정확히 입력해 주세요""")
 
-
 class School(models.Model):
     name = models.CharField(max_length = 128, blank = False, null = False) # 학교 이름
     address = models.CharField(max_length = 256, blank = False, null = False) # 학교 주소

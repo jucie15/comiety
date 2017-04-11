@@ -89,6 +89,7 @@ def society_detail(request, id):
         })
 
 def society_apply(request, id):
+    # 동아리 가입 요청
     society = get_object_or_404(Society, id=id)
     user = request.user.profile
     membership = Membership(society=society, user=user, power=-1)

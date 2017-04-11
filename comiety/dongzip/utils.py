@@ -6,8 +6,6 @@ from django.conf import settings
 
 ROOT = lambda *args: os.path.join(settings.BASE_DIR, 'dongzip', *args)
 
-
-
 def school_db_create():
     with open(ROOT("addr.txt"),"rt") as f:
         addr = f.read()

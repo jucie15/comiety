@@ -16,7 +16,7 @@
     .soc_title{
         width: 100%;
         height: 300px;
-        background-image: url("{% static 'dongzip/images/academics.jpg' %}");
+        background-image: url("{{ society.background_image.url }}");
         background-size: cover;
         background-repeat: no-repeat;
     }
@@ -312,7 +312,7 @@
 
             <div class="soc_left" align="center">
                 <div class="soc_left_logo">
-                    <img src="{% static 'dongzip/images/event4.jpg' %}" id="logo">
+                    <img src="{{ society.logo_image.url }}" id="logo">
                 </div>
                 <table>
                     <tr id="soc_interest">
@@ -331,16 +331,17 @@
                     </tr>
                     <tr id="soc_left_tr1">
                         <td id="td1"><strong>그룹장:</strong></td>
-
                         {% for user in society.membership_set.all %}
                         {% if user.power == 2 %}
-                            <td><img src="{{ user.profile_image.url }}" id="userphoto">{{ user.user }}</td>
+                            <td><img src="{{ user.user.profile_image.url }}" id="userphoto">{{ user.user.nickname }}</td>
                         {% endif %}
                         {% endfor %}
                     </tr>
                     <tr id="soc_left_tr2">
                         <td id="td1"><strong>참여인원:</strong></td>
-                        <td> {{society.users.count }}명</td>
+                        <td>
+                            {{ society.users.count }}명
+                        </td>
                     </tr>
                     <tr id="soc_left_tr3" colspan="2">
                         <td id="td1"><strong>부원:</strong></td>
@@ -348,7 +349,7 @@
 
                         {% for user in society.membership_set.all %}
                         {% if user.power != -1 %}
-                            <span><img src="{{ user.profile_image.url }}" id="userphoto">{{ user.user }}</span>
+                            <span><img src="{{ user.user.profile_image.url }}" id="userphoto">{{ user.user.nickname }}</span>
                         {% endif %}
                         {% endfor %}
                         </td>
@@ -404,7 +405,7 @@
                 <hr/>
                 <div class="soc_desc">
                     <h4><strong><span class="glyphicon glyphicon-home"></span> 동아리 소개</strong></h4>
-                    <div class="soc_desc_txt">A short description about the society goes here.</div>
+                    <div class="soc_desc_txt">{{ society.description }}</div>
                 </div>
             </div>
 

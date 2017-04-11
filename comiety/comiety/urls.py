@@ -19,7 +19,6 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from dongzip import views as dongzip_views
 
-
 urlpatterns = [
     url(r'^$', dongzip_views.index, name = 'index'),
     url(r'^admin/', admin.site.urls),
